@@ -1,7 +1,7 @@
 package chess;
 
 public class Config {
-    //Singleton instance field
+    //Singleton instance
     private static Config instance;
 
     private Config() {

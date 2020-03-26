@@ -1,5 +1,5 @@
 package chess.game;
 
-public class Game {
+public class Board {
 
 }

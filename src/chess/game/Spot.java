@@ -4,6 +4,7 @@ import chess.pieces.Piece;
 import java.awt.Color;
 
 public class Spot{
+
     private Piece piece;
     private boolean available = true; //zmienna określająca dostępność dla pionków
     private Color spotColor;
@@ -15,6 +16,10 @@ public class Spot{
         this.spotColor=spotColor;
         this.available=available;
         this.additionalStats=additionalStats;
+    }
+
+    public Spot(Piece piece) {
+        this.piece=piece;
     }
 
     public void SetAvailable(boolean a) {
@@ -41,16 +46,6 @@ public class Spot{
         return spotColor;
     }
 
-    public int GetX() {
-        //TODO
-        return 0;
-    }
-
-    public int GetY() {
-        //TODO
-        return 0;
-    }
-
     public boolean GetAvailable() {
         return available;
     }
@@ -58,4 +53,5 @@ public class Spot{
     public int GetadditionalStats(){
         return additionalStats;
     }
+
 }

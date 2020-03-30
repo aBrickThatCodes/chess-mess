@@ -1,70 +1,61 @@
 package chess.game;
 
 import chess.pieces.Piece;
+import java.awt.Color;
 
 public class Spot{
-    private int posisionX;//położenia
-    private int posisionY;
     private Piece piece;
     private boolean available = true; //zmienna określająca dostępność dla pionków
     private Color spotColor;
-    private int aditionalStats = 0;
+    private int additionalStats = 0;
 
 
-    public Spot(int x, int y, Piece piece, boolean white, boolean available, int aditionalStats) {
-        this.setPiece(piece);
-        this.setX(x);
-        this.set(y);
-        this.setColor(white);
-        this.setAvailable(available);
-        this.setAditionalStats(aditionalStats);
+    public Spot(Piece piece, Color spotColor, boolean available, int additionalStats) {
+        this.piece=piece;
+        this.spotColor=spotColor;
+        this.available=available;
+        this.additionalStats=additionalStats;
     }
 
-    private void setAvailable(boolean a) {
+    public void SetAvailable(boolean a) {
         available = a;
     }
 
-    private void setColor(Color c) {
+    public void SetColor(Color c) {
         spotColor = c;
     }
 
-    private void setY(int y) {
-        posisionY = y;
-    }
-
-    private void setX(int x) {
-        posisionX = x;
-    }
-
-    private void setPiece(Piece p) {
+    public void GetPiece(Piece p) {
         piece = p;
     }
 
-    private void setAditionalStats(int aS){
-        aditionalStats = aS;
+    public void GetadditionalStats(int aS){
+        additionalStats = aS;
     }
 
-    private Piece getPiece() {
+    public Piece GetPiece() {
         return piece;
     }
 
-    private int getX() {
-        return posisionX;
-    }
-
-    private int getY() {
-        return posisionY;
-    }
-
-    private Color getColor() {
+    public Color GetColor() {
         return spotColor;
     }
 
-    private boolean getAvailable() {
+    public int GetX() {
+        //TODO
+        return 0;
+    }
+
+    public int GetY() {
+        //TODO
+        return 0;
+    }
+
+    public boolean GetAvailable() {
         return available;
     }
 
-    private int getAditionalStats(){
-        return aditionalStats;
+    public int GetadditionalStats(){
+        return additionalStats;
     }
 }

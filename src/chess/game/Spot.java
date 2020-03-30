@@ -7,7 +7,7 @@ public class Spot{
     private int posisionY;
     private Piece piece;
     private boolean available = true; //zmienna określająca dostępność dla pionków
-    private boolean white = true;
+    private Color spotColor;
     private int aditionalStats = 0;
 
 
@@ -24,11 +24,11 @@ public class Spot{
         available = a;
     }
 
-    private void setColor(boolean w) {
-        white = w;
+    private void setColor(Color c) {
+        spotColor = c;
     }
 
-    private void set(int y) {
+    private void setY(int y) {
         posisionY = y;
     }
 
@@ -56,8 +56,8 @@ public class Spot{
         return posisionY;
     }
 
-    private boolean getColor() {
-        return white;
+    private Color getColor() {
+        return spotColor;
     }
 
     private boolean getAvailable() {

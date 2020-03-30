@@ -1,4 +1,4 @@
-package chess.pieces;;
+package chess.pieces;
 
 public class Bishop {
 }

@@ -4,6 +4,7 @@ public abstract class Player {
 
     private boolean isHuman;
     private int number;
+    private String playerName;
 
     public void setHuman(boolean isHuman){
         this.isHuman = isHuman;
@@ -21,13 +22,22 @@ public abstract class Player {
         return this.number;
     }
 
+    public void setPlayerName(String playerName){
+        this.playerName = playerName;
+    }
+
+    public String getPlayerName(){
+        return this.playerName;
+    }
+
     public class HumanPlayer extends Player{
 
-        public HumanPlayer(int numberHuman)
+        public HumanPlayer(int numberHuman,String playerName)
 
         {
             this.setHuman(true);
             this.setNumber(numberHuman);
+            this.setPlayerName(playerName);
         }
     }
 

@@ -1,10 +1,15 @@
 package chess.pieces;
 
+<<<<<<< HEAD
 import java.awt.*;
+=======
+import java.awt.Color;
+>>>>>>> fbdc5763f37a39ecb504b51994bd1b2add01578a
 
 public abstract class Piece {
     private int x,y;
     private boolean available; //zmienna blokująca ruch w przypadku szacha lub gdy pion umrze
+<<<<<<< HEAD
     private Color color;
 
     public void setAvailable(boolean a) {
@@ -32,6 +37,9 @@ public abstract class Piece {
     public void setY(int y) {
         this.y = y;
     }
+=======
+    private Color color; //zastanawiam się czy tutaj umieścić kolor pionka, więc wstępnie dałem
+>>>>>>> fbdc5763f37a39ecb504b51994bd1b2add01578a
 
     public int getY(){return this.y;}
 

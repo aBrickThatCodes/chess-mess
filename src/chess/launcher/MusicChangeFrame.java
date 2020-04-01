@@ -43,7 +43,14 @@ public class MusicChangeFrame extends JFrame implements ActionListener {
                 fileChooser.setFileFilter(filter);
                 int result=fileChooser.showOpenDialog(null);
                 if(result==JFileChooser.APPROVE_OPTION) {
-                    filePathLabel.setText(fileChooser.getSelectedFile().getPath());
+                    try {
+                        filePathLabel.setText(fileChooser.getSelectedFile().getPath());
+                    }
+                    catch(NullPointerException exception) {
+                        if(Config.Instance().musicFile!=null) {
+                            filePathLabel.setText(Config.Instance().musicFile.getPath());
+                        }
+                    }
                 }
             }
             
@@ -69,8 +76,12 @@ public class MusicChangeFrame extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		JButton button=(JButton)e.getSource();
 
-        if(button==applyButton) {
-            Config.Instance().musicFile=fileChooser.getSelectedFile();
+        try {
+            if(button==applyButton) {
+                Config.Instance().musicFile=fileChooser.getSelectedFile();
+            }
+        }
+        catch(NullPointerException exception) {
         }
         this.dispose();
 	}

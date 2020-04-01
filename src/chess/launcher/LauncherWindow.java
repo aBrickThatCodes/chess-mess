@@ -1,12 +1,16 @@
 package chess.launcher;
 
 import javax.swing.*;
+
+import chess.Config;
+
 import java.awt.*;
+import java.awt.event.*;
 
 @SuppressWarnings("serial")
 public class LauncherWindow extends JFrame {
     public LauncherWindow() {
-        super("Chess");
+        super("Chess Mess");
         this.setSize(960, 520);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLayout(new GridLayout(2,1));
@@ -31,9 +35,6 @@ public class LauncherWindow extends JFrame {
 
         JButton loadGameButton=new JButton("Load Game");
         gameButtons.add(loadGameButton);
-        
-        JButton closeButton=new JButton("Exit");
-        gameButtons.add(closeButton);
         //endregion
 
         //region Menus
@@ -101,37 +102,67 @@ public class LauncherWindow extends JFrame {
         //region Rule Settings Buttons
         JPanel ruleSettingButtons=new JPanel(new GridLayout(4,1));
         rulesSettings.add(ruleSettingButtons,BorderLayout.PAGE_START);
+
+        //region Load settings button
         JButton loadSettings=new JButton("Load settings");
         ruleSettingButtons.add(loadSettings);
-        JButton changeMusic=new JButton("Upload your own music");
-        ruleSettingButtons.add(changeMusic);
-        JButton pickColour=new JButton("Pick your own colour scheme");
-        ruleSettingButtons.add(pickColour);
+        ActionListener loadSetttingsListener=new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+                Config.loadSettings();
+			}
+        };
+        loadSettings.addActionListener(loadSetttingsListener);
+        //endregion
+
+        //region Save settings
         JButton saveSettings=new JButton("Save settings");
         ruleSettingButtons.add(saveSettings);
+        ActionListener saveSetttingsListener=new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+                Config.Instance().saveSettings();
+			}
+        };
+        saveSettings.addActionListener(saveSetttingsListener);
+        //endregion
+
+        JButton changeMusic=new JButton("Upload your own music");
+        ruleSettingButtons.add(changeMusic);
+        //region Color picker
+        JButton pickColour=new JButton("Pick your own colour scheme");
+        ruleSettingButtons.add(pickColour);
+        ActionListener colorPickListener=new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ColorSchemeWindow colorSchemeWindow=new ColorSchemeWindow();
+                colorSchemeWindow.setVisible(true);
+            }
+        };
+        pickColour.addActionListener(colorPickListener);
+        //endregion
         //endregion
 
         //region Rule Checkboxes
         JPanel ruleCheckBoxes=new JPanel(new GridLayout(3,2));
-        rulesSettings.add(ruleCheckBoxes,BorderLayout.CENTER);
+        rulesSettings.add(ruleCheckBoxes, BorderLayout.CENTER);
 
-        JCheckBox addAbilities=new JCheckBox("Additional abilities");
-        ruleCheckBoxes.add(addAbilities);
+        JCheckBox addAbilitiesCheckBox=new JCheckBox("Additional abilities");
+        ruleCheckBoxes.add(addAbilitiesCheckBox);
 
-        JCheckBox randFields=new JCheckBox("Randomizing fields");
-        ruleCheckBoxes.add(randFields);
+        JCheckBox randFieldsCheckBox=new JCheckBox("Randomizing fields");
+        ruleCheckBoxes.add(randFieldsCheckBox);
 
-        JCheckBox randomPieces=new JCheckBox("Random pieces");
-        ruleCheckBoxes.add(randomPieces);
+        JCheckBox randomPiecesCheckBox=new JCheckBox("Random pieces");
+        ruleCheckBoxes.add(randomPiecesCheckBox);
 
-        JCheckBox duels=new JCheckBox("jRPG fights");
-        ruleCheckBoxes.add(duels);
+        JCheckBox duelsCheckBox=new JCheckBox("jRPG fights");
+        ruleCheckBoxes.add(duelsCheckBox);
 
-        JCheckBox items=new JCheckBox("Items");
-        ruleCheckBoxes.add(items);
+        JCheckBox itemsCheckBox=new JCheckBox("Items");
+        ruleCheckBoxes.add(itemsCheckBox);
 
-        JCheckBox obstacles=new JCheckBox("Obstacles");
-        ruleCheckBoxes.add(obstacles);
+        JCheckBox obstaclesCheckBox=new JCheckBox("Obstacles");
+        ruleCheckBoxes.add(obstaclesCheckBox);
         //endregion
         //endregion
         //endregion

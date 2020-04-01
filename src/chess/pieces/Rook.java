@@ -7,4 +7,5 @@ public class Rook extends Piece {
         // TODO Auto-generated method stub
 
     }
+
 }

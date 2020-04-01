@@ -49,6 +49,7 @@ public class MusicChangeFrame extends JFrame implements ActionListener {
         };
         musicChooserButton.addActionListener(a);
         //endregion
+        
         //region Bottom buttons
         JPanel buttonsPanel = new JPanel(new FlowLayout());
         this.add(buttonsPanel, BorderLayout.PAGE_END);

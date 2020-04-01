@@ -99,9 +99,11 @@ public class LauncherWindow extends JFrame {
         JButton tutorial=new JButton("Player guide");
         gameSettings.add(tutorial);
 
+        /*
         JButton language=new JButton("Choose language");
         gameSettings.add(language);
-
+        */
+        
         JCheckBox saveAnimation=new JCheckBox("Save to animation");
         gameSettings.add(saveAnimation);
         //endregion

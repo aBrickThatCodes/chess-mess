@@ -6,46 +6,41 @@ public abstract class Player {
     private int number;
     private String playerName;
 
-    public void setHuman(boolean isHuman){
+    public synchronized void setHuman(boolean isHuman){
         this.isHuman = isHuman;
     }
 
-    public boolean getHuman(){
+    public synchronized boolean getHuman(){
         return this.isHuman;
     }
 
-    public void setNumber(int number){
+    public synchronized void setNumber(int number){
         this.number = number;
     }
 
-    public int getNumber(){
+    public synchronized int getNumber(){
         return this.number;
     }
 
-    public void setPlayerName(String playerName){
+    public synchronized void setPlayerName(String playerName){
         this.playerName = playerName;
     }
 
-    public String getPlayerName(){
+    public synchronized String getPlayerName(){
         return this.playerName;
     }
 
-    public class HumanPlayer extends Player{
-
-        public HumanPlayer(int numberHuman,String playerName)
-
-        {
+    public static class HumanPlayer extends Player{
+        public HumanPlayer(int numberHuman) {
             this.setHuman(true);
             this.setNumber(numberHuman);
-            this.setPlayerName(playerName);
         }
     }
 
-    public class AIPlayer extends Player{
+    public static class AIPlayer extends Player{
         AIPlayer(int numberComputer) {
             this.setHuman(false);
             this.setNumber(numberComputer);
         }
     }
-
 }

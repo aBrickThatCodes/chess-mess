@@ -47,11 +47,12 @@ public class LauncherWindow extends JFrame {
         mainMenu.add(gameSettings);
 
         //region Board size
-        JPanel boardSize=new JPanel(new GridLayout(1,2));
+        JPanel boardSize=new JPanel(new GridLayout(1,3));
         gameSettings.add(boardSize);
 
         boardSize.add(new JLabel("Board size:"));
 
+        //region Size fields
         JPanel sizeFieldsPanel=new JPanel(new GridLayout(1,3));
         boardSize.add(sizeFieldsPanel);
 
@@ -64,33 +65,41 @@ public class LauncherWindow extends JFrame {
         JTextField ySize=new JTextField("8");
         sizeFieldsPanel.add(ySize);
         ySize.setText(Integer.toString(Config.Instance().boardHeight));
-
+        
+        //region Size button
+        JButton applySizeButton=new JButton("Apply");
+        boardSize.add(applySizeButton);
         ActionListener sizeListener=new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-                JTextField field=(JTextField)e.getSource();
-                int i=-1;
-                String s=field.getText();
+                int i=-1,j=-1;
                 try {
-                    i=Integer.parseInt(s);
+                    i=Integer.parseInt(xSize.getText());
                 }
                 catch(NumberFormatException exception) {
                     JOptionPane.showMessageDialog(launcher, "Error: Couldn't parse int", "Error", JOptionPane.ERROR_MESSAGE);
                 }
+
+                try {
+                    j=Integer.parseInt(ySize.getText());
+                }
+                catch(NumberFormatException exception) {
+                    JOptionPane.showMessageDialog(launcher, "Error: Couldn't parse int", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
                 if(i>=Math.max((Config.Instance().playerAmount/2-1)*8-4,8)) {
-                    if(field==xSize) {
-                        Config.Instance().boardWidth=i;
-                    }
-                    else if(field==ySize) {
-                        Config.Instance().boardHeight=i;
-                    }
+                    Config.Instance().boardWidth=i;
+                }
+                if(j>=Math.max((Config.Instance().playerAmount/2-1)*8-4,8)) {
+                    Config.Instance().boardHeight=j;
                 }
                 xSize.setText(Integer.toString(Config.Instance().boardWidth));
                 ySize.setText(Integer.toString(Config.Instance().boardHeight));
 			}
         };
-        xSize.addActionListener(sizeListener);
-        ySize.addActionListener(sizeListener);
+        applySizeButton.addActionListener(sizeListener);
+        //endregion
+        //endregion
         //endregion
 
         //region GameMode

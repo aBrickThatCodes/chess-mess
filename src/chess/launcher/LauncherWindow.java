@@ -139,7 +139,7 @@ public class LauncherWindow extends JFrame {
         //endregion
 
         //region Change music
-        JButton changeMusic=new JButton("Upload your own music");
+        JButton changeMusic=new JButton("Add some music");
         ruleSettingButtons.add(changeMusic);
         ActionListener changeMusicListener=new ActionListener() {
 			@Override

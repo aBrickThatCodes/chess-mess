@@ -27,7 +27,7 @@ public class MusicChangeFrame extends JFrame implements ActionListener {
         this.add(musicChooserPanel,BorderLayout.CENTER);
 
         filePathLabel=new JLabel();
-        if(Config.Instance().musicFile!=Config.Instance().defaultMusicFile) {
+        if(Config.Instance().musicFile!=null) {
             filePathLabel.setText(Config.Instance().musicFile.getPath());
         }
         musicChooserPanel.add(filePathLabel,BorderLayout.CENTER);

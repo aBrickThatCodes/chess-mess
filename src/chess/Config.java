@@ -23,7 +23,6 @@ public class Config implements java.io.Serializable {
     public Color [] colors;
     public Pieces [] pieces;
     public File musicFile;
-    public final File defaultMusicFile;
 
     private Config() {
         //region Booleans
@@ -61,8 +60,6 @@ public class Config implements java.io.Serializable {
         pieces[4]=Pieces.QUEEEN;
         pieces[5]=Pieces.KING;
         //endregion
-
-        musicFile=defaultMusicFile=new File("test.mp3");
     }
 
     //Singleton

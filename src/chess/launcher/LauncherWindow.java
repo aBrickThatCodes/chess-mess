@@ -65,14 +65,34 @@ public class LauncherWindow extends JFrame {
         JComboBox<String> gameMode=new JComboBox<String>(gameModes);
         gameSettings.add(gameMode);
 
-
-        JPanel playerNumber=new JPanel(new GridLayout(1,2));
+        //region Player amount panel
+        JPanel playerNumber=new JPanel(new FlowLayout());
         gameSettings.add(playerNumber);
         
-        JLabel playerNumText=new JLabel("Number of players:");
-        playerNumber.add(playerNumText);
-        JSpinner playerNumSpin=new JSpinner();
-        playerNumber.add(playerNumSpin);
+        JLabel playerNumLabel=new JLabel("Number of players:");
+        playerNumber.add(playerNumLabel);
+        JButton lessPlayersButton=new JButton("-");
+        playerNumber.add(lessPlayersButton);
+        JLabel playerAmountText=new JLabel(Integer.toString(Config.Instance().playerAmount));
+        playerNumber.add(playerAmountText);
+        JButton morePlayersButton=new JButton("+");
+        playerNumber.add(morePlayersButton);
+        ActionListener playerNumListener=new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JButton button=(JButton)e.getSource();
+                if(button==morePlayersButton && Config.Instance().playerAmount<(2*((Math.min(Config.Instance().boardWidth,Config.Instance().boardHeight)-4)/8)+2)) {
+                    ++Config.Instance().playerAmount;
+                }
+                else if(button==lessPlayersButton && Config.Instance().playerAmount>2) {
+                    --Config.Instance().playerAmount;
+                }
+                playerAmountText.setText(Integer.toString(Config.Instance().playerAmount));
+            }
+        };
+        lessPlayersButton.addActionListener(playerNumListener);
+        morePlayersButton.addActionListener(playerNumListener);
+        //endregion
 
         
         JPanel pieceSettings=new JPanel(new GridLayout(1,3));

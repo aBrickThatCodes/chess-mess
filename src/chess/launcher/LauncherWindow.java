@@ -46,7 +46,7 @@ public class LauncherWindow extends JFrame {
         JPanel gameSettings=new JPanel(new GridLayout(7,1));
         mainMenu.add(gameSettings);
 
-
+        //region Board size
         JPanel boardSize=new JPanel(new GridLayout(1,4));
         gameSettings.add(boardSize);
 
@@ -54,11 +54,41 @@ public class LauncherWindow extends JFrame {
 
         JTextField xSize=new JTextField("8");
         boardSize.add(xSize);
+        xSize.setText(Integer.toString(Config.Instance().boardWidth));
 
         boardSize.add(new JLabel("X",JLabel.CENTER));
 
         JTextField ySize=new JTextField("8");
         boardSize.add(ySize);
+        ySize.setText(Integer.toString(Config.Instance().boardHeight));
+
+        ActionListener sizeListener=new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+                JTextField field=(JTextField)e.getSource();
+                int i=-1;
+                String s=field.getText();
+                try {
+                    i=Integer.parseInt(s);
+                }
+                catch(NumberFormatException exception) {
+                    JOptionPane.showMessageDialog(launcher, "Error: Couldn't parse int", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                if(i>=Math.max((Config.Instance().playerAmount/2-1)*8-4,8)) {
+                    if(field==xSize) {
+                        Config.Instance().boardWidth=i;
+                    }
+                    else if(field==ySize) {
+                        Config.Instance().boardHeight=i;
+                    }
+                }
+                xSize.setText(Integer.toString(Config.Instance().boardWidth));
+                ySize.setText(Integer.toString(Config.Instance().boardHeight));
+			}
+        };
+        xSize.addActionListener(sizeListener);
+        ySize.addActionListener(sizeListener);
+        //endregion
 
 
         String[] gameModes={"Player vs \"AI\"","Hot Seat"};
@@ -81,7 +111,7 @@ public class LauncherWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JButton button=(JButton)e.getSource();
-                if(button==morePlayersButton && Config.Instance().playerAmount<(2*((Math.min(Config.Instance().boardWidth,Config.Instance().boardHeight)-4)/8)+2)) {
+                if(button==morePlayersButton && Config.Instance().playerAmount<(2*((Math.min(Config.Instance().boardWidth,Config.Instance().boardHeight)-4)/8+1))) {
                     ++Config.Instance().playerAmount;
                 }
                 else if(button==lessPlayersButton && Config.Instance().playerAmount>2) {

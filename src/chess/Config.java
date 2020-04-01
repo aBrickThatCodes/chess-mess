@@ -63,8 +63,8 @@ public class Config implements java.io.Serializable {
         //endregion
 
         playerAmount=2;
-        boardHeight=18;
-        boardWidth=18;
+        boardHeight=8;
+        boardWidth=8;
     }
 
     //Singleton

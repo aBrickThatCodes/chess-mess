@@ -9,13 +9,13 @@ import java.util.List;
 public class Pawn extends Piece {
 
 
-    public Pawn(boolean available,int x, int y){
+    public Pawn(boolean available, int x, int y){
         this.setAvailable(available);
         this.pieceLocationSpot.setLocation(x,y);
     }
 
     //Zbiór możliwych ruchów
-    public Collection<Spot> getPossibleMoves() {
+    public synchronized Collection<Spot> getPossibleMoves() {
 
         List<Spot> possibleMoves = new ArrayList<Spot>();
 
@@ -31,11 +31,11 @@ public class Pawn extends Piece {
         return possibleMoves;
     }
 
-    public boolean validateMove(Spot destination) { //Sprawdzamy czy należy do zbioru
+    public synchronized boolean validateMove(Spot destination) { //Sprawdzamy czy należy do zbioru
         return this.getPossibleMoves().contains(destination);
     }
 
-    public void move(Spot destination){ //Wykonujemy ruch
+    public synchronized void move(Spot destination){ //Wykonujemy ruch
         if(validateMove(destination)) this.pieceLocationSpot = destination;
     }
 }

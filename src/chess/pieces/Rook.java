@@ -13,7 +13,7 @@ public class Rook extends Piece {
     }
 
     @Override
-    public Collection<Spot> getPossibleMoves() {
+    public synchronized Collection<Spot> getPossibleMoves() {
 
         List<Spot> possibleMoves = new ArrayList<Spot>();
 
@@ -25,6 +25,7 @@ public class Rook extends Piece {
             i++;
         }
 
+        i=1;
         Spot left = new Spot(new Spot.Location(pieceLocationSpot.location.getX()-i,pieceLocationSpot.location.getY()));
         while(left.available){
             left = new Spot(new Spot.Location(pieceLocationSpot.location.getX()-i,pieceLocationSpot.location.getY())); //Spot do pierwszego dostępnego na lewo
@@ -32,6 +33,7 @@ public class Rook extends Piece {
             i++;
         }
 
+        i=1;
         Spot right = new Spot(new Spot.Location(pieceLocationSpot.location.getX()+i,pieceLocationSpot.location.getY()));
         while(right.available){
             right = new Spot(new Spot.Location(pieceLocationSpot.location.getX()+i,pieceLocationSpot.location.getY())); //Spot do pierwszego dostępnego na prawo
@@ -39,6 +41,7 @@ public class Rook extends Piece {
             i++;
         }
 
+        i=1;
         Spot behind  = new Spot(new Spot.Location(pieceLocationSpot.location.getX(),pieceLocationSpot.location.getY()-i));
         while(behind.available){
             behind = new Spot(new Spot.Location(pieceLocationSpot.location.getX(),pieceLocationSpot.location.getY()-i)); //Spot do pierwszego dostępnego za
@@ -49,11 +52,11 @@ public class Rook extends Piece {
         return possibleMoves;
     }
 
-    public boolean validateMove(Spot destination) { //Sprawdzamy czy należy do zbioru
+    public synchronized boolean validateMove(Spot destination) { //Sprawdzamy czy należy do zbioru
         return this.getPossibleMoves().contains(destination);
     }
 
-    public void move(Spot destination){ //Wykonujemy ruch
+    public synchronized void move(Spot destination){ //Wykonujemy ruch
         if(validateMove(destination)) this.pieceLocationSpot = destination;
     }
 }

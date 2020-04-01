@@ -73,17 +73,28 @@ public class LauncherWindow extends JFrame {
         JSpinner playerNumSpin=new JSpinner();
         playerNumber.add(playerNumSpin);
 
-
+        
         JPanel pieceSettings=new JPanel(new GridLayout(1,3));
         gameSettings.add(pieceSettings);
-        pieceSettings.add(new JLabel("Number of pieces:"));
 
+        /*
+        pieceSettings.add(new JLabel("Number of pieces:"));
         JTextField pieceNum=new JTextField("16");
         pieceSettings.add(pieceNum);
+        */
 
+        //region Piece setup button
         JButton pieceEdit=new JButton("Choose pieces");
         pieceSettings.add(pieceEdit);
-
+        ActionListener pieceEditListener=new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+                PieceSetupFrame setupframe=new PieceSetupFrame();
+                setupframe.setVisible(true);
+			}
+        };
+        pieceEdit.addActionListener(pieceEditListener);
+        //endregion
 
         JButton tutorial=new JButton("Player guide");
         gameSettings.add(tutorial);

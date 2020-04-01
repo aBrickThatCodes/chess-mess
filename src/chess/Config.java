@@ -16,11 +16,15 @@ public class Config implements java.io.Serializable {
     //Singleton instance
     private transient static Config instance;
 
+    public enum Pieces {PAWN,ROOK,KNIGHT,BISHOP,QUEEEN,KING};
+
     public Boolean abilities,randFields,randPieces,items,obstacles,pvp,animation;
     public int playerAmount,boardWidth,boardHeight;
     public Color [] colors;
+    public Pieces [] pieces;
 
     private Config() {
+        //region Booleans
         abilities=false;
         randFields=false;
         randPieces=false;
@@ -28,7 +32,9 @@ public class Config implements java.io.Serializable {
         obstacles=false;
         pvp=false;
         animation=false;
+        //endregion
 
+        //region Colors
         colors=new Color[12];
         colors[0]=Color.WHITE;
         colors[1]=Color.BLACK;
@@ -42,6 +48,17 @@ public class Config implements java.io.Serializable {
         colors[9]=Color.YELLOW;
         colors[10]=Color.PINK;
         colors[11]=Color.DARK_GRAY;
+        //endregion
+
+        //region Pieces
+        pieces=new Pieces[6];
+        pieces[0]=Pieces.PAWN;
+        pieces[1]=Pieces.ROOK;
+        pieces[2]=Pieces.KNIGHT;
+        pieces[3]=Pieces.BISHOP;
+        pieces[4]=Pieces.QUEEEN;
+        pieces[5]=Pieces.KING;
+        //endregion
     }
 
     //Singleton

@@ -1,9 +1,7 @@
 package chess.launcher;
 
 import javax.swing.*;
-
 import chess.Config;
-
 import java.awt.*;
 import java.awt.event.*;
 
@@ -103,9 +101,20 @@ public class LauncherWindow extends JFrame {
         JButton language=new JButton("Choose language");
         gameSettings.add(language);
         */
-        
+
+        //region Save to anim checkbox
         JCheckBox saveAnimation=new JCheckBox("Save to animation");
         gameSettings.add(saveAnimation);
+        ActionListener animListener=new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AbstractButton abstractButton = (AbstractButton)e.getSource();
+                Config.Instance().animation= abstractButton.getModel().isSelected();
+            }
+        };
+        saveAnimation.addActionListener(animListener);
+        //endregion
+
         //endregion
 
         //region Right Panel (rule settings)
@@ -171,23 +180,83 @@ public class LauncherWindow extends JFrame {
         JPanel ruleCheckBoxes=new JPanel(new GridLayout(3,2));
         rulesSettings.add(ruleCheckBoxes, BorderLayout.CENTER);
 
+        //region Abilities checkbox
         JCheckBox addAbilitiesCheckBox=new JCheckBox("Additional abilities");
         ruleCheckBoxes.add(addAbilitiesCheckBox);
+        ActionListener abilitiesListener=new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AbstractButton abstractButton = (AbstractButton)e.getSource();
+                Config.Instance().abilities= abstractButton.getModel().isSelected();
+            }
+        };
+        addAbilitiesCheckBox.addActionListener(abilitiesListener);
+        //endregion
 
+        //region Random fields checkbox
         JCheckBox randFieldsCheckBox=new JCheckBox("Randomizing fields");
         ruleCheckBoxes.add(randFieldsCheckBox);
+        ActionListener randFieldsListener=new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AbstractButton abstractButton = (AbstractButton)e.getSource();
+                Config.Instance().randFields= abstractButton.getModel().isSelected();
+            }
+        };
+        randFieldsCheckBox.addActionListener(randFieldsListener);
+        //endregion
 
-        JCheckBox randomPiecesCheckBox=new JCheckBox("Random pieces");
-        ruleCheckBoxes.add(randomPiecesCheckBox);
+        //region Random pieces checkbox
+        JCheckBox randPiecesCheckBox=new JCheckBox("Random pieces");
+        ruleCheckBoxes.add(randPiecesCheckBox);
+        ActionListener randPiecesListener=new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AbstractButton abstractButton = (AbstractButton)e.getSource();
+                Config.Instance().randPieces= abstractButton.getModel().isSelected();
+            }
+        };
+        randPiecesCheckBox.addActionListener(randPiecesListener);
+        //endregion
 
+        //region jRPG checkbox
         JCheckBox duelsCheckBox=new JCheckBox("jRPG fights");
         ruleCheckBoxes.add(duelsCheckBox);
+        ActionListener duelsListener=new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AbstractButton abstractButton = (AbstractButton)e.getSource();
+                Config.Instance().duels= abstractButton.getModel().isSelected();
+            }
+        };
+        duelsCheckBox.addActionListener(duelsListener);
+        //endregion
 
+        //region Items checkbox
         JCheckBox itemsCheckBox=new JCheckBox("Items");
         ruleCheckBoxes.add(itemsCheckBox);
+        ActionListener itemsListener=new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AbstractButton abstractButton = (AbstractButton)e.getSource();
+                Config.Instance().items= abstractButton.getModel().isSelected();
+            }
+        };
+        itemsCheckBox.addActionListener(itemsListener);
+        //endregion
 
+        //region Obstacles checkbox
         JCheckBox obstaclesCheckBox=new JCheckBox("Obstacles");
         ruleCheckBoxes.add(obstaclesCheckBox);
+        ActionListener obstaclesListener=new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AbstractButton abstractButton = (AbstractButton)e.getSource();
+                Config.Instance().obstacles= abstractButton.getModel().isSelected();
+            }
+        };
+        obstaclesCheckBox.addActionListener(obstaclesListener);
+        //endregion
         //endregion
         //endregion
         //endregion

@@ -18,7 +18,7 @@ public class Config implements java.io.Serializable {
 
     public enum Pieces {PAWN,ROOK,KNIGHT,BISHOP,QUEEEN,KING};
 
-    public Boolean abilities,randFields,randPieces,items,obstacles,pvp,animation;
+    public Boolean abilities,randFields,randPieces,items,obstacles,pvp,animation,duels;
     public int playerAmount,boardWidth,boardHeight;
     public Color [] colors;
     public Pieces [] pieces;
@@ -33,6 +33,7 @@ public class Config implements java.io.Serializable {
         obstacles=false;
         pvp=false;
         animation=false;
+        duels=false;
         //endregion
 
         //region Colors

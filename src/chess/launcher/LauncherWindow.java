@@ -47,19 +47,22 @@ public class LauncherWindow extends JFrame {
         mainMenu.add(gameSettings);
 
         //region Board size
-        JPanel boardSize=new JPanel(new GridLayout(1,4));
+        JPanel boardSize=new JPanel(new GridLayout(1,2));
         gameSettings.add(boardSize);
 
         boardSize.add(new JLabel("Board size:"));
 
+        JPanel sizeFieldsPanel=new JPanel(new GridLayout(1,3));
+        boardSize.add(sizeFieldsPanel);
+
         JTextField xSize=new JTextField("8");
-        boardSize.add(xSize);
+        sizeFieldsPanel.add(xSize);
         xSize.setText(Integer.toString(Config.Instance().boardWidth));
 
-        boardSize.add(new JLabel("X",JLabel.CENTER));
+        sizeFieldsPanel.add(new JLabel("X",JLabel.CENTER));
 
         JTextField ySize=new JTextField("8");
-        boardSize.add(ySize);
+        sizeFieldsPanel.add(ySize);
         ySize.setText(Integer.toString(Config.Instance().boardHeight));
 
         ActionListener sizeListener=new ActionListener() {

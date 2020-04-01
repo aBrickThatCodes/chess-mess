@@ -37,13 +37,14 @@ public class ColorSchemeWindow extends JFrame implements ActionListener {
         JPanel buttonsPanel=new JPanel(new FlowLayout());
         this.add(buttonsPanel,BorderLayout.PAGE_END);
 
-        cancelButton=new JButton("Cancel");
-        cancelButton.addActionListener(this);
-        buttonsPanel.add(cancelButton);
 
         applyButton=new JButton("Apply");
         applyButton.addActionListener(this);
         buttonsPanel.add(applyButton);
+        
+        cancelButton=new JButton("Cancel");
+        cancelButton.addActionListener(this);
+        buttonsPanel.add(cancelButton);
         //endregion
     }
 

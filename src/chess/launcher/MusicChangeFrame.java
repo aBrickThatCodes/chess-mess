@@ -22,6 +22,7 @@ public class MusicChangeFrame extends JFrame implements ActionListener {
         super("Choose your own music");
         this.setLayout(new BorderLayout());
         this.setSize(400,100);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         JPanel musicChooserPanel=new JPanel(new BorderLayout());
         this.add(musicChooserPanel,BorderLayout.CENTER);

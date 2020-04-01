@@ -139,7 +139,7 @@ public class LauncherWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JButton button=(JButton)e.getSource();
-                if(button==morePlayersButton && Config.Instance().playerAmount<(2*((Math.min(Config.Instance().boardWidth,Config.Instance().boardHeight)-4)/8+1))) {
+                if(button==morePlayersButton && Config.Instance().playerAmount<(2*((Math.min(Config.Instance().boardWidth,Config.Instance().boardHeight)-4)/8))) {
                     ++Config.Instance().playerAmount;
                 }
                 else if(button==lessPlayersButton && Config.Instance().playerAmount>2) {
@@ -205,8 +205,23 @@ public class LauncherWindow extends JFrame {
         mainMenu.add(rulesSettings);
 
         //region Rule Settings Buttons
-        JPanel ruleSettingButtons=new JPanel(new GridLayout(4,1));
+        JPanel ruleSettingButtons=new JPanel(new GridLayout(5,1));
         rulesSettings.add(ruleSettingButtons,BorderLayout.PAGE_START);
+
+        //region Restore default setting
+        JButton restoreSettings=new JButton("Restore default settings");
+        ruleSettingButtons.add(restoreSettings);
+        ActionListener restoreSetttingsListener=new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+                Config.restoreDefaultSettings();
+                LauncherWindow main = new LauncherWindow();    
+                main.setVisible(true);
+                launcher.dispose();
+			}
+        };
+        restoreSettings.addActionListener(restoreSetttingsListener);
+        //endregion
 
         //region Save settings
         JButton saveSettings=new JButton("Save settings");
@@ -228,9 +243,8 @@ public class LauncherWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
                 Config.loadSettings();
                 LauncherWindow main = new LauncherWindow();    
-
-            main.setVisible(true);
-            launcher.dispose();
+                main.setVisible(true);
+                launcher.dispose();
 			}
         };
         loadSettings.addActionListener(loadSetttingsListener);

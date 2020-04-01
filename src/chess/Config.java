@@ -118,4 +118,8 @@ public class Config implements java.io.Serializable {
             }
         }
     }
+
+    public static void restoreDefaultSettings() {
+        instance=new Config();
+    }
 }

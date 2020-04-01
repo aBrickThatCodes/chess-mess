@@ -7,11 +7,14 @@ import java.awt.event.*;
 
 @SuppressWarnings("serial")
 public class LauncherWindow extends JFrame {
+    private LauncherWindow launcher;
+
     public LauncherWindow() {
         super("Chess Mess");
         this.setSize(960, 520);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLayout(new GridLayout(2,1));
+        this.launcher=this;
 
         //region Title
         JPanel title=new JPanel();
@@ -105,6 +108,7 @@ public class LauncherWindow extends JFrame {
         //region Save to anim checkbox
         JCheckBox saveAnimation=new JCheckBox("Save to animation");
         gameSettings.add(saveAnimation);
+        saveAnimation.setSelected(Config.Instance().animation);
         ActionListener animListener=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -144,6 +148,10 @@ public class LauncherWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
                 Config.loadSettings();
+                LauncherWindow main = new LauncherWindow();    
+
+            main.setVisible(true);
+            launcher.dispose();
 			}
         };
         loadSettings.addActionListener(loadSetttingsListener);
@@ -183,6 +191,7 @@ public class LauncherWindow extends JFrame {
         //region Abilities checkbox
         JCheckBox addAbilitiesCheckBox=new JCheckBox("Additional abilities");
         ruleCheckBoxes.add(addAbilitiesCheckBox);
+        addAbilitiesCheckBox.setSelected(Config.Instance().abilities);
         ActionListener abilitiesListener=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -196,6 +205,7 @@ public class LauncherWindow extends JFrame {
         //region Random fields checkbox
         JCheckBox randFieldsCheckBox=new JCheckBox("Randomizing fields");
         ruleCheckBoxes.add(randFieldsCheckBox);
+        randFieldsCheckBox.setSelected(Config.Instance().randFields);
         ActionListener randFieldsListener=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -209,6 +219,7 @@ public class LauncherWindow extends JFrame {
         //region Random pieces checkbox
         JCheckBox randPiecesCheckBox=new JCheckBox("Random pieces");
         ruleCheckBoxes.add(randPiecesCheckBox);
+        randPiecesCheckBox.setSelected(Config.Instance().randPieces);
         ActionListener randPiecesListener=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -222,6 +233,7 @@ public class LauncherWindow extends JFrame {
         //region jRPG checkbox
         JCheckBox duelsCheckBox=new JCheckBox("jRPG fights");
         ruleCheckBoxes.add(duelsCheckBox);
+        duelsCheckBox.setSelected(Config.Instance().duels);
         ActionListener duelsListener=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -235,6 +247,7 @@ public class LauncherWindow extends JFrame {
         //region Items checkbox
         JCheckBox itemsCheckBox=new JCheckBox("Items");
         ruleCheckBoxes.add(itemsCheckBox);
+        itemsCheckBox.setSelected(Config.Instance().items);
         ActionListener itemsListener=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -248,6 +261,7 @@ public class LauncherWindow extends JFrame {
         //region Obstacles checkbox
         JCheckBox obstaclesCheckBox=new JCheckBox("Obstacles");
         ruleCheckBoxes.add(obstaclesCheckBox);
+        obstaclesCheckBox.setSelected(Config.Instance().obstacles);
         ActionListener obstaclesListener=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

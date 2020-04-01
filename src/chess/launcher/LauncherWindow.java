@@ -106,7 +106,7 @@ public class LauncherWindow extends JFrame {
         String[] gameModes={"Player vs \"AI\"","Hot Seat"};
         JComboBox<String> gameMode=new JComboBox<String>(gameModes);
         gameSettings.add(gameMode);
-        gameMode.setSelectedItem(Config.Instance().pvp ? 1 : 0);
+        gameMode.setSelectedIndex(Config.Instance().pvp ? 1 : 0);
         ActionListener gameModeListener=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

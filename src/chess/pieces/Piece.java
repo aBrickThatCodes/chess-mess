@@ -1,10 +1,21 @@
 package chess.pieces;
-import java.awt.Color;
+
+import chess.game.Spot;
+
+import java.awt.*;
+import java.util.Collection;
 
 public abstract class Piece {
-    private int x,y;
+
+    public Spot pieceLocationSpot;
     private boolean available; //zmienna blokująca ruch w przypadku szacha lub gdy pion umrze
     private Color color;
+
+    public abstract Collection<Spot> getPossibleMoves();
+
+    public abstract boolean validateMove(Spot destination);
+
+    public abstract void move(Spot destination);
 
     public void setAvailable(boolean a) {
         available = a;
@@ -22,7 +33,7 @@ public abstract class Piece {
         return color;
     }
 
-    public void setX(int x) {
+    /*public void setX(int x) {
         this.x = x;
     }
 
@@ -31,7 +42,8 @@ public abstract class Piece {
     public void setY(int y) {
         this.y = y;
     }
-    public int getY(){return this.y;}
 
-    public abstract void move(int move, int direction);
+    public int getY(){return this.y;}*/ // na zaś gdyby trzeba był wrócić do zwykłych współżednych
+
+
 }

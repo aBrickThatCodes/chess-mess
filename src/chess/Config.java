@@ -1,12 +1,12 @@
 package chess;
 
 import java.awt.Color;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -22,6 +22,8 @@ public class Config implements java.io.Serializable {
     public int playerAmount,boardWidth,boardHeight;
     public Color [] colors;
     public Pieces [] pieces;
+    public File musicFile;
+    public final File defaultMusicFile;
 
     private Config() {
         //region Booleans
@@ -59,6 +61,8 @@ public class Config implements java.io.Serializable {
         pieces[4]=Pieces.QUEEEN;
         pieces[5]=Pieces.KING;
         //endregion
+
+        musicFile=defaultMusicFile=new File("test.mp3");
     }
 
     //Singleton

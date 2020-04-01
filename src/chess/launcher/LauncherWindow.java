@@ -138,8 +138,18 @@ public class LauncherWindow extends JFrame {
         loadSettings.addActionListener(loadSetttingsListener);
         //endregion
 
+        //region Change music
         JButton changeMusic=new JButton("Upload your own music");
         ruleSettingButtons.add(changeMusic);
+        ActionListener changeMusicListener=new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+                MusicChangeFrame musicChangeFrame=new MusicChangeFrame();
+                musicChangeFrame.setVisible(true);
+			}
+        };
+        changeMusic.addActionListener(changeMusicListener);
+        //endregion
 
         //region Color picker
         JButton pickColour=new JButton("Pick your own colour scheme");

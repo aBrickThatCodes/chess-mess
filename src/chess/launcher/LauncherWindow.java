@@ -90,10 +90,25 @@ public class LauncherWindow extends JFrame {
         ySize.addActionListener(sizeListener);
         //endregion
 
-
+        //region GameMode
         String[] gameModes={"Player vs \"AI\"","Hot Seat"};
         JComboBox<String> gameMode=new JComboBox<String>(gameModes);
         gameSettings.add(gameMode);
+        gameMode.setSelectedIndex(Config.Instance().pvp ? 1 : 0);
+        ActionListener gameModeListener=new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               String s=(String)((((JComboBox<String>)gameMode).getSelectedItem()));
+               if(s=="Player vs \"AI\"") {
+                   Config.Instance().pvp=false;
+               }
+               else if(s=="Hot Seat") {
+                   Config.Instance().pvp=true;
+               }
+            }
+        };
+        gameMode.addActionListener(gameModeListener);
+        //endregion
 
         //region Player amount panel
         JPanel playerNumber=new JPanel(new FlowLayout());
@@ -124,7 +139,7 @@ public class LauncherWindow extends JFrame {
         morePlayersButton.addActionListener(playerNumListener);
         //endregion
 
-        
+        //region Piece settings
         JPanel pieceSettings=new JPanel(new GridLayout(1,3));
         gameSettings.add(pieceSettings);
 
@@ -145,6 +160,7 @@ public class LauncherWindow extends JFrame {
 			}
         };
         pieceEdit.addActionListener(pieceEditListener);
+        //endregion
         //endregion
 
         JButton tutorial=new JButton("Player guide");

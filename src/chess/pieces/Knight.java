@@ -1,10 +1,16 @@
 package chess.pieces;
 
+<<<<<<< HEAD
 import chess.game.Spot;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+=======
+import java.util.Collection;
+
+import chess.game.Spot;
+>>>>>>> 703f83e219a1d34673921e14826f642578ddab8f
 
 public class Knight extends Piece {
 
@@ -12,6 +18,7 @@ public class Knight extends Piece {
         this.setAvailable(available);
     }
 
+<<<<<<< HEAD
     public synchronized Collection<Spot> getPossibleMoves() {
 
         List<Spot> possibleMoves = new ArrayList<Spot>();
@@ -49,5 +56,24 @@ public class Knight extends Piece {
 
     public synchronized void move(Spot destination){ //Wykonujemy ruch
         if(validateMove(destination)) this.pieceLocationSpot = destination;
+=======
+    @Override
+    public Collection<Spot> getPossibleMoves() {
+        // TODO Auto-generated method stub
+        return null;
     }
+
+    @Override
+    public boolean validateMove(Spot destination) {
+        // TODO Auto-generated method stub
+        return false;
+>>>>>>> 703f83e219a1d34673921e14826f642578ddab8f
+    }
+
+    @Override
+    public void move(Spot destination) {
+        // TODO Auto-generated method stub
+
+    }
+    
 }

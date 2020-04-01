@@ -103,18 +103,6 @@ public class LauncherWindow extends JFrame {
         JPanel ruleSettingButtons=new JPanel(new GridLayout(4,1));
         rulesSettings.add(ruleSettingButtons,BorderLayout.PAGE_START);
 
-        //region Load settings button
-        JButton loadSettings=new JButton("Load settings");
-        ruleSettingButtons.add(loadSettings);
-        ActionListener loadSetttingsListener=new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-                Config.loadSettings();
-			}
-        };
-        loadSettings.addActionListener(loadSetttingsListener);
-        //endregion
-
         //region Save settings
         JButton saveSettings=new JButton("Save settings");
         ruleSettingButtons.add(saveSettings);
@@ -127,8 +115,21 @@ public class LauncherWindow extends JFrame {
         saveSettings.addActionListener(saveSetttingsListener);
         //endregion
 
+        //region Load settings button
+        JButton loadSettings=new JButton("Load settings");
+        ruleSettingButtons.add(loadSettings);
+        ActionListener loadSetttingsListener=new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+                Config.loadSettings();
+			}
+        };
+        loadSettings.addActionListener(loadSetttingsListener);
+        //endregion
+
         JButton changeMusic=new JButton("Upload your own music");
         ruleSettingButtons.add(changeMusic);
+
         //region Color picker
         JButton pickColour=new JButton("Pick your own colour scheme");
         ruleSettingButtons.add(pickColour);
@@ -140,6 +141,7 @@ public class LauncherWindow extends JFrame {
         };
         pickColour.addActionListener(colorPickListener);
         //endregion
+
         //endregion
 
         //region Rule Checkboxes

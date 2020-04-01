@@ -79,7 +79,7 @@ public class Config implements java.io.Serializable {
         int result=fileChooser.showOpenDialog(null);
         if(result==JFileChooser.APPROVE_OPTION) {
             try {
-                FileInputStream fileIn=new FileInputStream(fileChooser.getSelectedFile()+".cmsett");
+                FileInputStream fileIn=new FileInputStream(fileChooser.getSelectedFile());
                 ObjectInputStream in=new ObjectInputStream(fileIn);
                 instance=(Config)in.readObject();
                 in.close();

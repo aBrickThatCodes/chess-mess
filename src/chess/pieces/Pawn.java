@@ -32,10 +32,10 @@ public class Pawn extends Piece {
     }
 
     public boolean validateMove(Spot destination) { //Sprawdzamy czy należy do zbioru
-        return false;
+        return this.getPossibleMoves().contains(destination);
     }
 
     public void move(Spot destination){ //Wykonujemy ruch
-
+        if(validateMove(destination)) this.pieceLocationSpot = destination;
     }
 }

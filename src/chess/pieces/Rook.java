@@ -54,7 +54,6 @@ public class Rook extends Piece {
     }
 
     public void move(Spot destination){ //Wykonujemy ruch
-        if (validateMove(destination)) this.pieceLocationSpot=destination;
+        if(validateMove(destination)) this.pieceLocationSpot = destination;
     }
-
 }

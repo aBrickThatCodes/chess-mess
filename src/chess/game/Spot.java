@@ -20,14 +20,14 @@ public class Spot{
             this.setX(x);
         }
 
-        public void setX(int x) {
+        public synchronized void setX(int x) {
         this.x = x;
         }
-        public int getX(){return this.x;}
-        public void setY(int y) {
+        public synchronized int getX(){return this.x;}
+        public synchronized void setY(int y) {
             this.y = y;
         }
-        public int getY(){return this.y;}
+        public synchronized int getY(){return this.y;}
         }
 
 
@@ -42,44 +42,48 @@ public class Spot{
         this.piece=piece;
     }
 
-    public Spot(Location location){
-        this.location = location;
+    public Spot(int x, int y){
+        this.setLocation(x,y);
     }
 
-    public void setLocation(int x,int y){
+    public Spot(Location location){
+        this.location=location;
+    }
+
+    public synchronized void setLocation(int x,int y){
         this.location.setX(x);
         this.location.setY(y);
     }
 
-    public void setAvailable(boolean a) {
+    public synchronized void setAvailable(boolean a) {
         available = a;
     }
 
-    public void setColor(Color c) {
+    public synchronized void setColor(Color c) {
         spotColor = c;
     }
 
-    public void setPiece(Piece p) {
+    public synchronized void setPiece(Piece p) {
         piece = p;
     }
 
-    public void getAdditionalStats(int aS){
+    public synchronized void getAdditionalStats(int aS){
         additionalStats = aS;
     }
 
-    public Piece getPiece() {
+    public synchronized Piece getPiece() {
         return piece;
     }
 
-    public Color getColor() {
+    public synchronized Color getColor() {
         return spotColor;
     }
 
-    public boolean getAvailable() {
+    public synchronized boolean getAvailable() {
         return available;
     }
 
-    public int getadditionalStats(){
+    public synchronized int getadditionalStats(){
         return additionalStats;
     }
 

@@ -32,4 +32,10 @@
     </task>
     <servers />
   </component>
+  <component name="WindowStateProjectService">
+    <state x="526" y="190" key="#com.intellij.ide.util.MemberChooser" timestamp="1585752806307">
+      <screen x="0" y="0" width="1440" height="960" />
+    </state>
+    <state x="526" y="190" key="#com.intellij.ide.util.MemberChooser/0.0.1440.960@0.0.1440.960" timestamp="1585752806307" />
+  </component>
 </project>

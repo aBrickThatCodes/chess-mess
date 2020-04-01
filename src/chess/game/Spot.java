@@ -6,9 +6,29 @@ import java.awt.Color;
 public class Spot{
 
     private Piece piece;
-    private boolean available = true; //zmienna określająca dostępność dla pionków
+    public boolean available = true; //zmienna określająca dostępność dla pionków
     private Color spotColor;
     private int additionalStats = 0;
+    public Location location;
+
+    public static class Location {
+        public int x;
+        public int y;
+
+        public Location(int x, int y){
+            this.setY(y);
+            this.setX(x);
+        }
+
+        public void setX(int x) {
+        this.x = x;
+        }
+        public int getX(){return this.x;}
+        public void setY(int y) {
+            this.y = y;
+        }
+        public int getY(){return this.y;}
+        }
 
 
     public Spot(Piece piece, Color spotColor, boolean available, int additionalStats) {
@@ -22,35 +42,44 @@ public class Spot{
         this.piece=piece;
     }
 
-    public void SetAvailable(boolean a) {
+    public Spot(Location location){
+        this.location = location;
+    }
+
+    public void setLocation(int x,int y){
+        this.location.setX(x);
+        this.location.setY(y);
+    }
+
+    public void setAvailable(boolean a) {
         available = a;
     }
 
-    public void SetColor(Color c) {
+    public void setColor(Color c) {
         spotColor = c;
     }
 
-    public void GetPiece(Piece p) {
+    public void setPiece(Piece p) {
         piece = p;
     }
 
-    public void GetadditionalStats(int aS){
+    public void getAdditionalStats(int aS){
         additionalStats = aS;
     }
 
-    public Piece GetPiece() {
+    public Piece getPiece() {
         return piece;
     }
 
-    public Color GetColor() {
+    public Color getColor() {
         return spotColor;
     }
 
-    public boolean GetAvailable() {
+    public boolean getAvailable() {
         return available;
     }
 
-    public int GetadditionalStats(){
+    public int getadditionalStats(){
         return additionalStats;
     }
 

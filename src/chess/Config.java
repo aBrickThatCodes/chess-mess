@@ -16,7 +16,7 @@ public class Config implements java.io.Serializable {
     //Singleton instance
     private transient static Config instance;
 
-    public enum Pieces {PAWN,ROOK,KNIGHT,BISHOP,QUEEEN,KING};
+    public enum Pieces {PAWN,ROOK,KNIGHT,BISHOP,QUEEN,KING};
 
     public Boolean abilities,randFields,randPieces,items,obstacles,pvp,animation,duels;
     public int playerAmount,boardWidth,boardHeight;
@@ -58,7 +58,7 @@ public class Config implements java.io.Serializable {
         pieces[1]=Pieces.ROOK;
         pieces[2]=Pieces.KNIGHT;
         pieces[3]=Pieces.BISHOP;
-        pieces[4]=Pieces.QUEEEN;
+        pieces[4]=Pieces.QUEEN;
         pieces[5]=Pieces.KING;
         //endregion
     }

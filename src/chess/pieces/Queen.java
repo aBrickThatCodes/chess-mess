@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Queen extends Piece {
 
-    public Queen(boolean available) {
+    public Queen(boolean available){
         this.setAvailable(available);
     }
 

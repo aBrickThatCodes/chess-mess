@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Bishop extends Piece {
 
-    public Bishop(boolean available) {
+    public Bishop(boolean available){
         this.setAvailable(available);
     }
 

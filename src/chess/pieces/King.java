@@ -8,7 +8,7 @@ import java.util.List;
 
 public class King extends Piece {
 
-    public King(boolean available) {
+    public King(boolean available){
         this.setAvailable(available);
     }
 
@@ -62,4 +62,5 @@ public class King extends Piece {
     public synchronized void move(Spot destination){ //Wykonujemy ruch
         if(validateMove(destination)) this.pieceLocationSpot = destination;
     }
+
 }

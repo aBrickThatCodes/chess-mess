@@ -7,8 +7,6 @@ import java.awt.event.*;
 
 @SuppressWarnings("serial")
 public class LauncherWindow extends JFrame {
-    private LauncherWindow launcher;
-
     public LauncherWindow() {
         super("Chess Mess");
         try {
@@ -19,7 +17,6 @@ public class LauncherWindow extends JFrame {
         this.setSize(960, 520);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLayout(new GridLayout(2,1));
-        this.launcher=this;
 
         //region Title
         JPanel title=new JPanel();
@@ -55,113 +52,35 @@ public class LauncherWindow extends JFrame {
         gameSettings.setBorder(BorderFactory.createLineBorder(new Color(0,0,0)));
         mainMenu.add(gameSettings);
 
-        //region Board size
-        JPanel boardSize=new JPanel(new GridLayout(1,3));
+
+        JPanel boardSize=new JPanel(new GridLayout(1,4));
         gameSettings.add(boardSize);
 
         boardSize.add(new JLabel("Board size:"));
 
-        //region Size fields
-        JPanel sizeFieldsPanel=new JPanel(new GridLayout(1,3));
-        boardSize.add(sizeFieldsPanel);
-
         JTextField xSize=new JTextField("8");
-        sizeFieldsPanel.add(xSize);
-        xSize.setText(Integer.toString(Config.Instance().boardWidth));
+        boardSize.add(xSize);
 
-        sizeFieldsPanel.add(new JLabel("X",JLabel.CENTER));
+        boardSize.add(new JLabel("X",JLabel.CENTER));
 
         JTextField ySize=new JTextField("8");
-        sizeFieldsPanel.add(ySize);
-        ySize.setText(Integer.toString(Config.Instance().boardHeight));
-        
-        //region Size button
-        JButton applySizeButton=new JButton("Apply");
-        boardSize.add(applySizeButton);
-        ActionListener sizeListener=new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-                int i=-1,j=-1;
-                try {
-                    i=Integer.parseInt(xSize.getText());
-                }
-                catch(NumberFormatException exception) {
-                    JOptionPane.showMessageDialog(launcher, "Error: Couldn't parse int", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+        boardSize.add(ySize);
 
-                try {
-                    j=Integer.parseInt(ySize.getText());
-                }
-                catch(NumberFormatException exception) {
-                    JOptionPane.showMessageDialog(launcher, "Error: Couldn't parse int", "Error", JOptionPane.ERROR_MESSAGE);
-                }
 
-                if(i>=Math.max((Config.Instance().playerAmount/2-1)*8-4,8)) {
-                    Config.Instance().boardWidth=i;
-                }
-                if(j>=Math.max((Config.Instance().playerAmount/2-1)*8-4,8)) {
-                    Config.Instance().boardHeight=j;
-                }
-                xSize.setText(Integer.toString(Config.Instance().boardWidth));
-                ySize.setText(Integer.toString(Config.Instance().boardHeight));
-			}
-        };
-        applySizeButton.addActionListener(sizeListener);
-        //endregion
-        //endregion
-        //endregion
-
-        //region GameMode
         String[] gameModes={"Player vs \"AI\"","Hot Seat"};
         JComboBox<String> gameMode=new JComboBox<String>(gameModes);
         gameSettings.add(gameMode);
-        gameMode.setSelectedIndex(Config.Instance().pvp ? 1 : 0);
-        ActionListener gameModeListener=new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               String s=(String)((((JComboBox<String>)gameMode).getSelectedItem()));
-               if(s=="Player vs \"AI\"") {
-                   Config.Instance().pvp=false;
-               }
-               else if(s=="Hot Seat") {
-                   Config.Instance().pvp=true;
-               }
-            }
-        };
-        gameMode.addActionListener(gameModeListener);
-        //endregion
 
-        //region Player amount panel
-        JPanel playerNumber=new JPanel(new FlowLayout());
+
+        JPanel playerNumber=new JPanel(new GridLayout(1,2));
         gameSettings.add(playerNumber);
         
-        JLabel playerNumLabel=new JLabel("Number of players:");
-        playerNumber.add(playerNumLabel);
-        
-        JButton lessPlayersButton=new JButton("-");
-        playerNumber.add(lessPlayersButton);
-        JLabel playerAmountText=new JLabel(Integer.toString(Config.Instance().playerAmount));
-        playerNumber.add(playerAmountText);
-        JButton morePlayersButton=new JButton("+");
-        playerNumber.add(morePlayersButton);
-        ActionListener playerNumListener=new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JButton button=(JButton)e.getSource();
-                if(button==morePlayersButton && Config.Instance().playerAmount<(2*((Math.min(Config.Instance().boardWidth,Config.Instance().boardHeight)-4)/8))) {
-                    ++Config.Instance().playerAmount;
-                }
-                else if(button==lessPlayersButton && Config.Instance().playerAmount>2) {
-                    --Config.Instance().playerAmount;
-                }
-                playerAmountText.setText(Integer.toString(Config.Instance().playerAmount));
-            }
-        };
-        lessPlayersButton.addActionListener(playerNumListener);
-        morePlayersButton.addActionListener(playerNumListener);
-        //endregion
+        JLabel playerNumText=new JLabel("Number of players:");
+        playerNumber.add(playerNumText);
+        JSpinner playerNumSpin=new JSpinner();
+        playerNumber.add(playerNumSpin);
 
-        //region Piece settings
+        
         JPanel pieceSettings=new JPanel(new GridLayout(1,3));
         gameSettings.add(pieceSettings);
 
@@ -183,7 +102,6 @@ public class LauncherWindow extends JFrame {
         };
         pieceEdit.addActionListener(pieceEditListener);
         //endregion
-        //endregion
 
         JButton tutorial=new JButton("Player guide");
         gameSettings.add(tutorial);
@@ -196,7 +114,6 @@ public class LauncherWindow extends JFrame {
         //region Save to anim checkbox
         JCheckBox saveAnimation=new JCheckBox("Save to animation");
         gameSettings.add(saveAnimation);
-        saveAnimation.setSelected(Config.Instance().animation);
         ActionListener animListener=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -215,23 +132,8 @@ public class LauncherWindow extends JFrame {
         mainMenu.add(rulesSettings);
 
         //region Rule Settings Buttons
-        JPanel ruleSettingButtons=new JPanel(new GridLayout(5,1));
+        JPanel ruleSettingButtons=new JPanel(new GridLayout(4,1));
         rulesSettings.add(ruleSettingButtons,BorderLayout.PAGE_START);
-
-        //region Restore default setting
-        JButton restoreSettings=new JButton("Restore default settings");
-        ruleSettingButtons.add(restoreSettings);
-        ActionListener restoreSetttingsListener=new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-                Config.restoreDefaultSettings();
-                LauncherWindow main = new LauncherWindow();    
-                main.setVisible(true);
-                launcher.dispose();
-			}
-        };
-        restoreSettings.addActionListener(restoreSetttingsListener);
-        //endregion
 
         //region Save settings
         JButton saveSettings=new JButton("Save settings");
@@ -252,9 +154,6 @@ public class LauncherWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
                 Config.loadSettings();
-                LauncherWindow main = new LauncherWindow();    
-                main.setVisible(true);
-                launcher.dispose();
 			}
         };
         loadSettings.addActionListener(loadSetttingsListener);
@@ -294,7 +193,6 @@ public class LauncherWindow extends JFrame {
         //region Abilities checkbox
         JCheckBox addAbilitiesCheckBox=new JCheckBox("Additional abilities");
         ruleCheckBoxes.add(addAbilitiesCheckBox);
-        addAbilitiesCheckBox.setSelected(Config.Instance().abilities);
         ActionListener abilitiesListener=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -308,7 +206,6 @@ public class LauncherWindow extends JFrame {
         //region Random fields checkbox
         JCheckBox randFieldsCheckBox=new JCheckBox("Randomizing fields");
         ruleCheckBoxes.add(randFieldsCheckBox);
-        randFieldsCheckBox.setSelected(Config.Instance().randFields);
         ActionListener randFieldsListener=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -322,7 +219,6 @@ public class LauncherWindow extends JFrame {
         //region Random pieces checkbox
         JCheckBox randPiecesCheckBox=new JCheckBox("Random pieces");
         ruleCheckBoxes.add(randPiecesCheckBox);
-        randPiecesCheckBox.setSelected(Config.Instance().randPieces);
         ActionListener randPiecesListener=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -336,7 +232,6 @@ public class LauncherWindow extends JFrame {
         //region jRPG checkbox
         JCheckBox duelsCheckBox=new JCheckBox("jRPG fights");
         ruleCheckBoxes.add(duelsCheckBox);
-        duelsCheckBox.setSelected(Config.Instance().duels);
         ActionListener duelsListener=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -350,7 +245,6 @@ public class LauncherWindow extends JFrame {
         //region Items checkbox
         JCheckBox itemsCheckBox=new JCheckBox("Items");
         ruleCheckBoxes.add(itemsCheckBox);
-        itemsCheckBox.setSelected(Config.Instance().items);
         ActionListener itemsListener=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -364,7 +258,6 @@ public class LauncherWindow extends JFrame {
         //region Obstacles checkbox
         JCheckBox obstaclesCheckBox=new JCheckBox("Obstacles");
         ruleCheckBoxes.add(obstaclesCheckBox);
-        obstaclesCheckBox.setSelected(Config.Instance().obstacles);
         ActionListener obstaclesListener=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

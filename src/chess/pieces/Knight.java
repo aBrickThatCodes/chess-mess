@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Knight extends Piece {
 
-    public Knight(boolean available) {
+    public Knight(boolean available){
         this.setAvailable(available);
     }
 
@@ -50,4 +50,6 @@ public class Knight extends Piece {
     public synchronized void move(Spot destination){ //Wykonujemy ruch
         if(validateMove(destination)) this.pieceLocationSpot = destination;
     }
+
+   
 }

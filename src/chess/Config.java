@@ -61,10 +61,6 @@ public class Config implements java.io.Serializable {
         pieces[4]=Pieces.QUEEEN;
         pieces[5]=Pieces.KING;
         //endregion
-
-        playerAmount=2;
-        boardHeight=8;
-        boardWidth=8;
     }
 
     //Singleton
@@ -117,9 +113,5 @@ public class Config implements java.io.Serializable {
                 return;
             }
         }
-    }
-
-    public static void restoreDefaultSettings() {
-        instance=new Config();
     }
 }

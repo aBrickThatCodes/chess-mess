@@ -30,7 +30,7 @@ public abstract class Player {
         return this.playerName;
     }
 
-    public class HumanPlayer extends Player{
+    public static class HumanPlayer extends Player{
 
         public HumanPlayer(int numberHuman,String playerName)
 

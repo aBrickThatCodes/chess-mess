@@ -8,8 +8,9 @@ import java.util.List;
 
 public class Bishop extends Piece {
 
-    public Bishop(boolean available){
+    public Bishop(boolean available,int x,int y){
         this.setAvailable(available);
+        this.pieceLocationSpot.setLocation(x,y);
     }
 
     public synchronized Collection<Spot> getPossibleMoves() {

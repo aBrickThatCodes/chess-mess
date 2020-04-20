@@ -30,7 +30,8 @@ public class Game {
         WHITE_WIN,
         FORFEIT,
         STALEMATE,
-        RESIGNATION
+        RESIGNATION,
+        CHECK
     }
 
     public synchronized void addBoardChange(Board board){
@@ -51,5 +52,13 @@ public class Game {
 
     public synchronized Player getPlayer(int num){
         return this.players.get(num);
+    }
+
+    public synchronized void isCheck(){
+        /*for(int i =0; i<board.board[0].length;i++){
+            for(int j=0;j<board.board.length;j++){
+
+            }
+        }*/
     }
 }

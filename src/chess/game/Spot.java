@@ -83,12 +83,4 @@ public class Spot{
         return additionalStats;
     }
 
-    /*public synchronized boolean getCanBeAttacked(){
-        return this.canBeAttacked;
-    }
-
-    public synchronized void setCanBeAttacked(boolean canBeAttacked){
-        this.canBeAttacked = canBeAttacked;
-    }*/
-
 }

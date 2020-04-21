@@ -18,7 +18,7 @@ public class PieceSetupFrame extends JFrame implements ActionListener {
     public PieceSetupFrame() {
         super("Piece Setup Editor");
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.setSize(600,350);
+        this.setSize(600,175);
         this.setLayout(new BorderLayout());
         
         JPanel pieceSetup=new JPanel(new GridLayout(Config.Instance().pieces.length/3+(Config.Instance().pieces.length%3==0 ? 0:1),Config.Instance().pieces.length/2));

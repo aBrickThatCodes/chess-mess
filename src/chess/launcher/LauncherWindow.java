@@ -9,6 +9,11 @@ import java.awt.event.*;
 public class LauncherWindow extends JFrame {
     public LauncherWindow() {
         super("Chess Mess");
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
+        } 
+        catch (Exception exception)
+        {}
         this.setSize(960, 520);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLayout(new GridLayout(2,1));
@@ -22,10 +27,12 @@ public class LauncherWindow extends JFrame {
 
         //region Menu
         JPanel menu=new JPanel(new BorderLayout());
+        menu.setBorder(BorderFactory.createLineBorder(new Color(0,0,0)));
         this.add(menu);
 
         //region Bottom buttons
         JPanel gameButtons=new JPanel(new FlowLayout());
+        gameButtons.setBorder(BorderFactory.createLineBorder(new Color(0,0,0)));
         menu.add(gameButtons,BorderLayout.PAGE_END);
         
         JButton startButton=new JButton("Play");
@@ -37,10 +44,12 @@ public class LauncherWindow extends JFrame {
 
         //region Menus
         JPanel mainMenu=new JPanel(new GridLayout(1,2));
+        mainMenu.setBorder(BorderFactory.createLineBorder(new Color(0,0,0)));
         menu.add(mainMenu);
 
         //region Left Panel (game settings)
         JPanel gameSettings=new JPanel(new GridLayout(7,1));
+        gameSettings.setBorder(BorderFactory.createLineBorder(new Color(0,0,0)));
         mainMenu.add(gameSettings);
 
 
@@ -119,6 +128,7 @@ public class LauncherWindow extends JFrame {
 
         //region Right Panel (rule settings)
         JPanel rulesSettings=new JPanel(new BorderLayout());
+        rulesSettings.setBorder(BorderFactory.createLineBorder(new Color(0,0,0)));
         mainMenu.add(rulesSettings);
 
         //region Rule Settings Buttons

@@ -106,10 +106,9 @@ public class Board {
     }
 
     public synchronized void addPlayerPieces(int startingRookPosition,AttackDirection attackDirection){
+        ArrayList<Piece> playerPieces = new ArrayList<>();
         switch (attackDirection){
             case LEFT:
-                ArrayList<Piece> playerPieces = new ArrayList<>();
-
                 //Pionki dodaje wg schamatu 8xpionki 8xpozostałe figury parami Wieża - konie - gońce - królowa - król
                 //Żeby potem był ładny dostęp do króla
                 //Pionki
@@ -128,9 +127,9 @@ public class Board {
                 //Król
                 playerPieces.add(new King(false,4+startingRookPosition,0));
                 this.playersPieces.add(new ArrayList<>());
-                [break;]
+                break;
             case RIGHT:
-                ArrayList<Piece> playerPieces = new ArrayList<>();
+
                 //Pionki
                 for(int i=startingRookPosition;i<8+startingRookPosition;i++) playerPieces.add(new Pawn(true,i,6));
                 //Wieża
@@ -147,7 +146,7 @@ public class Board {
                 //Król
                 playerPieces.add(new King(false,3+startingRookPosition,7));
                 this.playersPieces.add(new ArrayList<>());
-                [break;]
+                break;
 
             //Potem doda się pozostałe casy do ataku w dół i w góre jak sie to uda
         }

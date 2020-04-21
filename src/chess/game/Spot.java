@@ -46,40 +46,40 @@ public class Spot{
         this.location = location;
     }
 
-    public void setLocation(int x,int y){
+    public synchronized void setLocation(int x,int y){
         this.location.setX(x);
         this.location.setY(y);
     }
 
-    public void setAvailable(boolean a) {
+    public synchronized void setAvailable(boolean a) {
         available = a;
     }
 
-    public void setColor(Color c) {
+    public synchronized void setColor(Color c) {
         spotColor = c;
     }
 
-    public void setPiece(Piece p) {
+    public synchronized void setPiece(Piece p) {
         piece = p;
     }
 
-    public void getAdditionalStats(int aS){
+    public synchronized void getAdditionalStats(int aS){
         additionalStats = aS;
     }
 
-    public Piece getPiece() {
+    public synchronized Piece getPiece() {
         return piece;
     }
 
-    public Color getColor() {
+    public synchronized Color getColor() {
         return spotColor;
     }
 
-    public boolean getAvailable() {
+    public synchronized boolean getAvailable() {
         return available;
     }
 
-    public int getadditionalStats(){
+    public synchronized int getAdditionalStats(){
         return additionalStats;
     }
 

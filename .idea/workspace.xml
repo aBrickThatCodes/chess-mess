@@ -73,9 +73,13 @@
       <screen x="0" y="0" width="1440" height="960" />
     </state>
     <state width="1397" height="255" key="GridCell.Tab.0.right/0.0.1440.960@0.0.1440.960" timestamp="1587424716578" />
-    <state x="417" y="305" key="com.intellij.ide.util.TipDialog" timestamp="1587424768323">
+    <state x="417" y="305" key="com.intellij.ide.util.TipDialog" timestamp="1587473323042">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state x="417" y="305" key="com.intellij.ide.util.TipDialog/0.0.1440.960@0.0.1440.960" timestamp="1587424768323" />
+    <state x="417" y="305" key="com.intellij.ide.util.TipDialog/0.0.1440.960@0.0.1440.960" timestamp="1587473323042" />
+    <state x="383" y="205" width="672" height="678" key="search.everywhere.popup" timestamp="1587474029542">
+      <screen x="0" y="0" width="1440" height="960" />
+    </state>
+    <state x="383" y="205" width="672" height="678" key="search.everywhere.popup/0.0.1440.960@0.0.1440.960" timestamp="1587474029542" />
   </component>
 </project>

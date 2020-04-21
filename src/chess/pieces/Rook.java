@@ -8,8 +8,9 @@ import java.util.List;
 
 public class Rook extends Piece {
 
-    public Rook(boolean available){
+    public Rook(boolean available,int x, int y){
         this.setAvailable(available);
+        this.pieceLocationSpot.setLocation(x,y);
     }
 
     @Override

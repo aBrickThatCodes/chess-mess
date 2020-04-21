@@ -8,8 +8,9 @@ import java.util.List;
 
 public class Knight extends Piece {
 
-    public Knight(boolean available){
+    public Knight(boolean available,int x,int y){
         this.setAvailable(available);
+        this.pieceLocationSpot.setLocation(x,y);
     }
 
     public synchronized Collection<Spot> getPossibleMoves() {

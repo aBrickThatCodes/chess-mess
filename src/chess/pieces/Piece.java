@@ -11,7 +11,6 @@ public abstract class Piece {
         super();
     }
 
-    //public Spot pieceLocationSpot;
     private int x;
     private int y;
     private Color color;
@@ -42,7 +41,6 @@ public abstract class Piece {
     }
 
     public synchronized int getY(){return this.y;}
-
 
     public synchronized boolean validateMove(Spot destination) { //Sprawdzamy czy należy do zbioru
         return this.getPossibleMoves().contains(destination);

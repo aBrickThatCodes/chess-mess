@@ -1,25 +1,27 @@
 package chess.game;
 
 import chess.Config;
+import chess.pieces.Piece;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Game {
 
-    public Board board;
-    public ArrayList<Board> boaredChanges;
-    public ArrayList<Player> players;
-    public Player currentTurn;
+    private Board board;
+    private ArrayList<Board> boardChanges;
+    private ArrayList<Player> players;
+    //public Player currentTurn;
     Config config;
 
 
     public Game(){
 
-        //Plansza
-        board.setBoard(players);
-
         //Gracze
         players = new ArrayList<>(config.playerAmount);
+
+        //Plansza
+        board.setBoard(players);
 
         if(config.pvp){
             for(int i = 0; i< config.playerAmount; i++){
@@ -30,20 +32,40 @@ public class Game {
         else {
             players.add(new Player.HumanPlayer());
             players.get(0).attackDirection = Player.AttackDirection.RIGHT;
-            for(int i = 0; i< config.playerAmount -1; i++){
+            for(int i = 0; i< config.playerAmount-1; i++){
                 players.add(new Player.AIPlayer());
             }
         }
 
+        while(board.getStatus() == Board.GameStatus.ACTIVE){
+            for(Player currentTurn: players){
+                
+            }
+        }
     }
 
     public synchronized void addBoardChange(Board board){
-        this.boaredChanges.add(board);
+        this.boardChanges.add(board);
     }
 
-    public synchronized void checkCheck(){
-        
-    }
+    public synchronized void deleteKingMovesResultingInCheck(Player currentTurn){
+        Piece king = currentTurn.playerPieces[6][0];
+        List<Spot> allPossibleMoves = new ArrayList<Spot>();
+
+        for (Player player : players) {
+            if (currentTurn != player) {
+                for (Piece[] p : player.playerPieces) {
+                    for (Piece p2 : p) {
+                        allPossibleMoves.add((Spot) p2.getPossibleMoves());
+                    }
+                }
+            }
+        }
+
+        try{
+            king.getPossibleMoves().remove(allPossibleMoves);
+        } catch (Exception e) {}
+    } //trzeba będzie sprawdzić konkretnie czy działą
 
     /*public synchronized void setPlayer(Player player, int numPlayer){
         this.players.set(numPlayer, player);

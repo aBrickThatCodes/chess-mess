@@ -8,10 +8,10 @@ import java.util.List;
 
 public class Bishop extends Piece {
 
-    public Bishop(boolean available,int x,int y){
+    /*public Bishop(boolean available,int x,int y){
         this.setAvailable(available);
         this.pieceLocationSpot.setLocation(x,y);
-    }
+    }*/
 
     public synchronized Collection<Spot> getPossibleMoves() {
 
@@ -19,9 +19,9 @@ public class Bishop extends Piece {
 
         int i=1;
         int j=1;
-        Spot upRight = new Spot(new Spot.Location(pieceLocationSpot.location.getX()+i,pieceLocationSpot.location.getY()+j));
-        while(upRight.available){
-            upRight = new Spot(new Spot.Location(pieceLocationSpot.location.getX()+i,pieceLocationSpot.location.getY()+i)); //Spot do pierwszego dostępnego po przekątnej w prawo
+        Spot upRight = new Spot(getX()+i,getY()+j);
+        while(upRight.getPiece() == null){
+            upRight = new Spot(getX()+i,getY()+i); //Spot do pierwszego dostępnego po przekątnej w prawo
             possibleMoves.add(upRight);
             i++;
             j++;
@@ -29,9 +29,9 @@ public class Bishop extends Piece {
 
         i=1;
         j=1;
-        Spot upLeft = new Spot(new Spot.Location(pieceLocationSpot.location.getX()-i,pieceLocationSpot.location.getY()+j));
-        while(upLeft.available){
-            upLeft = new Spot(new Spot.Location(pieceLocationSpot.location.getX()-i,pieceLocationSpot.location.getY()+j)); //Spot do pierwszego dostępnego po przekątnej w prawo
+        Spot upLeft = new Spot(getX()-i,getY()+j);
+        while(upLeft.getPiece() == null){
+            upLeft = new Spot(getX()-i,getY()+j); //Spot do pierwszego dostępnego po przekątnej w prawo
             possibleMoves.add(upLeft);
             i++;
             j++;
@@ -39,9 +39,9 @@ public class Bishop extends Piece {
 
         i=1;
         j=1;
-        Spot downRight = new Spot(new Spot.Location(pieceLocationSpot.location.getX()+i,pieceLocationSpot.location.getY()-j));
-        while(downRight.available){
-            downRight = new Spot(new Spot.Location(pieceLocationSpot.location.getX()+i,pieceLocationSpot.location.getY()-j)); //Spot do pierwszego dostępnego po przekątnej w prawo
+        Spot downRight = new Spot(getX()+i,getY()-j);
+        while(downRight.getPiece() == null){
+            downRight = new Spot(getX()+i,getY()-j); //Spot do pierwszego dostępnego po przekątnej w prawo
             possibleMoves.add(downRight);
             i++;
             j++;
@@ -49,22 +49,19 @@ public class Bishop extends Piece {
 
         i=1;
         j=1;
-        Spot downLewft = new Spot(new Spot.Location(pieceLocationSpot.location.getX()-i,pieceLocationSpot.location.getY()-j));
-        while(downRight.available){
-            downRight = new Spot(new Spot.Location(pieceLocationSpot.location.getX()-i,pieceLocationSpot.location.getY()+i)); //Spot do pierwszego dostępnego po przekątnej w prawo
+        Spot downLeft = new Spot(getX()-i,getY()-j);
+        while(downLeft.getPiece() == null){
+            downLeft = new Spot(getX()-i,getY()+i); //Spot do pierwszego dostępnego po przekątnej w prawo
             possibleMoves.add(downRight);
             i++;
             j++;
         }
 
+        if(upRight.getPiece().getColor() != this.getColor()) possibleMoves.add(upRight);
+        if(upLeft.getPiece().getColor() != this.getColor()) possibleMoves.add(upLeft);
+        if(downRight.getPiece().getColor() != this.getColor()) possibleMoves.add(downRight);
+        if(downLeft.getPiece().getColor() != this.getColor()) possibleMoves.add(downLeft);
+
         return possibleMoves;
-    }
-
-    public synchronized boolean validateMove(Spot destination) { //Sprawdzamy czy należy do zbioru
-        return this.getPossibleMoves().contains(destination);
-    }
-
-    public synchronized void move(Spot destination){ //Wykonujemy ruch
-        if(validateMove(destination)) this.pieceLocationSpot = destination;
     }
 }

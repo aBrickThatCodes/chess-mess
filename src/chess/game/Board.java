@@ -1,21 +1,90 @@
 package chess.game;
 
-import chess.pieces.*;
+
+import chess.Config;
 
 import java.util.ArrayList;
 
 public class Board {
 
-    Spot[][] board;
-    ArrayList<ArrayList<Piece>> playersPieces;
+    public Spot[][] board;
+    Config config;
+    private GameStatus status;
 
-    public Board(){
-        this.setBoard();
+
+    public Board(ArrayList<Player> players){
+        setBoard(players);
+        status = GameStatus.ACTIVE;
     }
 
-    public void setBoard(){
-        board = new Spot[7][7];
 
+    public synchronized void setBoard(ArrayList<Player> players){
+        board = new Spot[config.boardWidth][config.boardHeight];
+
+        for(int i = 0; i< players.size() ; i++){
+            switch (players.get(i).attackDirection){
+                case RIGHT:
+                    int startingRookPosision = (board[0].length-8)/2;
+
+                    //Pionki
+                    for(int j=0;j<8;j++){
+                        board[1][startingRookPosision+j].setPiece(players.get(i).playerPieces[0][j]);
+                        players.get(i).playerPieces[0][j].setLoctaion(1,startingRookPosision+j);
+                    }
+
+                    //Wieże, Gońce, Konie
+                    for(int j=0;j<4;j++){
+                        board[0][startingRookPosision+j].setPiece(players.get(i).playerPieces[j+1][0]);
+                        players.get(i).playerPieces[1][0].setLoctaion(0,startingRookPosision+j);
+
+                        board[0][startingRookPosision+7-j].setPiece(players.get(i).playerPieces[j+1][1]);
+                        players.get(i).playerPieces[1][0].setLoctaion(0,startingRookPosision+7-j);
+                    }
+
+                    //Królowa
+                    board[0][startingRookPosision+4].setPiece(players.get(i).playerPieces[5][0]);
+                    players.get(i).playerPieces[1][0].setLoctaion(0,startingRookPosision+4);
+
+                    //Król
+                    board[0][startingRookPosision+5].setPiece(players.get(i).playerPieces[6][0]);
+                    players.get(i).playerPieces[1][0].setLoctaion(0,startingRookPosision+5);
+                    break;
+
+                case LEFT:
+                    startingRookPosision = (board[board.length].length-8)/2;
+
+                    //Pionki
+                    for(int j=0;j<8;j++){
+                        board[board.length-1][startingRookPosision+j].setPiece(players.get(i).playerPieces[0][j]);
+                        players.get(i).playerPieces[0][j].setLoctaion(board.length-1,startingRookPosision+j);
+                    }
+
+                    //Wieże, Gońce, Konie
+                    for(int j=0;j<4;j++){
+                        board[board.length][startingRookPosision+j].setPiece(players.get(i).playerPieces[j+1][0]);
+                        players.get(i).playerPieces[1][0].setLoctaion(board.length,startingRookPosision+j);
+
+                        board[board.length][startingRookPosision+7-j].setPiece(players.get(i).playerPieces[j+1][1]);
+                        players.get(i).playerPieces[1][0].setLoctaion(board.length,startingRookPosision+7-j);
+                    }
+
+                    //Królowa
+                    board[board.length][startingRookPosision+5].setPiece(players.get(i).playerPieces[5][0]);
+                    players.get(i).playerPieces[1][0].setLoctaion(board.length,startingRookPosision+5);
+
+                    //Król
+                    board[board.length][startingRookPosision+4].setPiece(players.get(i).playerPieces[6][0]);
+                    players.get(i).playerPieces[1][0].setLoctaion(board.length,startingRookPosision+4);
+                    break;
+                case UP:
+
+                    break;
+                case DOWN:
+
+                    break;
+            }
+
+        }
         /* Oryginalna metoda na zrobienie planszy
             //Pierwszy rzad
         board[0][0] = new Spot(new Rook(false,0,0));
@@ -55,22 +124,17 @@ public class Board {
         board[6][7] = new Spot(new Knight(true,6,7));
         board[7][7] = new Spot(new Rook(false,7,7));
 
-       */
-
         //Metoda na plansze przez tablice pionków
-        playersPieces = new ArrayList<>();
 
         //Pionki
         for(int i=0;i<8;i++){
-            board[i][1].setPiece(playersPieces.get(0).get(i));
-            board[i][6].setPiece(playersPieces.get(1).get(i));
+            board[i][1].setPiece(players.get(0).playerPieces.get(0).get(i));
+            board[i][6].setPiece(players.get(1).playerPieces.get(0).get(i));
         }
 
-        addPlayerPieces(0,AttackDirection.LEFT);
-        addPlayerPieces(7,AttackDirection.RIGHT);
         //Wieża
-        board[0][0].setPiece(playersPieces.get(0).get(8));
-        board[7][0].setPiece(playersPieces.get(0).get(9));
+       /* board[0][0].setPiece(playerPieces.get(0).get(8));
+        board[7][0].setPiece(playerPieces.get(0).get(9));
 
         board[0][7].setPiece(playersPieces.get(1).get(8));
         board[7][7].setPiece(playersPieces.get(1).get(9));
@@ -95,65 +159,20 @@ public class Board {
 
         //Król
         board[4][0].setPiece(playersPieces.get(0).get(15));
-        board[3][7].setPiece(playersPieces.get(1).get(15));
-    }
-
-    public enum AttackDirection {
-        LEFT,
-        RIGHT,
-        DOWN,
-        UP
-    }
-
-    public synchronized void addPlayerPieces(int startingRookPosition,AttackDirection attackDirection){
-        ArrayList<Piece> playerPieces = new ArrayList<>();
-        switch (attackDirection){
-            case LEFT:
-                //Pionki dodaje wg schamatu 8xpionki 8xpozostałe figury parami Wieża - konie - gońce - królowa - król
-                //Żeby potem był ładny dostęp do króla
-                //Pionki
-                for(int i=startingRookPosition;i<8+startingRookPosition;i++) playerPieces.add(new Pawn(true,i,1));
-                //Wieża
-                playerPieces.add(new Rook(false,startingRookPosition,0));
-                playerPieces.add(new Rook(false,startingRookPosition+7,0));
-                //Konie
-                playerPieces.add(new Knight(true,startingRookPosition+1,0));
-                playerPieces.add(new Knight(true,6+startingRookPosition,0));
-                //Gońce
-                playerPieces.add(new Bishop(false,2+startingRookPosition,0));
-                playerPieces.add(new Bishop(false,5+startingRookPosition,0));
-                //Królowa
-                playerPieces.add(new Queen(false,3+startingRookPosition,0));
-                //Król
-                playerPieces.add(new King(false,4+startingRookPosition,0));
-                this.playersPieces.add(new ArrayList<>());
-                break;
-            case RIGHT:
-
-                //Pionki
-                for(int i=startingRookPosition;i<8+startingRookPosition;i++) playerPieces.add(new Pawn(true,i,6));
-                //Wieża
-                playerPieces.add(new Rook(false,startingRookPosition,7));
-                playerPieces.add(new Rook(false,startingRookPosition+7,7));
-                //Konie
-                playerPieces.add(new Knight(true,startingRookPosition+1,7));
-                playerPieces.add(new Knight(true,6+startingRookPosition,7));
-                //Gońce
-                playerPieces.add(new Bishop(false,2+startingRookPosition,7));
-                playerPieces.add(new Bishop(false,5+startingRookPosition,7));
-                //Królowa
-                playerPieces.add(new Queen(false,4+startingRookPosition,7));
-                //Król
-                playerPieces.add(new King(false,3+startingRookPosition,7));
-                this.playersPieces.add(new ArrayList<>());
-                break;
-
-            //Potem doda się pozostałe casy do ataku w dół i w góre jak sie to uda
-        }
-    }
-
-    public void setBoard(int boardHeight,int boardWidth){
+        board[3][7].setPiece(playersPieces.get(1).get(15));*/
 
     }
 
+    public enum GameStatus {
+        ACTIVE,
+        ENDGAME
+    }
+
+    public synchronized void setStatus(GameStatus status){
+        this.status = status;
+    }
+
+    public synchronized GameStatus getStatus(){
+        return this.status;
+    }
 }

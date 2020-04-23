@@ -7,43 +7,53 @@ import java.util.Collection;
 
 public abstract class Piece {
 
-    public Spot pieceLocationSpot;
-    private boolean available; //zmienna blokująca ruch w przypadku szacha lub gdy pion umrze
+    public Piece(){
+        super();
+    }
+
+    //public Spot pieceLocationSpot;
+    private int x;
+    private int y;
     private Color color;
 
     public abstract Collection<Spot> getPossibleMoves();
 
-    public abstract boolean validateMove(Spot destination);
-
-    public abstract void move(Spot destination);
-
-    public void setAvailable(boolean a) {
-        available = a;
-    }
-
-    public boolean getAvailable(){
-        return available;
-    }
-
-    public void setColor(Color c) {
+    public synchronized void setColor(Color c) {
         color = c;
     }
 
-    public Color getColor() {
+    public synchronized Color getColor() {
         return color;
     }
 
-    /*public void setX(int x) {
+    public  synchronized void setLoctaion(int x, int y){
+        setX(x);
+        setY(y);
+    };
+
+    public synchronized void setX(int x) {
         this.x = x;
     }
 
-    public int getX(){return this.x;}
+    public synchronized int getX(){return this.x;}
 
-    public void setY(int y) {
+    public synchronized void setY(int y) {
         this.y = y;
     }
 
-    public int getY(){return this.y;}*/ // na zaś gdyby trzeba był wrócić do zwykłych współżednych
+    public synchronized int getY(){return this.y;}
+
+
+    public synchronized boolean validateMove(Spot destination) { //Sprawdzamy czy należy do zbioru
+        return this.getPossibleMoves().contains(destination);
+    }
+
+    public synchronized void move(Spot destination){
+        if(validateMove(destination)){
+            setX(destination.getX());
+            setY(destination.getY());
+        }
+    }
 
 
 }

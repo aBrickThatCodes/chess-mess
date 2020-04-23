@@ -8,10 +8,10 @@ import java.util.List;
 
 public class Rook extends Piece {
 
-    public Rook(boolean available,int x, int y){
+    /*public Rook(boolean available,int x, int y){
         this.setAvailable(available);
         this.pieceLocationSpot.setLocation(x,y);
-    }
+    }*/
 
     @Override
     public synchronized Collection<Spot> getPossibleMoves() {
@@ -19,45 +19,42 @@ public class Rook extends Piece {
         List<Spot> possibleMoves = new ArrayList<Spot>();
 
         int i=1;
-        Spot ahead = new Spot(new Spot.Location(pieceLocationSpot.location.getX(),pieceLocationSpot.location.getY()+i));
-        while(ahead.available){
-            ahead = new Spot(new Spot.Location(pieceLocationSpot.location.getX(),pieceLocationSpot.location.getY()+i)); //Spot do pierwszego dostępnego przed pionkiem
+        Spot ahead = new Spot(getX(),getY()+i);
+        while(ahead.getPiece() == null){
+            ahead = new Spot(getX(),getY()+i); //Spot do pierwszego dostępnego przed pionkiem
             possibleMoves.add(ahead);
             i++;
         }
 
         i=1;
-        Spot left = new Spot(new Spot.Location(pieceLocationSpot.location.getX()-i,pieceLocationSpot.location.getY()));
-        while(left.available){
-            left = new Spot(new Spot.Location(pieceLocationSpot.location.getX()-i,pieceLocationSpot.location.getY())); //Spot do pierwszego dostępnego na lewo
+        Spot left = new Spot(getX()-i, getY());
+        while(left.getPiece() == null){
+            left = new Spot(getX()-i, getY()); //Spot do pierwszego dostępnego na lewo
             possibleMoves.add(left);
             i++;
         }
 
         i=1;
-        Spot right = new Spot(new Spot.Location(pieceLocationSpot.location.getX()+i,pieceLocationSpot.location.getY()));
-        while(right.available){
-            right = new Spot(new Spot.Location(pieceLocationSpot.location.getX()+i,pieceLocationSpot.location.getY())); //Spot do pierwszego dostępnego na prawo
+        Spot right = new Spot(getX()+i, getY());
+        while(right.getPiece() == null){
+            right = new Spot(getX()+i, getY()); //Spot do pierwszego dostępnego na prawo
             possibleMoves.add(right);
             i++;
         }
 
         i=1;
-        Spot behind  = new Spot(new Spot.Location(pieceLocationSpot.location.getX(),pieceLocationSpot.location.getY()-i));
-        while(behind.available){
-            behind = new Spot(new Spot.Location(pieceLocationSpot.location.getX(),pieceLocationSpot.location.getY()-i)); //Spot do pierwszego dostępnego za
+        Spot behind  = new Spot(getX(),getY()-i);
+        while(behind.getPiece() == null){
+            behind = new Spot(getX(),getY()-i); //Spot do pierwszego dostępnego za
             possibleMoves.add(behind);
             i++;
         }
 
+        if(ahead.getPiece().getColor() != this.getColor()) possibleMoves.add(ahead);
+        if(behind.getPiece().getColor() != this.getColor()) possibleMoves.add(behind);
+        if(left.getPiece().getColor() != this.getColor()) possibleMoves.add(left);
+        if(right.getPiece().getColor() != this.getColor()) possibleMoves.add(right);
+
         return possibleMoves;
-    }
-
-    public synchronized boolean validateMove(Spot destination) { //Sprawdzamy czy należy do zbioru
-        return this.getPossibleMoves().contains(destination);
-    }
-
-    public synchronized void move(Spot destination){ //Wykonujemy ruch
-        if(validateMove(destination)) this.pieceLocationSpot = destination;
     }
 }

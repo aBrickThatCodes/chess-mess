@@ -1,17 +1,20 @@
 package chess.game;
 
+import chess.Config;
 import chess.pieces.Piece;
 import java.awt.Color;
 
 public class Spot{
 
-    private Piece piece;
-    public boolean available = true; //zmienna określająca dostępność dla pionków
+    private Piece piece = null;
+    //public boolean available = true;
     private Color spotColor;
-    private int additionalStats = 0;
-    public Location location;
+    private int x;
+    private int y;
+    Config config;
+    //public Location location;
 
-    public static class Location {
+    /*public static class Location {
         public int x;
         public int y;
 
@@ -28,32 +31,37 @@ public class Spot{
             this.y = y;
         }
         public int getY(){return this.y;}
-        }
+        }*/
 
 
-    public Spot(Piece piece, Color spotColor, boolean available, int additionalStats) {
+    /*public Spot(Piece piece, Color spotColor, boolean available, int additionalStats) {
         this.piece=piece;
         this.spotColor=spotColor;
         this.available=available;
         this.additionalStats=additionalStats;
-    }
+    }*/
 
-    public Spot(Piece piece) {
+    /*public Spot(Piece piece) {
         this.piece=piece;
+    }*/
+
+    public Spot(int x, int y) {
+        setX(x);
+        setY(y);
     }
 
-    public Spot(Location location){
+    /*public Spot(Location location){
         this.location = location;
     }
 
     public synchronized void setLocation(int x,int y){
         this.location.setX(x);
         this.location.setY(y);
-    }
+    }*/
 
-    public synchronized void setAvailable(boolean a) {
-        available = a;
-    }
+    /*public synchronized void setAvailable() {
+        if(piece != null) available = false;
+    }*/
 
     public synchronized void setColor(Color c) {
         spotColor = c;
@@ -61,10 +69,6 @@ public class Spot{
 
     public synchronized void setPiece(Piece p) {
         piece = p;
-    }
-
-    public synchronized void getAdditionalStats(int aS){
-        additionalStats = aS;
     }
 
     public synchronized Piece getPiece() {
@@ -75,12 +79,24 @@ public class Spot{
         return spotColor;
     }
 
-    public synchronized boolean getAvailable() {
+    /*public synchronized boolean getAvailable() {
         return available;
+    }*/
+
+    public  synchronized void setLoctaion(int x, int y){
+        setX(x);
+        setY(y);
+    };
+
+    public synchronized void setX(int x) {
+        this.x = x;
     }
 
-    public synchronized int getAdditionalStats(){
-        return additionalStats;
+    public synchronized int getX(){return this.x;}
+
+    public synchronized void setY(int y) {
+        this.y = y;
     }
 
+    public synchronized int getY(){return this.y;}
 }

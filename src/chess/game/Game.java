@@ -1,52 +1,51 @@
 package chess.game;
 
+import chess.Config;
+
 import java.util.ArrayList;
 
 public class Game {
-    Board board = new Board();
-    ArrayList<Board> boaredChanges;
-    ArrayList<Player> players;
-    Player currentTurn;
-    GameStatus status;
+
+    public Board board;
+    public ArrayList<Board> boaredChanges;
+    public ArrayList<Player> players;
+    public Player currentTurn;
+    Config config;
 
 
-    public Game(){ //podstawowe szachy
+    public Game(){
+
         //Plansza
-        board.setBoard();
+        board.setBoard(players);
+
         //Gracze
-        players = new ArrayList<>();
-        players.add(new Player.HumanPlayer(1,"White"));
-        players.add(new Player.HumanPlayer(2,"Black"));
-    }
+        players = new ArrayList<>(config.playerAmount);
 
-    public Game(String[] args){
+        if(config.pvp){
+            for(int i = 0; i< config.playerAmount; i++){
+                players.add(new Player.HumanPlayer());
+                players.get(i).attackDirection = Player.AttackDirection.values()[i%4];
+            }
+        }
+        else {
+            players.add(new Player.HumanPlayer());
+            players.get(0).attackDirection = Player.AttackDirection.RIGHT;
+            for(int i = 0; i< config.playerAmount -1; i++){
+                players.add(new Player.AIPlayer());
+            }
+        }
 
-    }
-
-
-    public enum GameStatus {
-        ACTIVE,
-        BLACK_WIN,
-        WHITE_WIN,
-        FORFEIT,
-        STALEMATE,
-        RESIGNATION,
-        CHECK
     }
 
     public synchronized void addBoardChange(Board board){
         this.boaredChanges.add(board);
     }
 
-    public synchronized void setStatus(GameStatus status){
-        this.status = status;
+    public synchronized void checkCheck(){
+        
     }
 
-    public synchronized GameStatus getStatus(){
-        return this.status;
-    }
-
-    public synchronized void setPlayer(Player player, int numPlayer){
+    /*public synchronized void setPlayer(Player player, int numPlayer){
         this.players.set(numPlayer, player);
     }
 
@@ -55,10 +54,5 @@ public class Game {
     }
 
     public synchronized void isCheck(){
-        /*for(int i =0; i<board.board[0].length;i++){
-            for(int j=0;j<board.board.length;j++){
-
-            }
-        }*/
-    }
+    }*/
 }

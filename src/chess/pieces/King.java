@@ -8,10 +8,12 @@ import java.util.List;
 
 public class King extends Piece {
 
-    public King(boolean available,int x, int y){
+    boolean isCheck = false;
+
+    /*public King(boolean available,int x, int y){
         this.setAvailable(available);
         this.pieceLocationSpot.setLocation(x,y);
-    }
+    }*/
 
     public synchronized Collection<Spot> getPossibleMoves() {
 
@@ -19,49 +21,45 @@ public class King extends Piece {
 
         int i=1;
         int j=1;
-        Spot upRight = new Spot(new Spot.Location(pieceLocationSpot.location.getX()+i,pieceLocationSpot.location.getY()+j));
-        if(upRight.available) possibleMoves.add(upRight);
+        Spot upRight = new Spot(getX()+i,getY()+j);
+        if(upRight.getPiece().getColor() != this.getColor()) possibleMoves.add(upRight);
 
         i=1;
         j=1;
-        Spot upLeft = new Spot(new Spot.Location(pieceLocationSpot.location.getX()-i,pieceLocationSpot.location.getY()+j));
-        if(upLeft.available) possibleMoves.add(upLeft);
+        Spot upLeft = new Spot(getX()-i,getY()+j);
+        if(upLeft.getPiece().getColor() != this.getColor()) possibleMoves.add(upLeft);
 
         i=1;
         j=1;
-        Spot downRight = new Spot(new Spot.Location(pieceLocationSpot.location.getX()+i,pieceLocationSpot.location.getY()-j));
-        if(downRight.available) possibleMoves.add(downRight);
+        Spot downRight = new Spot(getX()+i,getY()-j);
+        if(downRight.getPiece().getColor() != this.getColor()) possibleMoves.add(downRight);
 
         i=1;
         j=1;
-        Spot downLeft = new Spot(new Spot.Location(pieceLocationSpot.location.getX()-i,pieceLocationSpot.location.getY()-j));
-        if(downLeft.available) possibleMoves.add(downLeft);
+        Spot downLeft = new Spot(getX()-i,getY()-j);
+        if(downLeft.getPiece().getColor() != this.getColor()) possibleMoves.add(downLeft);
 
         i=1;
-        Spot ahead = new Spot(new Spot.Location(pieceLocationSpot.location.getX(),pieceLocationSpot.location.getY()+i));
-        if(ahead.available) possibleMoves.add(ahead);
+        Spot ahead = new Spot(getX(),getY()+i); if(ahead.getPiece().getColor() != this.getColor()) possibleMoves.add(ahead);
 
         i=1;
-        Spot left = new Spot(new Spot.Location(pieceLocationSpot.location.getX()-i,pieceLocationSpot.location.getY()));
-        if(left.available) possibleMoves.add(left);
+        Spot left = new Spot(getX()-i,getY()); if(left.getPiece().getColor() != this.getColor()) possibleMoves.add(left);
 
         i=1;
-        Spot right = new Spot(new Spot.Location(pieceLocationSpot.location.getX()+i,pieceLocationSpot.location.getY()));
-        if(right.available) possibleMoves.add(right);
+        Spot right = new Spot(getX()+i,getY()); if(right.getPiece().getColor() != this.getColor()) possibleMoves.add(right);
 
         i=1;
-        Spot behind  = new Spot(new Spot.Location(pieceLocationSpot.location.getX(),pieceLocationSpot.location.getY()-i));
-        if(behind.available) possibleMoves.add(behind);
+        Spot behind  = new Spot(getX(),getY()-i); if(behind.getPiece().getColor() != this.getColor()) possibleMoves.add(behind);
 
         return possibleMoves;
     }
 
-    public synchronized boolean validateMove(Spot destination) { //Sprawdzamy czy należy do zbioru
-        return this.getPossibleMoves().contains(destination);
+    public synchronized void isChecked(boolean check){
+        this.isCheck = check;
     }
 
-    public synchronized void move(Spot destination){ //Wykonujemy ruch
-        if(validateMove(destination)) this.pieceLocationSpot = destination;
+    public synchronized boolean getIsChecked(){
+        return isCheck;
     }
 
 }

@@ -4,15 +4,20 @@ import chess.Config;
 import chess.pieces.Piece;
 
 import javax.swing.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game extends JFrame implements Runnable{
+public class Game extends JFrame implements Runnable, MouseListener {
 
-    private Board board;
+    private Board gameBoard;
     private ArrayList<Board> boardChanges;
     private ArrayList<Player> players;
-    public Player currentTurn;
+    private Player currentTurn;
+    private int currentX;
+    private int currentY;
+    private Piece currentChosenPiece = null;
     Config config;
 
 
@@ -21,12 +26,13 @@ public class Game extends JFrame implements Runnable{
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(640,640);
+        addMouseListener(this);
 
         //Gracze
         players = new ArrayList<>(config.playerAmount);
 
         //Plansza
-        board.setBoard(players);
+        gameBoard = new Board(players);
 
         if(config.pvp){
             for(int i = 0; i< config.playerAmount; i++){
@@ -42,7 +48,7 @@ public class Game extends JFrame implements Runnable{
             }
         }
 
-        this.add(board);
+        this.add(gameBoard);
     }
 
     public synchronized void addBoardChange(Board board){
@@ -71,7 +77,7 @@ public class Game extends JFrame implements Runnable{
     @Override
     public void run() {
 
-        while(board.getStatus() == Board.GameStatus.ACTIVE){
+        while(gameBoard.getStatus() == Board.GameStatus.ACTIVE){
             int playerTurn = 0;
             currentTurn = players.get(playerTurn);
             
@@ -90,7 +96,47 @@ public class Game extends JFrame implements Runnable{
     public synchronized void isCheck(){
     }*/
 
-    public static void main(String[] args){
-        new Game();
+    @Override
+    public void mouseClicked(MouseEvent mouseEvent) {
+
+        currentX = mouseEvent.getX()%this.getWidth()/config.boardWidth;
+        currentY = mouseEvent.getY()%this.getHeight()/config.boardHeight;
+
+        if(currentChosenPiece != null){
+            if(currentChosenPiece.move(currentX,currentY)){
+                System.out.print("Pion przestawiono "+ currentX + " "+ currentY);
+            }
+            else if (currentChosenPiece.move(currentX,currentY)){
+                System.out.print("Poza możliwościami pionka");
+            }
+        }else{
+            currentChosenPiece = gameBoard.getBoard()[currentX][currentY].getPiece();
+        }
+
     }
+
+    @Override
+    public void mousePressed(MouseEvent mouseEvent) {
+        currentX = mouseEvent.getX()%gameBoard.getWidth()/config.boardWidth;
+        currentY = mouseEvent.getY()%gameBoard.getHeight()/config.boardHeight;
+        currentChosenPiece = gameBoard.getBoard()[currentX][currentY].getPiece();
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent mouseEvent) {
+        if(currentChosenPiece != null){
+            if(currentChosenPiece.move(currentX,currentY)){
+                System.out.print("Pion przestawiono "+ currentX + " "+ currentY);
+            }
+            else if (currentChosenPiece.move(currentX,currentY)){
+                System.out.print("Poza możliwościami pionka");
+            }
+        }
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent mouseEvent) {}
+
+    @Override
+    public void mouseExited(MouseEvent mouseEvent) {}
 }

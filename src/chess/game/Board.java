@@ -203,4 +203,8 @@ public class Board extends JPanel {
     public synchronized GameStatus getStatus(){
         return this.status;
     }
+
+    public synchronized Spot[][] getBoard(){
+        return this.board;
+    }
 }

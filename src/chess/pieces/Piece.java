@@ -46,10 +46,13 @@ public abstract class Piece {
         return this.getPossibleMoves().contains(destination);
     }
 
-    public synchronized void move(Spot destination){
-        if(validateMove(destination)){
-            setX(destination.getX());
-            setY(destination.getY());
+    public synchronized boolean move(int x,int y){
+        if(validateMove(new Spot(x,y))){
+            setX(x);
+            setY(y);
+            return true;
+        }else {
+            return false;
         }
     }
 

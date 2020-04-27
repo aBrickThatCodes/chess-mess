@@ -3,19 +3,24 @@ package chess.game;
 import chess.Config;
 import chess.pieces.Piece;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game {
+public class Game extends JFrame implements Runnable{
 
     private Board board;
     private ArrayList<Board> boardChanges;
     private ArrayList<Player> players;
-    //public Player currentTurn;
+    public Player currentTurn;
     Config config;
 
 
     public Game(){
+
+        setVisible(true);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setSize(640,640);
 
         //Gracze
         players = new ArrayList<>(config.playerAmount);
@@ -37,11 +42,7 @@ public class Game {
             }
         }
 
-        while(board.getStatus() == Board.GameStatus.ACTIVE){
-            for(Player currentTurn: players){
-                
-            }
-        }
+        this.add(board);
     }
 
     public synchronized void addBoardChange(Board board){
@@ -56,7 +57,7 @@ public class Game {
             if (currentTurn != player) {
                 for (Piece[] p : player.playerPieces) {
                     for (Piece p2 : p) {
-                        allPossibleMoves.add((Spot) p2.getPossibleMoves());
+                        allPossibleMoves.addAll( p2.getPossibleMoves());
                     }
                 }
             }
@@ -66,6 +67,17 @@ public class Game {
             king.getPossibleMoves().remove(allPossibleMoves);
         } catch (Exception e) {}
     } //trzeba będzie sprawdzić konkretnie czy działą
+
+    @Override
+    public void run() {
+
+        while(board.getStatus() == Board.GameStatus.ACTIVE){
+            int playerTurn = 0;
+            currentTurn = players.get(playerTurn);
+            
+            playerTurn++;
+        }
+    }
 
     /*public synchronized void setPlayer(Player player, int numPlayer){
         this.players.set(numPlayer, player);
@@ -77,4 +89,8 @@ public class Game {
 
     public synchronized void isCheck(){
     }*/
+
+    public static void main(String[] args){
+        new Game();
+    }
 }

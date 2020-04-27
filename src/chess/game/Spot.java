@@ -1,17 +1,17 @@
 package chess.game;
 
-import chess.Config;
 import chess.pieces.Piece;
-import java.awt.Color;
+import javax.swing.*;
+import java.awt.*;
 
-public class Spot{
+public class Spot extends JPanel {
 
     private Piece piece = null;
     //public boolean available = true;
     private Color spotColor;
     private int x;
     private int y;
-    Config config;
+    //Config config;
     //public Location location;
 
     /*public static class Location {
@@ -31,37 +31,37 @@ public class Spot{
             this.y = y;
         }
         public int getY(){return this.y;}
-        }*/
+        }
 
 
-    /*public Spot(Piece piece, Color spotColor, boolean available, int additionalStats) {
+    public Spot(Piece piece, Color spotColor, boolean available, int additionalStats) {
         this.piece=piece;
         this.spotColor=spotColor;
         this.available=available;
         this.additionalStats=additionalStats;
-    }*/
-
-    /*public Spot(Piece piece) {
-        this.piece=piece;
-    }*/
-
-    public Spot(int x, int y) {
-        setX(x);
-        setY(y);
     }
 
-    /*public Spot(Location location){
+    public Spot(Piece piece) {
+        this.piece=piece;
+    }
+
+    public Spot(Location location){
         this.location = location;
     }
 
     public synchronized void setLocation(int x,int y){
         this.location.setX(x);
         this.location.setY(y);
-    }*/
+    }
 
-    /*public synchronized void setAvailable() {
+    public synchronized void setAvailable() {
         if(piece != null) available = false;
     }*/
+
+    public Spot(int x, int y) {
+        setX(x);
+        setY(y);
+    }
 
     public synchronized void setColor(Color c) {
         spotColor = c;

@@ -3,25 +3,29 @@ package chess.game;
 
 import chess.Config;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
-public class Board {
+public class Board extends JPanel {
 
-    public Spot[][] board;
+    private Spot[][] board;
     Config config;
     private GameStatus status;
 
-
     public Board(ArrayList<Player> players){
+        setLayout(new GridLayout(config.boardHeight,config.boardWidth));
         setBoard(players);
         status = GameStatus.ACTIVE;
     }
 
 
-    public synchronized void setBoard(ArrayList<Player> players){
+    public synchronized void setBoard(@org.jetbrains.annotations.NotNull ArrayList<Player> players){
+
         board = new Spot[config.boardWidth][config.boardHeight];
 
         for(int i = 0; i< players.size() ; i++){
+
             switch (players.get(i).attackDirection){
                 case RIGHT:
                     int startingRookPosision = (board[0].length-8)/2;
@@ -85,6 +89,18 @@ public class Board {
             }
 
         }
+
+        //Wypełnianie pozostalych pól
+        for(int i = 0; i< config.boardWidth ; i++){
+            for(int j = 0; j< config.boardHeight ; j++){
+                if(board[i][j] == null){
+                    board[i][j] = new Spot(i,j);
+                }
+            }
+        }
+
+        refreshBoard();
+
         /* Oryginalna metoda na zrobienie planszy
             //Pierwszy rzad
         board[0][0] = new Spot(new Rook(false,0,0));
@@ -162,6 +178,18 @@ public class Board {
         board[3][7].setPiece(playersPieces.get(1).get(15));*/
 
     }
+
+    public synchronized void refreshBoard(){
+
+        for(int i = 0; i< config.boardWidth ; i++){
+            for(int j = 0; j< config.boardHeight ; j++){
+                if(board[i][j] == null){
+                    this.add(board[i][j]);
+                }
+            }
+        }
+    }
+
 
     public enum GameStatus {
         ACTIVE,

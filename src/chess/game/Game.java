@@ -105,6 +105,8 @@ public class Game extends JFrame implements Runnable, MouseListener {
         if(currentChosenPiece != null){
             if(currentChosenPiece.move(currentX,currentY)){
                 System.out.print("Pion przestawiono "+ currentX + " "+ currentY);
+                gameBoard.getBoard()[currentX][currentY].setPiece(currentChosenPiece);
+                currentChosenPiece = null;
             }
             else if (currentChosenPiece.move(currentX,currentY)){
                 System.out.print("Poza możliwościami pionka");
@@ -127,6 +129,8 @@ public class Game extends JFrame implements Runnable, MouseListener {
         if(currentChosenPiece != null){
             if(currentChosenPiece.move(currentX,currentY)){
                 System.out.print("Pion przestawiono "+ currentX + " "+ currentY);
+                gameBoard.getBoard()[currentX][currentY].setPiece(currentChosenPiece);
+                currentChosenPiece = null;
             }
             else if (currentChosenPiece.move(currentX,currentY)){
                 System.out.print("Poza możliwościami pionka");

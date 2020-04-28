@@ -15,6 +15,8 @@ public abstract class Piece {
     private int y;
     private Color color;
 
+    public abstract String getPieceIcon();
+
     public abstract Collection<Spot> getPossibleMoves();
 
     public synchronized void setColor(Color c) {

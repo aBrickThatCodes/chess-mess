@@ -8,10 +8,11 @@ import java.util.List;
 
 public class Rook extends Piece {
 
-    /*public Rook(boolean available,int x, int y){
-        this.setAvailable(available);
-        this.pieceLocationSpot.setLocation(x,y);
-    }*/
+    private String pieceIcon = "♜";
+
+    public String getPieceIcon(){
+        return this.pieceIcon;
+    }
 
     @Override
     public synchronized Collection<Spot> getPossibleMoves() {

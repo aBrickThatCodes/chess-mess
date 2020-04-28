@@ -11,6 +11,7 @@ public class Spot extends JPanel {
     private Color spotColor;
     private int x;
     private int y;
+    JLabel pieceIcon;
     //Config config;
     //public Location location;
 
@@ -64,11 +65,14 @@ public class Spot extends JPanel {
     }
 
     public synchronized void setColor(Color c) {
-        spotColor = c;
+        this.setBackground(c);
     }
 
     public synchronized void setPiece(Piece p) {
         piece = p;
+        this.pieceIcon = new JLabel(p.getPieceIcon());
+        this.pieceIcon.setForeground(p.getColor());
+        this.add(pieceIcon);
     }
 
     public synchronized Piece getPiece() {
@@ -83,10 +87,10 @@ public class Spot extends JPanel {
         return available;
     }*/
 
-    public  synchronized void setLoctaion(int x, int y){
+    /*public  synchronized void setLoctaion(int x, int y){
         setX(x);
         setY(y);
-    };
+    };*/
 
     public synchronized void setX(int x) {
         this.x = x;

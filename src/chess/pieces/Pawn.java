@@ -8,10 +8,11 @@ import java.util.List;
 
 public class Pawn extends Piece {
 
-    /*public Pawn(boolean available, int x, int y){
-        this.setAvailable(available);
-        this.pieceLocationSpot.setLocation(x,y);
-    }*/
+    private String pieceIcon = "♟";
+
+    public String getPieceIcon(){
+        return this.pieceIcon;
+    }
 
     //Zbiór możliwych ruchów
     public synchronized Collection<Spot> getPossibleMoves() {

@@ -82,17 +82,17 @@ public class Game extends JFrame implements Runnable {
             currentY = y;
 
             if(currentChosenPiece != null){
-                if(currentChosenPiece.move(currentX,currentY)){
+                if(currentChosenPiece.move(currentY,currentX)){
                     System.out.println("Pion przestawiono "+ currentX + " "+ currentY);
-                    gameBoard.getBoard()[currentX][currentY].setPiece(currentChosenPiece);
-                    gameBoard.getBoard()[previousX][previousY].setPiece(null);
+                    gameBoard.getBoard()[currentY][currentX].setPiece(currentChosenPiece);
+                    gameBoard.getBoard()[previousY][previousX].setPiece(null);
                     currentChosenPiece = null;
                 }
-                else if (currentChosenPiece.move(currentX,currentY)){
+                else if (currentChosenPiece.move(currentY,currentY)){
                     System.out.println("Poza możliwościami pionka");
                 }
             }else{
-                currentChosenPiece = gameBoard.getBoard()[currentX][currentX].getPiece();
+                currentChosenPiece = gameBoard.getBoard()[currentY][currentX].getPiece();
                 try{
                     System.out.println(currentChosenPiece.getPieceIcon());
                 } catch (Exception e) {

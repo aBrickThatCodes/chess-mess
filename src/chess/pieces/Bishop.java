@@ -22,6 +22,9 @@ public class Bishop extends Piece {
         int j=1;
         Spot upRight = new Spot(getX()+i,getY()+j);
         while(upRight.getPiece() == null){
+            if(i>config.boardWidth){
+                break;
+            }
             upRight = new Spot(getX()+i,getY()+i); //Spot do pierwszego dostępnego po przekątnej w prawo
             possibleMoves.add(upRight);
             i++;
@@ -30,8 +33,11 @@ public class Bishop extends Piece {
 
         i=1;
         j=1;
-        Spot upLeft = new Spot(getX()-i,getY()+j);
+        Spot upLeft = new Spot(getX()+i,getY()-j);
         while(upLeft.getPiece() == null){
+            if(i>config.boardWidth){
+                break;
+            }
             upLeft = new Spot(getX()-i,getY()+j); //Spot do pierwszego dostępnego po przekątnej w prawo
             possibleMoves.add(upLeft);
             i++;
@@ -40,8 +46,11 @@ public class Bishop extends Piece {
 
         i=1;
         j=1;
-        Spot downRight = new Spot(getX()+i,getY()-j);
+        Spot downRight = new Spot(getX()-i,getY()+j);
         while(downRight.getPiece() == null){
+            if(i>config.boardWidth){
+                break;
+            }
             downRight = new Spot(getX()+i,getY()-j); //Spot do pierwszego dostępnego po przekątnej w prawo
             possibleMoves.add(downRight);
             i++;
@@ -52,16 +61,19 @@ public class Bishop extends Piece {
         j=1;
         Spot downLeft = new Spot(getX()-i,getY()-j);
         while(downLeft.getPiece() == null){
+            if(i>config.boardWidth){
+                break;
+            }
             downLeft = new Spot(getX()-i,getY()+i); //Spot do pierwszego dostępnego po przekątnej w prawo
             possibleMoves.add(downRight);
             i++;
             j++;
         }
 
-        if(upRight.getPiece().getColor() != this.getColor()) possibleMoves.add(upRight);
-        if(upLeft.getPiece().getColor() != this.getColor()) possibleMoves.add(upLeft);
-        if(downRight.getPiece().getColor() != this.getColor()) possibleMoves.add(downRight);
-        if(downLeft.getPiece().getColor() != this.getColor()) possibleMoves.add(downLeft);
+        if(upRight.getPiece() !=null && upRight.getPiece().getColor() != this.getColor()) possibleMoves.add(upRight);
+        if(upLeft.getPiece() !=null && upLeft.getPiece().getColor() != this.getColor()) possibleMoves.add(upLeft);
+        if(downRight.getPiece() !=null &&downRight.getPiece().getColor() != this.getColor()) possibleMoves.add(downRight);
+        if(downLeft.getPiece() !=null && downLeft.getPiece().getColor() != this.getColor()) possibleMoves.add(downLeft);
 
         return possibleMoves;
     }

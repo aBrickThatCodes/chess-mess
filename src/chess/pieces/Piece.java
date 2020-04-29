@@ -1,5 +1,6 @@
 package chess.pieces;
 
+import chess.Config;
 import chess.game.Spot;
 
 import java.awt.*;
@@ -13,7 +14,8 @@ public abstract class Piece {
 
     private int x;
     private int y;
-    private Color color;
+    private Color color = Color.BLUE;
+    protected Config config;
 
     public abstract String getPieceIcon();
 
@@ -44,8 +46,20 @@ public abstract class Piece {
 
     public synchronized int getY(){return this.y;}
 
+    public synchronized boolean contains(Spot destination){
+        boolean contains = false;
+        for(Spot s: this.getPossibleMoves()){
+            if(s.getX() == destination.getX()){
+                if(s.getY() == destination.getY()){
+                    contains = true;
+                }
+            }
+        }
+        return contains;
+    }
+
     public synchronized boolean validateMove(Spot destination) { //Sprawdzamy czy należy do zbioru
-        return this.getPossibleMoves().contains(destination);
+        return this.contains(destination);
     }
 
     public synchronized boolean move(int x,int y){

@@ -2,14 +2,16 @@ package chess.game;
 
 import chess.Config;
 import chess.pieces.Piece;
+import chess.pieces.Queen;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game extends JFrame implements Runnable, MouseListener {
+public class Game extends JFrame implements Runnable {
 
     private Board gameBoard;
     private ArrayList<Board> boardChanges;
@@ -26,7 +28,6 @@ public class Game extends JFrame implements Runnable, MouseListener {
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(640,640);
-        addMouseListener(this);
 
         //Gracze
         players = new ArrayList<>(config.playerAmount);
@@ -48,7 +49,104 @@ public class Game extends JFrame implements Runnable, MouseListener {
             }
         }
 
+        for(int i =0; i<config.boardWidth;i++){
+            for(int j =0; j<config.boardWidth;j++){
+                gameBoard.getBoard()[i][j].addMouseListener(new MyMouseListener(i,j));
+            }
+        }
+
         this.add(gameBoard);
+    }
+
+    public class MyMouseListener implements MouseListener {
+        private int x;
+        private  int y;
+        public MyMouseListener(int x,int y){
+            this.x = x;
+            this.y = y;
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent mouseEvent) {
+
+            //Moves pieces
+            //moves images!!!
+            //worked in test on 2 spots with rook  (rook has additional constants to be changed later)
+            //additional prints to check how it works
+            //should work here
+
+            int previousX = currentX;
+            int previousY = currentY;
+
+            currentX = x;
+            currentY = y;
+
+            if(currentChosenPiece != null){
+                if(currentChosenPiece.move(currentX,currentY)){
+                    System.out.println("Pion przestawiono "+ currentX + " "+ currentY);
+                    gameBoard.getBoard()[currentX][currentY].setPiece(currentChosenPiece);
+                    gameBoard.getBoard()[previousX][previousY].setPiece(null);
+                    currentChosenPiece = null;
+                }
+                else if (currentChosenPiece.move(currentX,currentY)){
+                    System.out.println("Poza możliwościami pionka");
+                }
+            }else{
+                currentChosenPiece = gameBoard.getBoard()[currentX][currentX].getPiece();
+                try{
+                    System.out.println(currentChosenPiece.getPieceIcon());
+                } catch (Exception e) {
+                    System.out.println("Brak pionka");
+                }
+            }
+
+        }
+
+        //press and release don't work yet
+        @Override
+        public void mousePressed(MouseEvent mouseEvent) {
+            currentX = x;
+            currentY = y;
+            currentChosenPiece = gameBoard.getBoard()[currentX][currentY].getPiece();
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent mouseEvent) {
+            int previousX = currentX;
+            int previousY = currentY;
+
+            currentX = x;
+            currentY = y;
+
+            if(currentChosenPiece != null){
+                if(currentChosenPiece.move(currentX,currentY)){
+                    System.out.println("Pion przestawiono "+ currentX + " "+ currentY);
+                    gameBoard.getBoard()[currentX][currentY].setPiece(currentChosenPiece);
+                    gameBoard.getBoard()[previousX][previousY].setPiece(null);
+                    currentChosenPiece = null;
+                }
+                else if (currentChosenPiece.move(currentX,currentY)){
+                    System.out.println("Poza możliwościami pionka");
+                }
+            }else{
+                currentChosenPiece = gameBoard.getBoard()[currentX][currentX].getPiece();
+                try{
+                    System.out.println(currentChosenPiece.getPieceIcon());
+                } catch (Exception e) {
+                    System.out.println("Brak pionka");
+                }
+            }
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent mouseEvent) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent mouseEvent) {
+
+        }
     }
 
     public synchronized void addBoardChange(Board board){
@@ -85,62 +183,4 @@ public class Game extends JFrame implements Runnable, MouseListener {
         }
     }
 
-    /*public synchronized void setPlayer(Player player, int numPlayer){
-        this.players.set(numPlayer, player);
-    }
-
-    public synchronized Player getPlayer(int num){
-        return this.players.get(num);
-    }
-
-    public synchronized void isCheck(){
-    }*/
-
-    @Override
-    public void mouseClicked(MouseEvent mouseEvent) {
-
-        currentX = mouseEvent.getX()%this.getWidth()/config.boardWidth;
-        currentY = mouseEvent.getY()%this.getHeight()/config.boardHeight;
-
-        if(currentChosenPiece != null){
-            if(currentChosenPiece.move(currentX,currentY)){
-                System.out.print("Pion przestawiono "+ currentX + " "+ currentY);
-                gameBoard.getBoard()[currentX][currentY].setPiece(currentChosenPiece);
-                currentChosenPiece = null;
-            }
-            else if (currentChosenPiece.move(currentX,currentY)){
-                System.out.print("Poza możliwościami pionka");
-            }
-        }else{
-            currentChosenPiece = gameBoard.getBoard()[currentX][currentY].getPiece();
-        }
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-        currentX = mouseEvent.getX()%gameBoard.getWidth()/config.boardWidth;
-        currentY = mouseEvent.getY()%gameBoard.getHeight()/config.boardHeight;
-        currentChosenPiece = gameBoard.getBoard()[currentX][currentY].getPiece();
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
-        if(currentChosenPiece != null){
-            if(currentChosenPiece.move(currentX,currentY)){
-                System.out.print("Pion przestawiono "+ currentX + " "+ currentY);
-                gameBoard.getBoard()[currentX][currentY].setPiece(currentChosenPiece);
-                currentChosenPiece = null;
-            }
-            else if (currentChosenPiece.move(currentX,currentY)){
-                System.out.print("Poza możliwościami pionka");
-            }
-        }
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent mouseEvent) {}
-
-    @Override
-    public void mouseExited(MouseEvent mouseEvent) {}
 }

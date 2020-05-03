@@ -2,6 +2,7 @@ package chess.game;
 
 import chess.Config;
 import chess.pieces.Piece;
+import chess.pieces.Queen;
 import chess.pieces.Rook;
 
 import javax.swing.*;
@@ -14,15 +15,10 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 public class Test{
 
-    private ArrayList<ArrayList<Spot>> board = new ArrayList<>();
-    private ArrayList<Spot> spots0 = new ArrayList<>();
-    private ArrayList<Spot> spots1 = new ArrayList<>();
-    private ArrayList<Player> players;
-    private Player currentTurn;
+    private Spot[][] board = new Spot[3][3];
     private int currentX;
     private int currentY;
     private Piece currentChosenPiece = null;
-    Config config;
 
 public class MyMouseListener implements MouseListener {
     private int x;
@@ -42,27 +38,27 @@ public class MyMouseListener implements MouseListener {
         currentY = y;
 
         if(currentChosenPiece != null){
-            System.out.println(currentChosenPiece.getPieceIcon());
-            if(currentChosenPiece.move(currentY,currentX)){
-                System.out.println("Pion przestawiono "+ currentX + " "+ currentY);
-                board.get(y).get(x).setPiece(currentChosenPiece);
-                board.get(previusY).get(previusX).setPiece(null);
+            if(currentChosenPiece.move(currentX,currentY,board)){
+                board[previusX][previusY].setPiece(null);
+                board[currentX][currentY].setPiece(currentChosenPiece);
                 currentChosenPiece = null;
+                System.out.println("Pionek przestawiono "+ currentX + " "+ currentY);
             }
-            else if (currentChosenPiece.move(currentY,currentX)){
-                System.out.println("Poza możliwościami pionka");
+            else if (currentChosenPiece.move(currentX,currentY,board)){
+                System.out.println("Poza możliwościami pionka lub jest tam inny pionek");
+                currentChosenPiece = null;
             }
         }else{
             try{
-                currentChosenPiece = board.get(y).get(x).getPiece();
-                System.out.println("current " + currentX + " " + currentY);
-                System.out.println("previous " + previusX + " " + previusY);
+                currentChosenPiece = board[currentX][currentY].getPiece();
+                System.out.println("Current spot " + currentX + " " + currentY);
+                System.out.println("Previous spot " + previusX + " " + previusY);
+                System.out.println("Udało się załadować " + currentChosenPiece.getPieceIcon());
 
             } catch (Exception e) {
                 System.out.println("Brak pionka");
             }
         }
-
     }
 
     @Override
@@ -102,55 +98,67 @@ public class MyMouseListener implements MouseListener {
     }
 }
 
+    public Test(){
 
-    Test(){
+        Config.loadSettings();
         JFrame frame = new JFrame();
         frame.setVisible(true);
         frame.setSize(640,640);
         frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        frame.setLayout(new GridLayout(2,3));
+        frame.setLayout(new GridLayout(3,3));
 
-        Spot spot = new Spot(0,0);
-        Spot spot1 = new Spot(1,0);
-        Spot spot2 = new Spot(2,0);
+        //Stworzenie planszy
+        for(int i = 0; i<3;i++){
+            for(int j = 0; j<3;j++){
+                board[i][j] = new Spot(i,j);
+                board[i][j].addMouseListener(new MyMouseListener(i,j));
+            }
+        }
 
-        Spot spot3 = new Spot(0,1);
-        Spot spot4 = new Spot(1,1);
-        Spot spot5 = new Spot(2,1);
+        //Dodanie kolorów
+        for(int i = 0; i<3;i++){
+            for(int j = 0; j<3;j++){
+                if (j%2 == 0){
+                    for(int k = 0; k<3;k++){
+                        if (k%2 == 0){
+                            board[k][j].setColor(Color.WHITE);
+                        }else {
+                            board[k][j].setColor(Color.BLACK);
+                        }
+                    }
+                }else {
+                    for(int k = 0; k<3;k++){
+                        if (k%2 == 0){
+                            board[k][j].setColor(Color.BLACK);
+                        }else {
+                            board[k][j].setColor(Color.WHITE);
+                        }
+                    }
+                }
 
-        spots0.add(spot);
-        spots0.add(spot1);
-        spots0.add(spot2);
+            }
+        }
 
-        spots1.add(spot3);
-        spots1.add(spot4);
-        spots1.add(spot5);
+        ///Dodanie pionka
+        Rook rook = new Rook();
+        rook.setX(0);
+        rook.setY(0);
+        board[0][0].setPiece(rook);
 
-        spot.setColor(Color.BLACK);
-        spot.addMouseListener(new MyMouseListener(0,0));
+        Queen queen = new Queen();
+        queen.setLoctaion(0,2);
+        queen.setColor(Color.DARK_GRAY);
+        board[0][2].setPiece(queen);
 
-        spot1.setColor(Color.WHITE);
-        spot1.addMouseListener(new MyMouseListener(1,0));
+        //Dodanie do głównego panelu
+        for(int i = 0; i<3;i++){
+            for(int j = 0; j<3;j++){//Zamienione indeksy przy dodawaniu żeby zmienić kierunek dodawaia
+                frame.add(board[j][i]);
+                board[j][i].revalidate();
+            }
+        }
 
-        spot2.setColor(Color.BLACK);
-        spot2.addMouseListener(new MyMouseListener(2,0));
-
-        spot3.setColor(Color.WHITE);
-        spot3.addMouseListener(new MyMouseListener(0,1));
-
-        spot4.setColor(Color.black);
-        spot4.addMouseListener(new MyMouseListener(1,1));
-
-        spot5.setColor(Color.white);
-        spot5.addMouseListener(new MyMouseListener(2,1));
-
-        board.add(spots0);
-        board.add(spots1);
-
-        board.get(0).get(0).setPiece(new Rook());
-
-        for(ArrayList<Spot> s: board) for(Spot s2: s) frame.add(s2);
-
+        frame.revalidate();
     }
     public static void main(String[] args){
         new Test();

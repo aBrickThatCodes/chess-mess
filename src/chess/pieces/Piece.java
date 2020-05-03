@@ -19,7 +19,7 @@ public abstract class Piece {
 
     public abstract String getPieceIcon();
 
-    public abstract Collection<Spot> getPossibleMoves();
+    public abstract Collection<Spot> getPossibleMoves(Spot[][] board);
 
     public synchronized void setColor(Color c) {
         color = c;
@@ -46,11 +46,11 @@ public abstract class Piece {
 
     public synchronized int getY(){return this.y;}
 
-    public synchronized boolean contains(Spot destination){
+    public synchronized boolean contains(int x, int y,Spot[][] board){
         boolean contains = false;
-        for(Spot s: this.getPossibleMoves()){
-            if(s.getX() == destination.getX()){
-                if(s.getY() == destination.getY()){
+        for(Spot s: this.getPossibleMoves(board)){
+            if(s.getX() == x){
+                if(s.getY() == y){
                     contains = true;
                 }
             }
@@ -58,12 +58,12 @@ public abstract class Piece {
         return contains;
     }
 
-    public synchronized boolean validateMove(Spot destination) { //Sprawdzamy czy należy do zbioru
-        return this.contains(destination);
+    public synchronized boolean validateMove(int x,int y,Spot[][] board) { //Sprawdzamy czy należy do zbioru
+        return this.contains(x,y,board);
     }
 
-    public synchronized boolean move(int x,int y){
-        if(validateMove(new Spot(x,y))){
+    public synchronized boolean move(int x,int y,Spot[][] board){
+        if(validateMove(x,y,board)){
             setX(x);
             setY(y);
             return true;

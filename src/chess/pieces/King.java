@@ -16,41 +16,67 @@ public class King extends Piece {
         return this.pieceIcon;
     }
 
-    public synchronized Collection<Spot> getPossibleMoves() {
+    public synchronized Collection<Spot> getPossibleMoves(Spot[][] board) {
 
         List<Spot> possibleMoves = new ArrayList<Spot>();
 
         int i=1;
         int j=1;
-        Spot upRight = new Spot(getX()+i,getY()+j);
-        if(upRight.getPiece().getColor() != this.getColor()) possibleMoves.add(upRight);
+        try{
+            Spot upRight = board[getX()+i][getY()+j];
+            if(upRight.getPiece().getColor() != this.getColor()) possibleMoves.add(upRight);
+        } catch (Exception e) {
+        }
+
 
         i=1;
         j=1;
-        Spot upLeft = new Spot(getX()-i,getY()+j);
-        if(upLeft.getPiece().getColor() != this.getColor()) possibleMoves.add(upLeft);
+        try{
+            Spot upLeft = board[getX()+i][getY()-j];
+            if(upLeft.getPiece().getColor() != this.getColor()) possibleMoves.add(upLeft);
+        } catch (Exception e) {
+        }
+
 
         i=1;
         j=1;
-        Spot downRight = new Spot(getX()+i,getY()-j);
-        if(downRight.getPiece().getColor() != this.getColor()) possibleMoves.add(downRight);
+        try{
+            Spot downRight = board[getX()-i][getY()+j];
+            if(downRight.getPiece().getColor() != this.getColor()) possibleMoves.add(downRight);
+        } catch (Exception e) {
+        }
 
         i=1;
         j=1;
-        Spot downLeft = new Spot(getX()-i,getY()-j);
-        if(downLeft.getPiece().getColor() != this.getColor()) possibleMoves.add(downLeft);
+        try{
+            Spot downLeft = board[getX()-i][getY()-j];
+            if(downLeft.getPiece().getColor() != this.getColor()) possibleMoves.add(downLeft);
+        } catch (Exception e) {
+        }
 
         i=1;
-        Spot ahead = new Spot(getX(),getY()+i); if(ahead.getPiece().getColor() != this.getColor()) possibleMoves.add(ahead);
+        try{
+            Spot ahead = board[getX()+i][getY()]; if(ahead.getPiece().getColor() != this.getColor()) possibleMoves.add(ahead);
+        } catch (Exception e) {
+        }
 
         i=1;
-        Spot left = new Spot(getX()-i,getY()); if(left.getPiece().getColor() != this.getColor()) possibleMoves.add(left);
+        try{
+            Spot left = board[getX()][getY()-i]; if(left.getPiece().getColor() != this.getColor()) possibleMoves.add(left);
+        } catch (Exception e) {
+        }
 
         i=1;
-        Spot right = new Spot(getX()+i,getY()); if(right.getPiece().getColor() != this.getColor()) possibleMoves.add(right);
+        try{
+            Spot right = board[getX()][getY()+i]; if(right.getPiece().getColor() != this.getColor()) possibleMoves.add(right);
+        } catch (Exception e) {
+        }
 
         i=1;
-        Spot behind  = new Spot(getX(),getY()-i); if(behind.getPiece().getColor() != this.getColor()) possibleMoves.add(behind);
+        try{
+            Spot behind  = board[getX()-i][getY()]; if(behind.getPiece().getColor() != this.getColor()) possibleMoves.add(behind);
+        } catch (Exception e) {
+        }
 
         return possibleMoves;
     }

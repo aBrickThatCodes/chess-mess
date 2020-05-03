@@ -2,10 +2,8 @@ package chess.game;
 
 import chess.Config;
 import chess.pieces.Piece;
-import chess.pieces.Queen;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -20,23 +18,24 @@ public class Game extends JFrame implements Runnable {
     private int currentX;
     private int currentY;
     private Piece currentChosenPiece = null;
-    Config config;
 
 
     public Game(){
+
+        Config.loadSettings();
 
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(640,640);
 
         //Gracze
-        players = new ArrayList<>(config.playerAmount);
+        players = new ArrayList<>(Config.Instance().playerAmount);
 
         //Plansza
         gameBoard = new Board(players);
 
-        if(config.pvp){
-            for(int i = 0; i< config.playerAmount; i++){
+        if(Config.Instance().pvp){
+            for(int i = 0; i< Config.Instance().playerAmount; i++){
                 players.add(new Player.HumanPlayer());
                 players.get(i).attackDirection = Player.AttackDirection.values()[i%4];
             }
@@ -44,14 +43,14 @@ public class Game extends JFrame implements Runnable {
         else {
             players.add(new Player.HumanPlayer());
             players.get(0).attackDirection = Player.AttackDirection.RIGHT;
-            for(int i = 0; i< config.playerAmount-1; i++){
+            for(int i = 0; i< Config.Instance().playerAmount-1; i++){
                 players.add(new Player.AIPlayer());
             }
         }
 
-        for(int i =0; i<config.boardWidth;i++){
-            for(int j =0; j<config.boardWidth;j++){
-                gameBoard.getBoard()[i][j].addMouseListener(new MyMouseListener(i,j));
+        for(int i =0; i<Config.Instance().boardWidth;i++){
+            for(int j =0; j<Config.Instance().boardWidth;j++){
+                //gameBoard.getBoard()[i][j].addMouseListener(new MyMouseListener(i,j));
             }
         }
 
@@ -60,7 +59,8 @@ public class Game extends JFrame implements Runnable {
 
     public class MyMouseListener implements MouseListener {
         private int x;
-        private  int y;
+        private int y;
+
         public MyMouseListener(int x,int y){
             this.x = x;
             this.y = y;
@@ -68,74 +68,60 @@ public class Game extends JFrame implements Runnable {
 
         @Override
         public void mouseClicked(MouseEvent mouseEvent) {
-
-            //Moves pieces
-            //moves images!!!
-            //worked in test on 2 spots with rook  (rook has additional constants to be changed later)
-            //additional prints to check how it works
-            //should work here
-
-            int previousX = currentX;
-            int previousY = currentY;
-
+            int previusX = currentX;
             currentX = x;
+
+            int previusY = currentY;
             currentY = y;
 
             if(currentChosenPiece != null){
-                if(currentChosenPiece.move(currentY,currentX)){
-                    System.out.println("Pion przestawiono "+ currentX + " "+ currentY);
-                    gameBoard.getBoard()[currentY][currentX].setPiece(currentChosenPiece);
-                    gameBoard.getBoard()[previousY][previousX].setPiece(null);
+                if(currentChosenPiece.move(currentX,currentY,gameBoard.getBoard())){
+                    gameBoard.getBoard()[previusX][previusY].setPiece(null);
+                    gameBoard.getBoard()[currentX][currentY].setPiece(currentChosenPiece);
+                    currentChosenPiece = null;
+                    System.out.println("Pionek przestawiono "+ currentX + " "+ currentY);
+                }
+                else if (currentChosenPiece.move(currentX,currentY,gameBoard.getBoard())){
+                    System.out.println("Poza możliwościami pionka lub jest tam inny pionek");
                     currentChosenPiece = null;
                 }
-                else if (currentChosenPiece.move(currentY,currentY)){
-                    System.out.println("Poza możliwościami pionka");
-                }
             }else{
-                currentChosenPiece = gameBoard.getBoard()[currentY][currentX].getPiece();
                 try{
-                    System.out.println(currentChosenPiece.getPieceIcon());
+                    currentChosenPiece = gameBoard.getBoard()[currentX][currentY].getPiece();
+                    System.out.println("Current spot " + currentX + " " + currentY);
+                    System.out.println("Previous spot " + previusX + " " + previusY);
+                    System.out.println("Udało się załadować " + currentChosenPiece.getPieceIcon());
+
                 } catch (Exception e) {
                     System.out.println("Brak pionka");
                 }
             }
-
         }
 
-        //press and release don't work yet
         @Override
         public void mousePressed(MouseEvent mouseEvent) {
-            currentX = x;
-            currentY = y;
-            currentChosenPiece = gameBoard.getBoard()[currentX][currentY].getPiece();
+        /*currentX = x;
+        currentChosenPiece = spots.get(x).getPiece();*/
         }
 
         @Override
         public void mouseReleased(MouseEvent mouseEvent) {
-            int previousX = currentX;
-            int previousY = currentY;
-
-            currentX = x;
-            currentY = y;
-
-            if(currentChosenPiece != null){
-                if(currentChosenPiece.move(currentX,currentY)){
-                    System.out.println("Pion przestawiono "+ currentX + " "+ currentY);
-                    gameBoard.getBoard()[currentX][currentY].setPiece(currentChosenPiece);
-                    gameBoard.getBoard()[previousX][previousY].setPiece(null);
-                    currentChosenPiece = null;
-                }
-                else if (currentChosenPiece.move(currentX,currentY)){
-                    System.out.println("Poza możliwościami pionka");
-                }
-            }else{
-                currentChosenPiece = gameBoard.getBoard()[currentX][currentX].getPiece();
-                try{
-                    System.out.println(currentChosenPiece.getPieceIcon());
-                } catch (Exception e) {
-                    System.out.println("Brak pionka");
-                }
+        /*if(currentChosenPiece != null){
+            if(currentChosenPiece.move(currentX,0)){
+                System.out.println("Pion przestawiono "+ currentX + " "+ 0);
+                currentChosenPiece = null;
             }
+            else if (currentChosenPiece.move(currentX,0)){
+                System.out.println("Poza możliwościami pionka");
+            }
+        }else{
+            currentChosenPiece = spots.get(n).getPiece();
+            try{
+                System.out.println(currentChosenPiece.getPieceIcon());
+            } catch (Exception e) {
+                System.out.println("Brak pionka");
+            }
+        }*/
         }
 
         @Override
@@ -161,14 +147,14 @@ public class Game extends JFrame implements Runnable {
             if (currentTurn != player) {
                 for (Piece[] p : player.playerPieces) {
                     for (Piece p2 : p) {
-                        allPossibleMoves.addAll( p2.getPossibleMoves());
+                        //allPossibleMoves.addAll( p2.getPossibleMoves());
                     }
                 }
             }
         }
 
         try{
-            king.getPossibleMoves().remove(allPossibleMoves);
+            //king.getPossibleMoves().remove(allPossibleMoves);
         } catch (Exception e) {}
     } //trzeba będzie sprawdzić konkretnie czy działą
 

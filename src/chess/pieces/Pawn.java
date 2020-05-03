@@ -15,18 +15,27 @@ public class Pawn extends Piece {
     }
 
     //Zbiór możliwych ruchów
-    public synchronized Collection<Spot> getPossibleMoves() {
+    public synchronized Collection<Spot> getPossibleMoves(Spot[][] board) {
 
         List<Spot> possibleMoves = new ArrayList<Spot>();
 
-        Spot ahead = new Spot(getX(),getY()+1); //Spot przeciwko
-        if (ahead.getPiece() == null) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
+        try{
+            Spot ahead = board[getX()+1][getY()];
+            if (ahead.getPiece() == null) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
+        } catch (Exception e) {
+        }
 
-        Spot aheadLeft = new Spot(getX()-1,getY()+1); //Spot po lew
-        if (aheadLeft.getPiece().getColor() != this .getColor()) possibleMoves.add(aheadLeft);
+        try{
+            Spot aheadLeft = board[getX()-1][getY()+1];
+            if (aheadLeft.getPiece().getColor() != this .getColor()) possibleMoves.add(aheadLeft);
+        } catch (Exception e) {
+        }
 
-        Spot aheadRight = new Spot(getX()+1,getY()+1); //Spot po prawo
-        if (aheadRight.getPiece().getColor() != this .getColor()) possibleMoves.add(aheadRight);
+        try{
+            Spot aheadRight = board[getX()+1][getY()+1];
+            if (aheadRight.getPiece().getColor() != this .getColor()) possibleMoves.add(aheadRight);
+        } catch (Exception e) {
+        }
 
         return possibleMoves;
     }

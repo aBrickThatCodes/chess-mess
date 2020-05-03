@@ -15,61 +15,75 @@ public class Rook extends Piece {
     }
 
     @Override
-    public synchronized Collection<Spot> getPossibleMoves() {
+    public synchronized Collection<Spot> getPossibleMoves(Spot[][] board) {
 
         List<Spot> possibleMoves = new ArrayList<Spot>();
 
-        int i=1;
-        Spot ahead = new Spot(getX()+i,getY());
-        while(ahead.getPiece() == null){
+        Spot ahead;
+        int i = 1;
 
-            if(i>10){
-                break;
+        try{
+            while((ahead = board[getX()+i][getY()]).getPiece() == null){
+                possibleMoves.add(ahead);
+                i++;
+                if(i == 12){
+                    break;
+                }
             }
-            ahead = new Spot(getX(),getY()+i); //Spot do pierwszego dostępnego przed pionkiem
-            possibleMoves.add(ahead);
-            i++;
+            if(ahead != null && ahead.getPiece()!=null && ahead.getPiece().getColor() != getColor()){
+                possibleMoves.add(ahead);
+            }
+        } catch (Exception e) {
         }
 
-        i=1;
-        Spot left = new Spot(getX(), getY()-i);
-        while(left.getPiece() == null){
-            if(i>10){
-                break;
+        Spot behind;
+        i = 1;
+        try{
+            while((behind = board[getX()-i][getY()]).getPiece() == null){
+                possibleMoves.add(behind);
+                i++;
+                if(i == 12){
+                    break;
+                }
             }
-            left = new Spot(getX()-i, getY()); //Spot do pierwszego dostępnego na lewo
-            possibleMoves.add(left);
-            i++;
+            if(behind != null && behind.getPiece()!=null && behind.getPiece().getColor() != getColor()){
+                possibleMoves.add(behind);
+            }
+        } catch (Exception e) {
         }
 
-        i=1;
-        Spot right = new Spot(getX(), getY()+i);
-        while(right.getPiece() == null){
-
-            if(i>10){
-                break;
+        Spot left;
+        i = 1;
+        try{
+            while((left = board[getX()][getY()-i]).getPiece() == null){
+                possibleMoves.add(left);
+                i++;
+                if(i == 12){
+                    break;
+                }
             }
-
-            right = new Spot(getX()+i, getY()); //Spot do pierwszego dostępnego na prawo
-            possibleMoves.add(right);
-            i++;
+            if(left != null && left.getPiece()!=null && left.getPiece().getColor() != getColor()){
+                possibleMoves.add(left);
+               // System.out.println("Dodałem pionek");
+            }
+        } catch (Exception e) {
         }
 
-        i=1;
-        Spot behind  = new Spot(getX()-i,getY());
-        while(behind.getPiece() == null){
-            if(i>10){
-                break;
+        Spot right;
+        i = 1;
+        try{
+            while((right = board[getX()][getY()+i]).getPiece() == null){
+                possibleMoves.add(right);
+                i++;
+                if(i == 12){
+                    break;
+                }
             }
-            behind = new Spot(getX(),getY()-i); //Spot do pierwszego dostępnego za
-            possibleMoves.add(behind);
-            i++;
+            if(right != null && right.getPiece()!=null && right.getPiece().getColor() != getColor()){
+                possibleMoves.add(right);
+            }
+        } catch (Exception e) {
         }
-
-        if(ahead.getPiece() !=null && ahead.getPiece().getColor() != this.getColor()) possibleMoves.add(ahead);
-        if(behind.getPiece() !=null && behind.getPiece().getColor() != this.getColor()) possibleMoves.add(behind);
-        if(left.getPiece() !=null && left.getPiece().getColor() != this.getColor()) possibleMoves.add(left);
-        if(right.getPiece() !=null && right.getPiece().getColor() != this.getColor()) possibleMoves.add(right);
 
         return possibleMoves;
     }

@@ -5,22 +5,12 @@ import chess.pieces.*;
 
 public abstract class Player {
 
-    Config config;
     public Piece[][] playerPieces;
     public AttackDirection attackDirection;
 
-    // private boolean isHuman;
-    /*public void setHuman(boolean isHuman){
-        this.isHuman = isHuman;
-    }
-
-    public boolean getHuman(){
-        return this.isHuman;
-    }*/
-
     public synchronized void setPlayerPieces(){
         //Grup I
-        switch (config.pieces[0]) {
+        switch (Config.Instance().pieces[0]) {
             case PAWN:
                 for (int i = 0; i < 8; i++) {
                     playerPieces[0][i] = new Pawn();
@@ -52,9 +42,10 @@ public abstract class Player {
                 }
                 break;
         }
+
         //Other Grups
-        for(int i =1; i<config.pieces.length-1; i++){
-            switch (config.pieces[i]){
+        for(int i =1; i<Config.Instance().pieces.length-1; i++){
+            switch (Config.Instance().pieces[i]){
                 case PAWN:
                     playerPieces[i][0] = new Pawn();
                     playerPieces[i][1] = new Pawn();
@@ -84,14 +75,12 @@ public abstract class Player {
     public static class HumanPlayer extends Player{
 
         public HumanPlayer(){
-            //setHuman(true);
             setPlayerPieces();
         }
     }
 
     public static class AIPlayer extends Player{
         AIPlayer() {
-            //setHuman(false);
             setPlayerPieces();
         }
     }

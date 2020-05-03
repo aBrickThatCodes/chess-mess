@@ -10,19 +10,19 @@ import java.util.ArrayList;
 public class Board extends JPanel {
 
     private Spot[][] board;
-    Config config;
     private GameStatus status;
 
     public Board(ArrayList<Player> players){
-        setLayout(new GridLayout(config.boardHeight,config.boardWidth));
+        Config.loadSettings();
+        setLayout(new GridLayout(Config.Instance().boardHeight,Config.Instance().boardWidth));
         setBoard(players);
         status = GameStatus.ACTIVE;
     }
 
 
-    public synchronized void setBoard(@org.jetbrains.annotations.NotNull ArrayList<Player> players){
+    public synchronized void setBoard(ArrayList<Player> players){
 
-        board = new Spot[config.boardWidth][config.boardHeight];
+        board = new Spot[Config.Instance().boardWidth][Config.Instance().boardHeight];
 
         for(int i = 0; i< players.size() ; i++){
 
@@ -87,12 +87,11 @@ public class Board extends JPanel {
 
                     break;
             }
-
         }
 
         //Wypełnianie pozostalych pól
-        for(int i = 0; i< config.boardWidth ; i++){
-            for(int j = 0; j< config.boardHeight ; j++){
+        for(int i = 0; i< Config.Instance().boardWidth ; i++){
+            for(int j = 0; j< Config.Instance().boardHeight ; j++){
                 if(board[i][j] == null){
                     board[i][j] = new Spot(i,j);
                 }
@@ -181,13 +180,14 @@ public class Board extends JPanel {
 
     public synchronized void refreshBoard(){
 
-        for(int i = 0; i< config.boardWidth ; i++){
-            for(int j = 0; j< config.boardHeight ; j++){
+        for(int i = 0; i< Config.Instance().boardWidth ; i++){
+            for(int j = 0; j< Config.Instance().boardHeight ; j++){
                 if(board[i][j] == null){
                     this.add(board[i][j]);
                 }
             }
         }
+        this.revalidate();
     }
 
 

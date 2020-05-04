@@ -17,7 +17,6 @@ public class Bishop extends Piece {
     public synchronized Collection<Spot> getPossibleMoves(Spot[][] board) {
 
         List<Spot> possibleMoves = new ArrayList<Spot>();
-
         int i=1;
         int j=1;
 
@@ -37,6 +36,8 @@ public class Bishop extends Piece {
         } catch (Exception e) {
         }
 
+        i=1;
+        j=1;
         Spot upLeft;
         try{
             while((upLeft = board[getX()+i][getY()-j]).getPiece() == null){
@@ -46,7 +47,6 @@ public class Bishop extends Piece {
                 if(i == 12){
                     break;
                 }
-
             }
             if(upLeft != null && upLeft.getPiece()!=null && upLeft.getPiece().getColor() != getColor()){
                 possibleMoves.add(upLeft);
@@ -54,6 +54,8 @@ public class Bishop extends Piece {
         } catch (Exception e) {
         }
 
+        i=1;
+        j=1;
         Spot downRight;
         try{
             while((downRight = board[getX()-i][getY()+j]).getPiece() == null){
@@ -70,6 +72,8 @@ public class Bishop extends Piece {
         } catch (Exception e) {
         }
 
+        i=1;
+        j=1;
         Spot downLeft;
         try{
             while((downLeft = board[getX()-i][getY()-j]).getPiece() == null){

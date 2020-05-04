@@ -24,57 +24,57 @@ public class King extends Piece {
         int j=1;
         try{
             Spot upRight = board[getX()+i][getY()+j];
-            if(upRight.getPiece().getColor() != this.getColor()) possibleMoves.add(upRight);
+            if(upRight.getPiece() == null) possibleMoves.add(upRight);
+            else if(upRight.getPiece().getColor() != this.getColor()) possibleMoves.add(upRight);
         } catch (Exception e) {
         }
 
-
-        i=1;
-        j=1;
         try{
             Spot upLeft = board[getX()+i][getY()-j];
-            if(upLeft.getPiece().getColor() != this.getColor()) possibleMoves.add(upLeft);
+            if(upLeft.getPiece() == null) possibleMoves.add(upLeft);
+            else if(upLeft.getPiece().getColor() != this.getColor()) possibleMoves.add(upLeft);
         } catch (Exception e) {
         }
 
-
-        i=1;
-        j=1;
         try{
             Spot downRight = board[getX()-i][getY()+j];
-            if(downRight.getPiece().getColor() != this.getColor()) possibleMoves.add(downRight);
+            if(downRight.getPiece() == null) possibleMoves.add(downRight);
+            else if(downRight.getPiece().getColor() != this.getColor()) possibleMoves.add(downRight);
         } catch (Exception e) {
         }
 
-        i=1;
-        j=1;
         try{
             Spot downLeft = board[getX()-i][getY()-j];
-            if(downLeft.getPiece().getColor() != this.getColor()) possibleMoves.add(downLeft);
+            if(downLeft.getPiece() == null) possibleMoves.add(downLeft);
+            else if(downLeft.getPiece().getColor() != this.getColor()) possibleMoves.add(downLeft);
         } catch (Exception e) {
         }
 
-        i=1;
         try{
-            Spot ahead = board[getX()+i][getY()]; if(ahead.getPiece().getColor() != this.getColor()) possibleMoves.add(ahead);
+            Spot ahead = board[getX()+i][getY()];
+            if(ahead.getPiece() == null) possibleMoves.add(ahead);
+            else if(ahead.getPiece().getColor() != this.getColor()) possibleMoves.add(ahead);
         } catch (Exception e) {
         }
 
-        i=1;
         try{
-            Spot left = board[getX()][getY()-i]; if(left.getPiece().getColor() != this.getColor()) possibleMoves.add(left);
+            Spot left = board[getX()][getY()-i];
+            if(left.getPiece() == null) possibleMoves.add(left);
+            else if(left.getPiece().getColor() != this.getColor()) possibleMoves.add(left);
         } catch (Exception e) {
         }
 
-        i=1;
         try{
-            Spot right = board[getX()][getY()+i]; if(right.getPiece().getColor() != this.getColor()) possibleMoves.add(right);
+            Spot right = board[getX()][getY()+i];
+            if(right.getPiece() == null) possibleMoves.add(right);
+            else if(right.getPiece().getColor() != this.getColor()) possibleMoves.add(right);
         } catch (Exception e) {
         }
 
-        i=1;
         try{
-            Spot behind  = board[getX()-i][getY()]; if(behind.getPiece().getColor() != this.getColor()) possibleMoves.add(behind);
+            Spot behind  = board[getX()-i][getY()];
+            if(behind.getPiece() == null) possibleMoves.add(behind);
+            else if(behind.getPiece().getColor() != this.getColor()) possibleMoves.add(behind);
         } catch (Exception e) {
         }
 

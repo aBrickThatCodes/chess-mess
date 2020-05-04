@@ -38,6 +38,8 @@ public class Queen extends Piece {
         } catch (Exception e) {
         }
 
+        i=1;
+        j=1;
         Spot upLeft;
         try{
             while((upLeft = board[getX()+i][getY()-j]).getPiece() == null){
@@ -47,14 +49,15 @@ public class Queen extends Piece {
                 if(i == 12){
                     break;
                 }
-
             }
             if(upLeft != null && upLeft.getPiece()!=null && upLeft.getPiece().getColor() != getColor()){
                 possibleMoves.add(upLeft);
-                            }
+            }
         } catch (Exception e) {
         }
 
+        i=1;
+        j=1;
         Spot downRight;
         try{
             while((downRight = board[getX()-i][getY()+j]).getPiece() == null){
@@ -67,10 +70,12 @@ public class Queen extends Piece {
             }
             if(downRight != null && downRight.getPiece()!=null && downRight.getPiece().getColor() != getColor()){
                 possibleMoves.add(downRight);
-                            }
+            }
         } catch (Exception e) {
         }
 
+        i=1;
+        j=1;
         Spot downLeft;
         try{
             while((downLeft = board[getX()-i][getY()-j]).getPiece() == null){
@@ -83,13 +88,12 @@ public class Queen extends Piece {
             }
             if(downLeft != null && downLeft.getPiece()!=null && downLeft.getPiece().getColor() != getColor()){
                 possibleMoves.add(downLeft);
-                            }
+            }
         } catch (Exception e) {
         }
 
         Spot ahead;
         i = 1;
-
         try{
             while((ahead = board[getX()+i][getY()]).getPiece() == null){
                 possibleMoves.add(ahead);

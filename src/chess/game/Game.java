@@ -4,6 +4,9 @@ import chess.Config;
 import chess.pieces.Piece;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -49,14 +52,14 @@ public class Game extends JFrame implements Runnable {
 
         for(int i =0; i<Config.Instance().boardWidth;i++){
             for(int j =0; j<Config.Instance().boardWidth;j++){
-                //gameBoard.getBoard()[i][j].addMouseListener(new MyMouseListener(i,j));
+                gameBoard.getBoard()[i][j].addFocusListener(new MyFocusListener(i,j));
             }
         }
 
         this.add(gameBoard);
     }
 
-    public class MyMouseListener implements MouseListener {
+    /*public class MyMouseListener implements MouseListener {
         private int x;
         private int y;
 
@@ -99,11 +102,10 @@ public class Game extends JFrame implements Runnable {
 
         @Override
         public void mousePressed(MouseEvent mouseEvent) {
-        /*currentX = x;
-        currentChosenPiece = spots.get(x).getPiece();*/
+        currentX = x;
+        currentChosenPiece = spots.get(x).getPiece();
         }
 
-        @Override
         public void mouseReleased(MouseEvent mouseEvent) {
         /*if(currentChosenPiece != null){
             if(currentChosenPiece.move(currentX,0)){
@@ -120,7 +122,7 @@ public class Game extends JFrame implements Runnable {
             } catch (Exception e) {
                 System.out.println("Brak pionka");
             }
-        }*/
+        }
         }
 
         @Override
@@ -130,6 +132,62 @@ public class Game extends JFrame implements Runnable {
 
         @Override
         public void mouseExited(MouseEvent mouseEvent) {
+
+        }
+    }*/
+
+    public class MyFocusListener implements FocusListener {
+        private int x;
+        private int y;
+
+        public MyFocusListener(int x, int y){
+            this.x = x;
+            this.y = y;
+        }
+
+        @Override
+        public synchronized void focusGained(FocusEvent focusEvent) {
+            int previusX = currentX;
+            currentX = x;
+
+            int previusY = currentY;
+            currentY = y;
+
+            if(currentChosenPiece != null){
+                if(currentChosenPiece.move(currentX,currentY,gameBoard.getBoard())){
+                    gameBoard.getBoard()[previusX][previusY].setPiece(null);
+                    gameBoard.getBoard()[currentX][currentY].setPiece(currentChosenPiece);
+                    currentChosenPiece = null;
+                    System.out.println("Pionek przestawiono "+ currentX + " "+ currentY);
+                    gameBoard.repaintColors();
+                }
+                else if (!currentChosenPiece.move(currentX,currentY,gameBoard.getBoard())){
+                    System.out.println("Poza możliwościami pionka lub jest tam inny pionek");
+                    currentChosenPiece = null;
+                    gameBoard.repaintColors();
+                }
+            }else{
+                try{
+                    currentChosenPiece = gameBoard.getBoard()[currentX][currentY].getPiece();
+                    for(Spot s:currentChosenPiece.getPossibleMoves(gameBoard.getBoard())){
+                        if(gameBoard.getBoard()[s.getX()][s.getY()].getColor() == Color.WHITE){
+                            gameBoard.getBoard()[s.getX()][s.getY()].setColor(Color.blue);
+                        }else{
+                            gameBoard.getBoard()[s.getX()][s.getY()].setColor(Color.blue);
+                        }
+                    }
+                    System.out.println("Current spot " + currentX + " " + currentY);
+                    System.out.println("Previous spot " + previusX + " " + previusY);
+                    System.out.println("Udało się załadować " + currentChosenPiece.getPieceIcon());
+
+                } catch (Exception e) {
+                    System.out.println("Brak pionka");
+                }
+            }
+        }
+
+        @Override
+        public synchronized void focusLost(FocusEvent focusEvent) {
 
         }
     }

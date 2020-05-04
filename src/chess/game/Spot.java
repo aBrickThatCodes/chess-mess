@@ -25,9 +25,11 @@ public class Spot extends JTextField {
             this.setText(p.getPieceIcon());
             this.setForeground(p.getColor());
             this.setFont(new Font("Name",this.getFont().getStyle(),this.getWidth()));
+            this.revalidate();
         }else{
             this.piece = null;
             this.setText(null);
+            this.revalidate();
         }
     }
 

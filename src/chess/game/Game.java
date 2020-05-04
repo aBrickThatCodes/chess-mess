@@ -23,7 +23,6 @@ public class Game extends JFrame implements Runnable {
     public Game(){
 
         Config.loadSettings();
-
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(640,640);
@@ -81,7 +80,7 @@ public class Game extends JFrame implements Runnable {
                     currentChosenPiece = null;
                     System.out.println("Pionek przestawiono "+ currentX + " "+ currentY);
                 }
-                else if (currentChosenPiece.move(currentX,currentY,gameBoard.getBoard())){
+                else if (!currentChosenPiece.move(currentX,currentY,gameBoard.getBoard())){
                     System.out.println("Poza możliwościami pionka lub jest tam inny pionek");
                     currentChosenPiece = null;
                 }

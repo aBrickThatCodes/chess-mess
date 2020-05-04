@@ -2,7 +2,6 @@ package chess.game;
 
 
 import chess.Config;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ public class Board extends JPanel {
     private GameStatus status;
 
     public Board(ArrayList<Player> players){
-        Config.loadSettings();
         setLayout(new GridLayout(Config.Instance().boardHeight,Config.Instance().boardWidth));
         setBoard(players);
         status = GameStatus.ACTIVE;
@@ -95,6 +93,30 @@ public class Board extends JPanel {
                 if(board[i][j] == null){
                     board[i][j] = new Spot(i,j);
                 }
+            }
+        }
+
+        //Kolorowanie
+        for(int i = 0; i<Config.Instance().boardWidth;i++){
+            for(int j = 0; j<Config.Instance().boardHeight;j++){
+                if (j%2 == 0){
+                    for(int k = 0; k<Config.Instance().boardWidth;k++){
+                        if (k%2 == 0){
+                            board[k][j].setColor(Color.WHITE);
+                        }else {
+                            board[k][j].setColor(Color.BLACK);
+                        }
+                    }
+                }else {
+                    for(int k = 0; k<Config.Instance().boardWidth;k++){
+                        if (k%2 == 0){
+                            board[k][j].setColor(Color.BLACK);
+                        }else {
+                            board[k][j].setColor(Color.WHITE);
+                        }
+                    }
+                }
+
             }
         }
 
@@ -182,9 +204,7 @@ public class Board extends JPanel {
 
         for(int i = 0; i< Config.Instance().boardWidth ; i++){
             for(int j = 0; j< Config.Instance().boardHeight ; j++){
-                if(board[i][j] == null){
-                    this.add(board[i][j]);
-                }
+                this.add(board[i][j]);
             }
         }
         this.revalidate();

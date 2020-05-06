@@ -7,8 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,12 +36,12 @@ public class Game extends JFrame implements Runnable {
 
         if(Config.Instance().pvp){
             for(int i = 0; i< Config.Instance().playerAmount; i++){
-                players.add(new Player.HumanPlayer());
+                //players.add(new Player.HumanPlayer());
                 players.get(i).attackDirection = Player.AttackDirection.values()[i%4];
             }
         }
         else {
-            players.add(new Player.HumanPlayer());
+            //players.add(new Player.HumanPlayer());
             players.get(0).attackDirection = Player.AttackDirection.RIGHT;
             for(int i = 0; i< Config.Instance().playerAmount-1; i++){
                 players.add(new Player.AIPlayer());
@@ -52,11 +50,16 @@ public class Game extends JFrame implements Runnable {
 
         for(int i =0; i<Config.Instance().boardWidth;i++){
             for(int j =0; j<Config.Instance().boardWidth;j++){
-                gameBoard.getBoard()[i][j].addFocusListener(new MyFocusListener(i,j));
+                //gameBoard.getBoard()[i][j].addFocusListener(new MyFocusListener(i,j));
             }
         }
 
         this.add(gameBoard);
+    }
+
+    @Override
+    public void run() {
+
     }
 
     /*public class MyMouseListener implements MouseListener {
@@ -134,7 +137,7 @@ public class Game extends JFrame implements Runnable {
         public void mouseExited(MouseEvent mouseEvent) {
 
         }
-    }*/
+    }
 
     public class MyFocusListener implements FocusListener {
         private int x;
@@ -224,6 +227,6 @@ public class Game extends JFrame implements Runnable {
             
             playerTurn++;
         }
-    }
+    }*/
 
 }

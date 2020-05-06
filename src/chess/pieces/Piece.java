@@ -14,7 +14,7 @@ public abstract class Piece {
 
     private int x;
     private int y;
-    private Color color = Color.BLUE;
+    private Color color;
     protected Config config;
 
     public abstract String getPieceIcon();
@@ -71,6 +71,5 @@ public abstract class Piece {
             return false;
         }
     }
-
 
 }

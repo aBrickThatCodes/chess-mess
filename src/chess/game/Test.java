@@ -18,7 +18,7 @@ public class Test{
     private int boardSize = 8;
 
     private Board gameBoard;
-    ArrayList<Player> players;
+    ArrayList<Player> players = new ArrayList<>();
 
     private int currentX;
     private int currentY;
@@ -210,32 +210,19 @@ public class Test{
             //Kolorowanie
             repaintColors();
 
-            Rook rook = new Rook();
-            rook.setLoctaion(0,0);
-            board[0][0].setPiece(rook);
+            players.add(new Player.HumanPlayer(0, Player.AttackDirection.LEFT,Color.yellow));
+            players.add(new Player.HumanPlayer(0,Player.AttackDirection.RIGHT,Color.blue));
 
-            Queen queen = new Queen();
-            queen.setLoctaion(1,0);
-            board[1][0].setPiece(queen);
+            //Dodawanie pionków
+            for(Player player:players){
+                for(ArrayList<Piece> pieceRow: player.playerPieces){
+                    for(Piece piece: pieceRow){
+                        piece.setColor(player.getPlayerColor());
+                        board[piece.getX()][piece.getY()].setPiece(piece);
 
-            Bishop bishop = new Bishop();
-            bishop.setLoctaion(2,0);
-            bishop.setColor(Color.DARK_GRAY);
-            board[2][0].setPiece(bishop);
-
-            Knight knight = new Knight();
-            knight.setLoctaion(3,1);
-            knight.setColor(Color.DARK_GRAY);
-            board[3][1].setPiece(knight);
-
-            Pawn pawn = new Pawn();
-            pawn.setLoctaion(4,0);
-            board[4][0].setPiece(pawn);
-
-            King king = new King();
-            king.setLoctaion(5,0);
-            king.setColor(Color.DARK_GRAY);
-            board[5][0].setPiece(king);
+                    }
+                }
+            }
 
             for(int j = 0; j< boardSize ; j++){
                 for(int i = 0; i< boardSize ; i++){
@@ -286,57 +273,6 @@ public class Test{
         frame.setVisible(true);
         frame.setSize(640,640);
         frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
-        /*//Stworzenie planszy
-        for(int i = 0; i<boardSize;i++){
-            for(int j = 0; j<boardSize;j++){
-                board[i][j] = new Spot(i,j);
-                board[i][j].addMouseListener(new MyMouseListener(i,j));
-            }
-        }
-
-        //Dodanie kolorów
-        for(int i = 0; i<boardSize;i++){
-            for(int j = 0; j<boardSize;j++){
-                if (j%2 == 0){
-                    for(int k = 0; k<boardSize;k++){
-                        if (k%2 == 0){
-                            board[k][j].setColor(Color.WHITE);
-                        }else {
-                            board[k][j].setColor(Color.BLACK);
-                        }
-                    }
-                }else {
-                    for(int k = 0; k<boardSize;k++){
-                        if (k%2 == 0){
-                            board[k][j].setColor(Color.BLACK);
-                        }else {
-                            board[k][j].setColor(Color.WHITE);
-                        }
-                    }
-                }
-
-            }
-        }*/
-
-        /*///Dodanie pionka
-        Rook rook = new Rook();
-        rook.setX(0);
-        rook.setY(0);
-        board[0][0].setPiece(rook);
-
-        Queen queen = new Queen();
-        queen.setLoctaion(0,2);
-        //queen.setColor(Color.DARK_GRAY);
-        board[0][2].setPiece(queen);
-
-        //Dodanie do głównego panelu
-        for(int i = 0; i<boardSize;i++){
-            for(int j = 0; j<boardSize;j++){//Zamienione indeksy przy dodawaniu żeby zmienić kierunek dodawaia
-                frame.add(board[j][i]);
-                board[j][i].revalidate();
-            }
-        }*/
 
         gameBoard.revalidate();
         frame.add(gameBoard);

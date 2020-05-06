@@ -13,8 +13,8 @@ public class Board extends JPanel {
 
     public Board(ArrayList<Player> players){
         setLayout(new GridLayout(Config.Instance().boardHeight,Config.Instance().boardWidth));
-        setBoard(players);
-        status = GameStatus.ACTIVE;
+        //setBoard(players);
+        //status = GameStatus.ACTIVE;
     }
 
     public synchronized void repaintColors(){
@@ -42,7 +42,7 @@ public class Board extends JPanel {
         }
     }
 
-    public synchronized void setBoard(ArrayList<Player> players){
+    /*public synchronized void setBoard(ArrayList<Player> players){
 
         board = new Spot[Config.Instance().boardWidth][Config.Instance().boardHeight];
 
@@ -146,7 +146,7 @@ public class Board extends JPanel {
 
         refreshBoard();
 
-        /* Oryginalna metoda na zrobienie planszy
+        /*Oryginalna metoda na zrobienie planszy
             //Pierwszy rzad
         board[0][0] = new Spot(new Rook(false,0,0));
         board[1][0] = new Spot(new Knight(true,1,0));
@@ -220,7 +220,7 @@ public class Board extends JPanel {
 
         //Król
         board[4][0].setPiece(playersPieces.get(0).get(15));
-        board[3][7].setPiece(playersPieces.get(1).get(15));*/
+        board[3][7].setPiece(playersPieces.get(1).get(15));
 
     }
 
@@ -228,15 +228,10 @@ public class Board extends JPanel {
 
         for(int i = 0; i< Config.Instance().boardWidth ; i++){
             for(int j = 0; j< Config.Instance().boardHeight ; j++){
-                this.add(board[i][j]);
+                this.add(board[j][i]);
             }
         }
         this.revalidate();
-    }
-
-    public enum GameStatus {
-        ACTIVE,
-        ENDGAME
     }
 
     public synchronized void setStatus(GameStatus status){
@@ -249,5 +244,10 @@ public class Board extends JPanel {
 
     public synchronized Spot[][] getBoard(){
         return this.board;
+    }*/
+
+    public enum GameStatus {
+        ACTIVE,
+        ENDGAME
     }
 }

@@ -3,136 +3,615 @@ package chess.game;
 import chess.Config;
 import chess.pieces.*;
 
+import java.awt.*;
+import java.util.ArrayList;
+
 public abstract class Player {
 
-    public Piece[][] playerPieces;
+    public ArrayList<ArrayList<Piece>> playerPieces;
     public AttackDirection attackDirection;
+    private int startingRookPosition;
+    private Color playerColor;// = Color.yellow;
 
-    public synchronized void setPlayerPieces(){
-        //Grup I
-        switch (Config.Instance().pieces[0]) {
-            case PAWN:
-                for (int i = 0; i < 8; i++) {
-                    playerPieces[0][i] = new Pawn();
-                }
-                break;
-            case ROOK:
-                for (int i = 0; i < 8; i++) {
-                    playerPieces[0][i] = new Rook();
-                }
-                break;
-            case BISHOP:
-                for (int i = 0; i < 8; i++) {
-                    playerPieces[0][i] = new Bishop();
-                }
-                break;
-            case KNIGHT:
-                for (int i = 0; i < 8; i++) {
-                    playerPieces[0][i] = new Knight();
-                }
-                break;
-            case QUEEN:
-                for (int i = 0; i < 8; i++) {
-                    playerPieces[0][i] = new Queen();
-                }
-                break;
-            case KING:
-                for (int i = 0; i < 8; i++) {
-                    playerPieces[0][i] = new King();
-                }
-                break;
-        }
+    public synchronized void setPlayerPieces(int startingRookPosition,AttackDirection attackDirection){
+        switch(attackDirection){
+            case LEFT:
+                //Grup I
+                switch (Config.Instance().pieces[0]) {
+                    case PAWN:
+                        //Pionki
+                        ArrayList<Piece> pawns = new ArrayList();
 
-        //Other Grups
-        for(int i =1; i<Config.Instance().pieces.length-1; i++){
-            switch (Config.Instance().pieces[i]){
-                case PAWN:
-                    playerPieces[i][0] = new Pawn();
-                    playerPieces[i][1] = new Pawn();
-                    break;
-                case ROOK:
-                    playerPieces[i][0] = new Rook();
-                    playerPieces[i][1] = new Rook();
-                    break;
-                case BISHOP:
-                    playerPieces[i][0] = new Bishop();
-                    playerPieces[i][1] = new Bishop();
-                    break;
-                case KNIGHT:
-                    playerPieces[i][0] = new Knight();
-                    playerPieces[i][1] = new Knight();
-                    break;
-                case QUEEN:
-                    playerPieces[i][0] = new Queen();
-                    break;
-                case KING:
-                    playerPieces[i][0] = new King();
-                    break;
-            }
+                        for(int i=0;i<8;i++){
+                            Pawn pawn = new Pawn(attackDirection);
+                            pawn.setLoctaion(1,startingRookPosition+i);
+                            pawns.add(pawn);
+                        }
+
+                        playerPieces.add(pawns);
+                        break;
+                    case ROOK:
+                        ArrayList<Piece> rooks = new ArrayList();
+
+                        for(int i=0;i<8;i++){
+                            Rook rook = new Rook();
+                            rook.setLoctaion(1,startingRookPosition+i);
+                            rooks.add(rook);
+                        }
+
+                        playerPieces.add(rooks);
+                        break;
+                    case BISHOP:
+                        ArrayList<Piece> bishops = new ArrayList();
+
+                        for(int i=0;i<8;i++){
+                            Bishop bishop = new Bishop();
+                            bishop.setLoctaion(1,startingRookPosition+i);
+                            bishops.add(bishop);
+                        }
+
+                        playerPieces.add(bishops);
+                        break;
+                    case KNIGHT:
+                        ArrayList<Piece> knights = new ArrayList();
+
+                        for(int i=0;i<8;i++){
+                            Knight knight = new Knight();
+                            knight.setLoctaion(1,startingRookPosition+i);
+                            knights.add(knight);
+                        }
+
+                        playerPieces.add(knights);
+                        break;
+                    case QUEEN:
+                        ArrayList<Piece> queens = new ArrayList();
+
+                        for(int i=0;i<8;i++){
+                            Queen queen = new Queen();
+                            queen.setLoctaion(1,startingRookPosition+i);
+                            queens.add(queen);
+                        }
+
+                        playerPieces.add(queens);
+                        break;
+                    case KING:
+                        ArrayList<Piece> kings = new ArrayList();
+
+                        for(int i=0;i<8;i++){
+                            King king = new King();
+                            king.setLoctaion(1,startingRookPosition+i);
+                            kings.add(king);
+                        }
+
+                        playerPieces.add(kings);
+                        break;
+                }
+                //Other groups apart for spots with queen and king
+                for(int i = 1; i<4;i++){
+                    ArrayList<Piece> pieces = new ArrayList<>();
+                    switch (Config.Instance().pieces[i]){
+                        case PAWN:
+
+                            Pawn pawn = new Pawn(attackDirection);
+                            pawn.setLoctaion(0,startingRookPosition+i);
+                            pieces.add(pawn);
+
+                            pawn = new Pawn(attackDirection);
+                            pawn.setLoctaion(0,startingRookPosition+7-i);
+                            pieces.add(pawn);
+
+                            break;
+
+                        case KING:
+                            King king = new King();
+                            king.setLoctaion(0,startingRookPosition+i);
+                            pieces.add(king);
+
+                            king = new King();
+                            king.setLoctaion(0,startingRookPosition+7-i);
+                            pieces.add(king);
+
+                            break;
+                        case KNIGHT:
+                            Knight knight = new Knight();
+                            knight.setLoctaion(0,startingRookPosition+i);
+                            pieces.add(knight);
+
+                            knight = new Knight();
+                            knight.setLoctaion(0,startingRookPosition+7-i);
+                            pieces.add(knight);
+
+                            break;
+                        case BISHOP:
+                            Bishop Bishop = new Bishop();
+                            Bishop.setLoctaion(0,startingRookPosition+i);
+                            pieces.add(Bishop);
+
+                            Bishop = new Bishop();
+                            Bishop.setLoctaion(0,startingRookPosition+7-i);
+                            pieces.add(Bishop);
+
+                            break;
+                        case QUEEN:
+                            Queen Queen = new Queen();
+                            Queen.setLoctaion(0,startingRookPosition+i);
+                            pieces.add(Queen);
+
+                            Queen = new Queen();
+                            Queen.setLoctaion(0,startingRookPosition+7-i);
+                            pieces.add(Queen);
+
+                            break;
+                        case ROOK:
+                            Rook Rook = new Rook();
+                            Rook.setLoctaion(0,startingRookPosition+i);
+                            pieces.add(Rook);
+
+                            Rook = new Rook();
+                            Rook.setLoctaion(0,startingRookPosition+7-i);
+                            pieces.add(Rook);
+
+                            break;
+                    }
+                    playerPieces.add(pieces);
+                }
+                //Queen spot
+                ArrayList<Piece> pieces = new ArrayList();
+                switch (Config.Instance().pieces[4]){
+                    case PAWN:
+
+                        Pawn pawn = new Pawn(attackDirection);
+                        pawn.setLoctaion(0,startingRookPosition+3);
+                        pieces.add(pawn);
+                        break;
+
+                    case KING:
+                        King king = new King();
+                        king.setLoctaion(0,startingRookPosition+3);
+                        pieces.add(king);
+                        break;
+                    case KNIGHT:
+                        Knight knight = new Knight();
+                        knight.setLoctaion(0,startingRookPosition+3);
+                        pieces.add(knight);
+                        break;
+                    case BISHOP:
+                        Bishop Bishop = new Bishop();
+                        Bishop.setLoctaion(0,startingRookPosition+3);
+                        pieces.add(Bishop);
+                        break;
+                    case QUEEN:
+                        Queen Queen = new Queen();
+                        Queen.setLoctaion(0,startingRookPosition+3);
+                        pieces.add(Queen);
+                        break;
+                    case ROOK:
+                        Rook Rook = new Rook();
+                        Rook.setLoctaion(0,startingRookPosition+3);
+                        pieces.add(Rook);
+                        break;
+                }
+                playerPieces.add(pieces);
+                //King spot
+                pieces = new ArrayList();
+                switch (Config.Instance().pieces[5]){
+                    case PAWN:
+
+                        Pawn pawn = new Pawn(attackDirection);
+                        pawn.setLoctaion(0,startingRookPosition+4);
+                        pieces.add(pawn);
+                        break;
+
+                    case KING:
+                        King king = new King();
+                        king.setLoctaion(0,startingRookPosition+4);
+                        pieces.add(king);
+                        break;
+                    case KNIGHT:
+                        Knight knight = new Knight();
+                        knight.setLoctaion(0,startingRookPosition+4);
+                        pieces.add(knight);
+                        break;
+                    case BISHOP:
+                        Bishop Bishop = new Bishop();
+                        Bishop.setLoctaion(0,startingRookPosition+4);
+                        pieces.add(Bishop);
+                        break;
+                    case QUEEN:
+                        Queen Queen = new Queen();
+                        Queen.setLoctaion(0,startingRookPosition+4);
+                        pieces.add(Queen);
+                        break;
+                    case ROOK:
+                        Rook Rook = new Rook();
+                        Rook.setLoctaion(0,startingRookPosition+4);
+                        pieces.add(Rook);
+                        break;
+                }
+                playerPieces.add(pieces);
+
+            case RIGHT:
+
+                //Grup I
+                switch (Config.Instance().pieces[0]) {
+                    case PAWN:
+                        //Pionki
+                        ArrayList<Piece> pawns = new ArrayList();
+
+                        for(int i=Config.Instance().boardWidth-2;i<8;i++){
+                            Pawn pawn = new Pawn(attackDirection);
+                            pawn.setLoctaion(Config.Instance().boardWidth-2,startingRookPosition+i);
+                            pawns.add(pawn);
+                        }
+
+                        playerPieces.add(pawns);
+                        break;
+                    case ROOK:
+                        ArrayList<Piece> rooks = new ArrayList();
+
+                        for(int i=Config.Instance().boardWidth-2;i<8;i++){
+                            Rook rook = new Rook();
+                            rook.setLoctaion(Config.Instance().boardWidth-2,startingRookPosition+i);
+                            rooks.add(rook);
+                        }
+
+                        playerPieces.add(rooks);
+                        break;
+                    case BISHOP:
+                        ArrayList<Piece> bishops = new ArrayList();
+
+                        for(int i=Config.Instance().boardWidth-2;i<8;i++){
+                            Bishop bishop = new Bishop();
+                            bishop.setLoctaion(Config.Instance().boardWidth-2,startingRookPosition+i);
+                            bishops.add(bishop);
+                        }
+
+                        playerPieces.add(bishops);
+                        break;
+                    case KNIGHT:
+                        ArrayList<Piece> knights = new ArrayList();
+
+                        for(int i=Config.Instance().boardWidth-2;i<8;i++){
+                            Knight knight = new Knight();
+                            knight.setLoctaion(Config.Instance().boardWidth-2,startingRookPosition+i);
+                            knights.add(knight);
+                        }
+
+                        playerPieces.add(knights);
+                        break;
+                    case QUEEN:
+                        ArrayList<Piece> queens = new ArrayList();
+
+                        for(int i=Config.Instance().boardWidth-2;i<8;i++){
+                            Queen queen = new Queen();
+                            queen.setLoctaion(Config.Instance().boardWidth-2,startingRookPosition+i);
+                            queens.add(queen);
+                        }
+
+                        playerPieces.add(queens);
+                        break;
+                    case KING:
+                        ArrayList<Piece> kings = new ArrayList();
+
+                        for(int i=Config.Instance().boardWidth-2;i<8;i++){
+                            King king = new King();
+                            king.setLoctaion(Config.Instance().boardWidth-2,startingRookPosition+i);
+                            kings.add(king);
+                        }
+
+                        playerPieces.add(kings);
+                        break;
+                }
+                //Other groups apart for spots with queen and king
+                for(int i = 1; i<4;i++){
+                    pieces = new ArrayList<>();
+                    switch (Config.Instance().pieces[i]){
+                        case PAWN:
+
+                            Pawn pawn = new Pawn(attackDirection);
+                            pawn.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+i);
+                            pieces.add(pawn);
+
+                            pawn = new Pawn(attackDirection);
+                            pawn.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+7-i);
+                            pieces.add(pawn);
+
+                            break;
+
+                        case KING:
+                            King king = new King();
+                            king.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+i);
+                            pieces.add(king);
+
+                            king = new King();
+                            king.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+7-i);
+                            pieces.add(king);
+
+                            break;
+                        case KNIGHT:
+                            Knight knight = new Knight();
+                            knight.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+i);
+                            pieces.add(knight);
+
+                            knight = new Knight();
+                            knight.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+7-i);
+                            pieces.add(knight);
+
+                            break;
+                        case BISHOP:
+                            Bishop Bishop = new Bishop();
+                            Bishop.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+i);
+                            pieces.add(Bishop);
+
+                            Bishop = new Bishop();
+                            Bishop.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+7-i);
+                            pieces.add(Bishop);
+
+                            break;
+                        case QUEEN:
+                            Queen Queen = new Queen();
+                            Queen.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+i);
+                            pieces.add(Queen);
+
+                            Queen = new Queen();
+                            Queen.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+7-i);
+                            pieces.add(Queen);
+
+                            break;
+                        case ROOK:
+                            Rook Rook = new Rook();
+                            Rook.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+i);
+                            pieces.add(Rook);
+
+                            Rook = new Rook();
+                            Rook.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+7-i);
+                            pieces.add(Rook);
+
+                            break;
+                    }
+                    playerPieces.add(pieces);
+                }
+                //Queen spot
+                pieces = new ArrayList();
+                switch (Config.Instance().pieces[4]){
+                    case PAWN:
+
+                        Pawn pawn = new Pawn(attackDirection);
+                        pawn.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+4);
+                        pieces.add(pawn);
+                        break;
+
+                    case KING:
+                        King king = new King();
+                        king.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+4);
+                        pieces.add(king);
+                        break;
+                    case KNIGHT:
+                        Knight knight = new Knight();
+                        knight.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+4);
+                        pieces.add(knight);
+                        break;
+                    case BISHOP:
+                        Bishop Bishop = new Bishop();
+                        Bishop.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+4);
+                        pieces.add(Bishop);
+                        break;
+                    case QUEEN:
+                        Queen Queen = new Queen();
+                        Queen.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+4);
+                        pieces.add(Queen);
+                        break;
+                    case ROOK:
+                        Rook Rook = new Rook();
+                        Rook.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+4);
+                        pieces.add(Rook);
+                        break;
+                }
+                playerPieces.add(pieces);
+                //King spot
+                pieces = new ArrayList();
+                switch (Config.Instance().pieces[5]){
+                    case PAWN:
+
+                        Pawn pawn = new Pawn(attackDirection);
+                        pawn.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+3);
+                        pieces.add(pawn);
+                        break;
+
+                    case KING:
+                        King king = new King();
+                        king.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+3);
+                        pieces.add(king);
+                        break;
+                    case KNIGHT:
+                        Knight knight = new Knight();
+                        knight.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+3);
+                        pieces.add(knight);
+                        break;
+                    case BISHOP:
+                        Bishop Bishop = new Bishop();
+                        Bishop.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+3);
+                        pieces.add(Bishop);
+                        break;
+                    case QUEEN:
+                        Queen Queen = new Queen();
+                        Queen.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+3);
+                        pieces.add(Queen);
+                        break;
+                    case ROOK:
+                        Rook Rook = new Rook();
+                        Rook.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+3);
+                        pieces.add(Rook);
+                        break;
+                }
+                playerPieces.add(pieces);
         }
     }
 
     public static class HumanPlayer extends Player{
 
-        public HumanPlayer(){
-            setPlayerPieces();
+        public HumanPlayer(int startingRookPosition, AttackDirection attackDirection,Color playerColor){
+            addPlayerPieces(startingRookPosition,attackDirection);
+            setStartingRookPosition(startingRookPosition);
+            this.setPlayerColor(playerColor);
         }
+    }
+
+    public synchronized void setStartingRookPosition(int startingRookPosition){
+        this.startingRookPosition = startingRookPosition;
+    }
+
+    public synchronized int getStartingRookPosition(){
+        return this.startingRookPosition;
+    }
+
+    public synchronized void setPlayerColor(Color color){
+        this.playerColor = color;
+    }
+
+    public synchronized Color getPlayerColor(){
+        return this.playerColor;
     }
 
     public static class AIPlayer extends Player{
         AIPlayer() {
-            setPlayerPieces();
+            //setPlayerPieces();
         }
     }
 
-    /*public synchronized void addPlayerPieces(int startingRookPosition, Board.AttackDirection attackDirection){
+    public synchronized void addPlayerPieces(int startingRookPosition,AttackDirection attackDirection){ //Metoda tworząca podstawowe szachy do testów
 
+        playerPieces = new ArrayList<>();
         switch (attackDirection){
             case LEFT:
-                //Pionki dodaje wg schamatu 8xpionki 8xpozostałe figury parami Wieża - konie - gońce - królowa - król
-                //Żeby potem był ładny dostęp do króla
                 //Pionki
-                for(int i=startingRookPosition;i<8+startingRookPosition;i++) playerPieces.add(new Pawn(true,i,1));
+                ArrayList<Piece> pawns = new ArrayList();
+                for(int i=0;i<8;i++){
+                    Pawn pawn = new Pawn(attackDirection);
+                    pawn.setLoctaion(1,startingRookPosition+i);
+                    pawns.add(pawn);
+                }
+                playerPieces.add(pawns);
                 //Wieża
-                playerPieces.add(new Rook(false,startingRookPosition,0));
-                playerPieces.add(new Rook(false,startingRookPosition+7,0));
+                ArrayList<Piece> rooks = new ArrayList<>();
+
+                Rook rook1 = new Rook();
+                rook1.setLoctaion(0,startingRookPosition);
+                rooks.add(rook1);
+
+                Rook rook2 = new Rook();
+                rook2.setLoctaion(0,startingRookPosition+7);
+                rooks.add(rook2);
+
+                playerPieces.add(rooks);
+
                 //Konie
-                playerPieces.add(new Knight(true,startingRookPosition+1,0));
-                playerPieces.add(new Knight(true,6+startingRookPosition,0));
+                ArrayList<Piece> knights = new ArrayList<>();
+
+                Knight knight1 = new Knight();
+                knight1.setLoctaion(0,startingRookPosition+1);
+                knights.add(knight1);
+
+                Knight knight2 = new Knight();
+                knight2.setLoctaion(0,startingRookPosition+6);
+                knights.add(knight2);
+
+                playerPieces.add(knights);
                 //Gońce
-                playerPieces.add(new Bishop(false,2+startingRookPosition,0));
-                playerPieces.add(new Bishop(false,5+startingRookPosition,0));
+                ArrayList<Piece> bishops = new ArrayList<>();
+
+                Bishop bishop1 = new Bishop();
+                bishop1.setLoctaion(0,startingRookPosition+2);
+                bishops.add(bishop1);
+
+                Bishop bishop2 = new Bishop();
+                bishop2.setLoctaion(0,startingRookPosition+5);
+                bishops.add(bishop2);
+
+                playerPieces.add(bishops);
+
                 //Królowa
-                playerPieces.add(new Queen(false,3+startingRookPosition,0));
+                ArrayList<Piece> queens = new ArrayList<>();
+                Queen queen = new Queen();
+                queen.setLoctaion(0,startingRookPosition+3);
+                queens.add(queen);
+                playerPieces.add(queens);
                 //Król
-                playerPieces.add(new King(false,4+startingRookPosition,0));
-                this.playerPieces.add(new ArrayList<>());
+                ArrayList<Piece> kings = new ArrayList<>();
+                King king = new King();
+                king.setLoctaion(0,startingRookPosition+4);
+                kings.add(king);
+                playerPieces.add(kings);
                 break;
             case RIGHT:
-
                 //Pionki
-                for(int i=startingRookPosition;i<8+startingRookPosition;i++) playerPieces.add(new Pawn(true,i,6));
+                pawns = new ArrayList();
+
+                for(int i=0;i<8;i++){
+                    Pawn pawn = new Pawn(attackDirection);
+                    pawn.setLoctaion(6,startingRookPosition+i);
+                    pawns.add(pawn);
+                }
+                playerPieces.add(pawns);
                 //Wieża
-                playerPieces.add(new Rook(false,startingRookPosition,7));
-                playerPieces.add(new Rook(false,startingRookPosition+7,7));
+                rooks = new ArrayList<>();
+
+                Rook rook6 = new Rook();
+                rook6.setLoctaion(7,startingRookPosition);
+                rooks.add(rook6);
+
+                rook2 = new Rook();
+                rook2.setLoctaion(7,startingRookPosition+7);
+                rooks.add(rook2);
+
+                playerPieces.add(rooks);
+
                 //Konie
-                playerPieces.add(new Knight(true,startingRookPosition+1,7));
-                playerPieces.add(new Knight(true,6+startingRookPosition,7));
+                knights = new ArrayList<>();
+
+                Knight knight6 = new Knight();
+                knight6.setLoctaion(7,startingRookPosition+1);
+                knights.add(knight6);
+
+                knight2 = new Knight();
+                knight2.setLoctaion(7,startingRookPosition+6);
+                knights.add(knight2);
+
+                playerPieces.add(knights);
                 //Gońce
-                playerPieces.add(new Bishop(false,2+startingRookPosition,7));
-                playerPieces.add(new Bishop(false,5+startingRookPosition,7));
+                 bishops = new ArrayList<>();
+
+                Bishop bishop6 = new Bishop();
+                bishop6.setLoctaion(7,startingRookPosition+2);
+                bishops.add(bishop6);
+
+                bishop2 = new Bishop();
+                bishop2.setLoctaion(7,startingRookPosition+5);
+                bishops.add(bishop2);
+
+                playerPieces.add(bishops);
+
                 //Królowa
-                playerPieces.add(new Queen(false,4+startingRookPosition,7));
+                queens = new ArrayList<>();
+
+                queen = new Queen();
+                queen.setLoctaion(7,startingRookPosition+4);
+                queens.add(queen);
+
+                playerPieces.add(queens);
                 //Król
-                playerPieces.add(new King(false,3+startingRookPosition,7));
-                this.playerPieces.add(new ArrayList<>());
+                kings = new ArrayList<>();
+
+                king = new King();
+                king.setLoctaion(7,startingRookPosition+3);
+                kings.add(king);
+
+                playerPieces.add(kings);
                 break;
-
-            //Potem doda się pozostałe casy do ataku w dół i w góre jak sie to uda
         }
-    }*/
+    }
 
-    enum AttackDirection {
+    public enum AttackDirection {
         RIGHT,
         LEFT,
         UP,

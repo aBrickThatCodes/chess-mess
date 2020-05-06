@@ -1,5 +1,6 @@
 package chess.pieces;
 
+import chess.game.Player;
 import chess.game.Spot;
 
 import java.util.ArrayList;
@@ -9,21 +10,18 @@ import java.util.List;
 public class Pawn extends Piece {
 
     private String pieceIcon = "♟";
-    private AttackDirection attackDirection = AttackDirection.LEFT;
+    private Player.AttackDirection attackDirection = Player.AttackDirection.LEFT;
 
-    public synchronized AttackDirection getAttackDirection(){
-        return this.attackDirection;
-    }
-
-    public synchronized void setAttackDirection(AttackDirection attackDirection){
+    public Pawn(Player.AttackDirection attackDirection){
         this.attackDirection = attackDirection;
     }
 
-    enum AttackDirection {
-        RIGHT,
-        LEFT,
-        UP,
-        DOWN
+    public synchronized Player.AttackDirection getAttackDirection(){
+        return this.attackDirection;
+    }
+
+    public synchronized void setAttackDirection(Player.AttackDirection attackDirection){
+        this.attackDirection = attackDirection;
     }
 
     public synchronized String getPieceIcon(){

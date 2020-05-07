@@ -158,6 +158,7 @@ public class Test{
         }
     }
 
+    @SuppressWarnings("serial")
     public class Board extends JPanel {
 
         private Spot[][] board;

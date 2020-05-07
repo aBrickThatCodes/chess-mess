@@ -7,8 +7,13 @@ import java.awt.event.*;
 
 @SuppressWarnings("serial")
 public class LauncherWindow extends JFrame {
+    LauncherWindow thisWindow;
+    ColorSchemeWindow colorSchemeWindow;
+    PieceSetupFrame pieceSetupFrame;
+    MusicChangeFrame musicChangeFrame;
     public LauncherWindow() {
         super("Chess Mess");
+        thisWindow=this;
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
         } 
@@ -19,10 +24,10 @@ public class LauncherWindow extends JFrame {
         this.setLayout(new GridLayout(2,1));
 
         //region Title
-        JPanel title=new JPanel();
+        TitlePanel title=new TitlePanel();
         this.add(title);
 
-        title.add(new JLabel("Image pending",JLabel.CENTER));
+        
         //endregion
 
         //region Menu
@@ -52,33 +57,86 @@ public class LauncherWindow extends JFrame {
         gameSettings.setBorder(BorderFactory.createLineBorder(new Color(0,0,0)));
         mainMenu.add(gameSettings);
 
-
+        //region Board size
         JPanel boardSize=new JPanel(new GridLayout(1,4));
         gameSettings.add(boardSize);
 
         boardSize.add(new JLabel("Board size:"));
 
-        JTextField xSize=new JTextField("8");
+        JTextField xSize=new JTextField(Integer.toString(Config.Instance().boardWidth));
         boardSize.add(xSize);
 
         boardSize.add(new JLabel("X",JLabel.CENTER));
 
-        JTextField ySize=new JTextField("8");
+        JTextField ySize=new JTextField(Integer.toString(Config.Instance().boardHeight));
         boardSize.add(ySize);
 
+        JButton sizeApplyButton=new JButton("Apply");
+        boardSize.add(sizeApplyButton);
+        ActionListener sizeApplyListener=new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int sizeX=8, sizeY=8;
+                try {
+                    sizeX=Integer.parseInt(xSize.getText());
+                    sizeY=Integer.parseInt(ySize.getText());
+                }
+                catch(NumberFormatException exception) {
+                    JOptionPane.showMessageDialog(thisWindow, "Could not parse the size", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                if(sizeX<8 || sizeY<8) {
+                    JOptionPane.showMessageDialog(thisWindow, "Size too small", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                Config.Instance().boardWidth=sizeX;
+                Config.Instance().boardHeight=sizeY;
+                Config.Instance().correctValues();
+                updateLauncher();
+            }
+        };
+        sizeApplyButton.addActionListener(sizeApplyListener);
+        //endregion
 
         String[] gameModes={"Player vs \"AI\"","Hot Seat"};
         JComboBox<String> gameMode=new JComboBox<String>(gameModes);
         gameSettings.add(gameMode);
 
-
+        //region Num of players
         JPanel playerNumber=new JPanel(new GridLayout(1,2));
         gameSettings.add(playerNumber);
         
         JLabel playerNumText=new JLabel("Number of players:");
         playerNumber.add(playerNumText);
-        JSpinner playerNumSpin=new JSpinner();
-        playerNumber.add(playerNumSpin);
+        //region Number of players buttons
+        JButton lessPlayersButton=new JButton("-");
+        JButton morePlayersButton=new JButton("+");
+        JLabel numLabel=new JLabel(Integer.toString(Config.Instance().playerAmount),JLabel.CENTER);
+        ActionListener playerNumListener=new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JButton button=(JButton)e.getSource();
+                try {
+                    if(button==lessPlayersButton && Config.Instance().playerAmount>2) {
+                        Config.Instance().playerAmount--;
+                    }
+                    else if(button==morePlayersButton && Config.Instance().playerAmount<Config.Instance().maxPlayers) {
+                        Config.Instance().playerAmount++;
+                    }
+                    Config.Instance().correctValues();
+                    numLabel.setText(Integer.toString(Config.Instance().playerAmount));
+                }
+                catch(NullPointerException exception) {
+                }
+            }
+        };
+        lessPlayersButton.addActionListener(playerNumListener);
+        morePlayersButton.addActionListener(playerNumListener);
+        playerNumber.add(lessPlayersButton);
+        playerNumber.add(numLabel);
+        playerNumber.add(morePlayersButton);
+        //endregion
+        //endregion
 
         
         JPanel pieceSettings=new JPanel(new GridLayout(1,3));
@@ -96,8 +154,8 @@ public class LauncherWindow extends JFrame {
         ActionListener pieceEditListener=new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-                PieceSetupFrame setupframe=new PieceSetupFrame();
-                setupframe.setVisible(true);
+                pieceSetupFrame=new PieceSetupFrame();
+                pieceSetupFrame.setVisible(true);
 			}
         };
         pieceEdit.addActionListener(pieceEditListener);
@@ -154,6 +212,7 @@ public class LauncherWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
                 Config.loadSettings();
+                updateLauncher();
 			}
         };
         loadSettings.addActionListener(loadSetttingsListener);
@@ -165,7 +224,7 @@ public class LauncherWindow extends JFrame {
         ActionListener changeMusicListener=new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-                MusicChangeFrame musicChangeFrame=new MusicChangeFrame();
+                musicChangeFrame=new MusicChangeFrame();
                 musicChangeFrame.setVisible(true);
 			}
         };
@@ -177,7 +236,7 @@ public class LauncherWindow extends JFrame {
         ruleSettingButtons.add(pickColour);
         ActionListener colorPickListener=new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ColorSchemeWindow colorSchemeWindow=new ColorSchemeWindow();
+                colorSchemeWindow=new ColorSchemeWindow();
                 colorSchemeWindow.setVisible(true);
             }
         };
@@ -271,6 +330,21 @@ public class LauncherWindow extends JFrame {
         //endregion
         //endregion
         //endregion
+    }
+
+    void updateLauncher() {
+        if(colorSchemeWindow!=null) {
+            colorSchemeWindow.dispose();
+        }
+        if(musicChangeFrame!=null) {
+            musicChangeFrame.dispose();
+        }
+        if(pieceSetupFrame!=null) {
+            pieceSetupFrame.dispose();
+        }
+        LauncherWindow newLauncher=new LauncherWindow();
+        newLauncher.setVisible(true);
+        thisWindow.dispose();
     }
 
     public static void main(String[] args) {

@@ -46,6 +46,10 @@ public class Pawn extends Piece {
                 y=0;
                 z = 1;
                 break;
+            case DOWN:
+                break;
+            case UP:
+                break;
         }
 
         List<Spot> possibleMoves = new ArrayList<Spot>();

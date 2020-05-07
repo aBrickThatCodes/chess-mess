@@ -4,6 +4,7 @@ import chess.pieces.Piece;
 import javax.swing.*;
 import java.awt.*;
 
+@SuppressWarnings("serial")
 public class Spot extends JTextField {
 
     private Piece piece = null;

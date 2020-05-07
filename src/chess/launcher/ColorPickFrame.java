@@ -17,6 +17,7 @@ public class ColorPickFrame extends JFrame implements ActionListener {
 
     public ColorPickFrame(ColorPanel colorPanel) {
         super("Color Picker");
+        this.setResizable(false);
         this.setSize(450, 300);
         this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);

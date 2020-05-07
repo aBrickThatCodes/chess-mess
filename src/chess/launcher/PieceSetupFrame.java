@@ -18,6 +18,7 @@ public class PieceSetupFrame extends JFrame implements ActionListener {
     public PieceSetupFrame() {
         super("Piece Setup Editor");
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setResizable(false);
         this.setSize(600,175);
         this.setLayout(new BorderLayout());
         

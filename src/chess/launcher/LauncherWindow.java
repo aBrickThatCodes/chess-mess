@@ -17,8 +17,8 @@ public class LauncherWindow extends JFrame {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
         } 
-        catch (Exception exception)
-        {}
+        catch (Exception exception) {}
+        this.setResizable(false);
         this.setSize(960, 520);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLayout(new GridLayout(2,1));
@@ -109,8 +109,10 @@ public class LauncherWindow extends JFrame {
         JLabel playerNumText=new JLabel("Number of players:");
         playerNumber.add(playerNumText);
         //region Number of players buttons
+        JButton minPlayersButton=new JButton("Min");
         JButton lessPlayersButton=new JButton("-");
         JButton morePlayersButton=new JButton("+");
+        JButton maxPlayersButton=new JButton("Max");
         JLabel numLabel=new JLabel(Integer.toString(Config.Instance().playerAmount),JLabel.CENTER);
         ActionListener playerNumListener=new ActionListener() {
             @Override
@@ -123,6 +125,13 @@ public class LauncherWindow extends JFrame {
                     else if(button==morePlayersButton && Config.Instance().playerAmount<Config.Instance().maxPlayers) {
                         Config.Instance().playerAmount++;
                     }
+                    else if(button==minPlayersButton) {
+                        Config.Instance().playerAmount=2;
+                    }
+                    else if(button==maxPlayersButton) {
+                        Config.Instance().playerAmount=Config.Instance().maxPlayers;
+                    }
+
                     Config.Instance().correctValues();
                     numLabel.setText(Integer.toString(Config.Instance().playerAmount));
                 }
@@ -130,11 +139,15 @@ public class LauncherWindow extends JFrame {
                 }
             }
         };
+        minPlayersButton.addActionListener(playerNumListener);
         lessPlayersButton.addActionListener(playerNumListener);
         morePlayersButton.addActionListener(playerNumListener);
+        maxPlayersButton.addActionListener(playerNumListener);
+        playerNumber.add(minPlayersButton);
         playerNumber.add(lessPlayersButton);
         playerNumber.add(numLabel);
         playerNumber.add(morePlayersButton);
+        playerNumber.add(maxPlayersButton);
         //endregion
         //endregion
 

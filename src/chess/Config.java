@@ -112,7 +112,7 @@ public class Config implements java.io.Serializable {
 
     boolean similarTo(Color c1,Color c2){
         double distance=Math.pow((c1.getRed()-c2.getRed()),2)+Math.pow((c1.getGreen()-c2.getGreen()),2)+Math.pow((c1.getBlue()-c2.getBlue()),2);
-        if(distance<20) {
+        if(distance<50) {
             return true;
         }
         else {

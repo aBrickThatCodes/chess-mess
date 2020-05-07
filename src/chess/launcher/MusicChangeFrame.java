@@ -20,6 +20,7 @@ public class MusicChangeFrame extends JFrame implements ActionListener {
 
     public MusicChangeFrame() {
         super("Choose your own music");
+        this.setResizable(false);
         this.setLayout(new BorderLayout());
         this.setSize(400,100);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);

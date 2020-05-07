@@ -18,13 +18,14 @@ public class ColorSchemeWindow extends JFrame implements ActionListener {
 
     public ColorSchemeWindow() {
         super("Color Scheme Editor");
-        this.setSize(Math.min(4, Config.Instance().playerAmount)*62,Math.min(1,Config.Instance().playerAmount/4)*50);
+        this.setSize(Math.min(4, Config.Instance().colors.length)*62,Math.max(1,Config.Instance().colors.length/4)*50+100);
+        this.setResizable(false);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLayout(new BorderLayout());
 
         //region Color scheme panel
         
-        JPanel colorSchemePanel=new JPanel(new GridLayout(3,4));
+        JPanel colorSchemePanel=new JPanel(new GridLayout(Math.max(1,Config.Instance().colors.length/4),Math.min(4, Config.Instance().colors.length)));
         colorPanels=new ColorPanel[Config.Instance().colors.length];
         for(int i=0;i<Config.Instance().colors.length;i++) {
             colorPanels[i]=new ColorPanel(Config.Instance().colors[i]);

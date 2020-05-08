@@ -128,7 +128,7 @@ public class Config implements java.io.Serializable {
         int result=fileChooser.showSaveDialog(null);
         if(result==JFileChooser.APPROVE_OPTION) {
             try {
-                FileOutputStream fileOut=new FileOutputStream(fileChooser.getSelectedFile()+".cmsett");
+                FileOutputStream fileOut=new FileOutputStream(fileChooser.getSelectedFile()+(fileChooser.getSelectedFile().getName().endsWith(".cmsett") ? "" : ".cmsett"));
                 ObjectOutputStream out=new ObjectOutputStream(fileOut);
                 out.writeObject(this);
                 out.close();
@@ -141,7 +141,7 @@ public class Config implements java.io.Serializable {
         }
     }
 
-    public static void loadSettings() {
+    public static boolean loadSettings() {
         JFileChooser fileChooser=new JFileChooser();
         FileNameExtensionFilter filter=new FileNameExtensionFilter("Chess Mess Settings File (.cmsett)", "cmsett");
         fileChooser.setFileFilter(filter);
@@ -156,12 +156,15 @@ public class Config implements java.io.Serializable {
             }
             catch(IOException exception) {
                 JOptionPane.showMessageDialog(null, exception.getStackTrace().toString(), "Error", JOptionPane.ERROR_MESSAGE);
-                return;
+                return false;
             }
             catch(ClassNotFoundException exception) {
                 JOptionPane.showMessageDialog(null, "Class not found\n"+exception.getStackTrace().toString(), "Error", JOptionPane.ERROR_MESSAGE);
-                return;
+                return false;
             }
+            return true;
         }
+        return false;
+
     }
 }

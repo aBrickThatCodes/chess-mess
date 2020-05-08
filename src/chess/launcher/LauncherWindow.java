@@ -1,11 +1,11 @@
 package chess.launcher;
-
 import javax.swing.*;
 import chess.Config;
 import java.awt.*;
 import java.awt.event.*;
+import chess.game.Test;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({"serial","unused"})
 public class LauncherWindow extends JFrame {
     LauncherWindow thisWindow;
     ColorSchemeWindow colorSchemeWindow;
@@ -52,6 +52,7 @@ public class LauncherWindow extends JFrame {
                 JButton button=(JButton)e.getSource();
                 if(button==startButton) {
                     //TODO: Start game
+                    //Test.startTest(); for some reason this isn't working
                 }
                 else if(button==loadGameButton) {
                     //TODO: Load game
@@ -118,15 +119,15 @@ public class LauncherWindow extends JFrame {
         String[] gameModes={"Player vs \"AI\"","Hot Seat"};
         JComboBox<String> gameMode=new JComboBox<String>(gameModes);
         if(Config.Instance().pvp)
-            gameMode.setSelectedIndex(1);
+            gameMode.setSelectedItem("Hot Seat");
         ActionListener gameModeListener=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String s = (String) gameMode.getSelectedItem();
                 if(s=="Player vs \"AI\"")
-                    Config.Instance().pvp=true;
-                else if(s=="Hot Seat")
                     Config.Instance().pvp=false;
+                else if(s=="Hot Seat")
+                    Config.Instance().pvp=true;
             }
         };
         gameMode.addActionListener(gameModeListener);
@@ -256,8 +257,8 @@ public class LauncherWindow extends JFrame {
         ActionListener loadSetttingsListener=new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-                Config.loadSettings();
-                reloadLauncher();
+                if(Config.loadSettings())
+                    reloadLauncher();
 			}
         };
         loadSettings.addActionListener(loadSetttingsListener);

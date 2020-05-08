@@ -15,13 +15,19 @@ class TitlePanel extends JPanel {
     private BufferedImage rawImage;
     String path;
     public TitlePanel() {
-        try {
-            path=this.getClass().getProtectionDomain().getCodeSource().getLocation().toString();
-            path=path.substring("file:/".length(),path.length()-"ChessMess.jar".length())+"resources/titleImage.png";
-            rawImage=ImageIO.read(new File(path));
+        path=this.getClass().getProtectionDomain().getCodeSource().getLocation().toString();
+        if(path.endsWith(".jar")) {
+            try {
+                path=this.getClass().getProtectionDomain().getCodeSource().getLocation().toString();
+                path=path.substring("file:/".length(),path.length()-"ChessMess.jar".length())+"resources/titleImage.png";
+                rawImage=ImageIO.read(new File(path));
+            }
+            catch(IOException exception) {
+                this.add(new JLabel("There were problems with loading this image. Try restarting the application"));
+            }
         }
-        catch(IOException exception) {
-            this.add(new JLabel("There were problems with loading this image. Try restarting the application"));
+        else {
+            this.add(new JLabel("Photo avaliable only in .jar form of the app"));
         }
     }
     

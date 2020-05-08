@@ -44,9 +44,11 @@ public class LauncherWindow extends JFrame {
         
         JButton startButton=new JButton("Play");
         gameButtons.add(startButton);
+        startButton.setEnabled(false);
 
         JButton loadGameButton=new JButton("Load Game");
         gameButtons.add(loadGameButton);
+        loadGameButton.setEnabled(false);
 
         ActionListener gameActionListener=new ActionListener() {
 			@Override
@@ -216,8 +218,9 @@ public class LauncherWindow extends JFrame {
         pieceEdit.addActionListener(pieceEditListener);
         //endregion
 
-        JButton tutorial=new JButton("Player guide");
-        gameSettings.add(tutorial);
+        JButton tutorialButton=new JButton("Player guide");
+        gameSettings.add(tutorialButton);
+        tutorialButton.setEnabled(false);
 
         /*
         JButton language=new JButton("Choose language");

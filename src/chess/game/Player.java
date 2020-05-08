@@ -20,7 +20,7 @@ public abstract class Player {
                 switch (Config.Instance().pieces[0]) {
                     case PAWN:
                         //Pionki
-                        ArrayList<Piece> pawns = new ArrayList();
+                        ArrayList<Piece> pawns = new ArrayList<Piece>();
 
                         for(int i=0;i<8;i++){
                             Pawn pawn = new Pawn(attackDirection);
@@ -31,7 +31,7 @@ public abstract class Player {
                         playerPieces.add(pawns);
                         break;
                     case ROOK:
-                        ArrayList<Piece> rooks = new ArrayList();
+                        ArrayList<Piece> rooks = new ArrayList<Piece>();
 
                         for(int i=0;i<8;i++){
                             Rook rook = new Rook();
@@ -42,7 +42,7 @@ public abstract class Player {
                         playerPieces.add(rooks);
                         break;
                     case BISHOP:
-                        ArrayList<Piece> bishops = new ArrayList();
+                        ArrayList<Piece> bishops = new ArrayList<Piece>();
 
                         for(int i=0;i<8;i++){
                             Bishop bishop = new Bishop();
@@ -53,7 +53,7 @@ public abstract class Player {
                         playerPieces.add(bishops);
                         break;
                     case KNIGHT:
-                        ArrayList<Piece> knights = new ArrayList();
+                        ArrayList<Piece> knights = new ArrayList<Piece>();
 
                         for(int i=0;i<8;i++){
                             Knight knight = new Knight();
@@ -64,7 +64,7 @@ public abstract class Player {
                         playerPieces.add(knights);
                         break;
                     case QUEEN:
-                        ArrayList<Piece> queens = new ArrayList();
+                        ArrayList<Piece> queens = new ArrayList<Piece>();
 
                         for(int i=0;i<8;i++){
                             Queen queen = new Queen();
@@ -75,7 +75,7 @@ public abstract class Player {
                         playerPieces.add(queens);
                         break;
                     case KING:
-                        ArrayList<Piece> kings = new ArrayList();
+                        ArrayList<Piece> kings = new ArrayList<Piece>();
 
                         for(int i=0;i<8;i++){
                             King king = new King();
@@ -156,7 +156,7 @@ public abstract class Player {
                     playerPieces.add(pieces);
                 }
                 //Queen spot
-                ArrayList<Piece> pieces = new ArrayList();
+                ArrayList<Piece> pieces = new ArrayList<Piece>();
                 switch (Config.Instance().pieces[4]){
                     case PAWN:
 
@@ -193,7 +193,7 @@ public abstract class Player {
                 }
                 playerPieces.add(pieces);
                 //King spot
-                pieces = new ArrayList();
+                pieces = new ArrayList<Piece>();
                 switch (Config.Instance().pieces[5]){
                     case PAWN:
 

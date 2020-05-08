@@ -2,7 +2,6 @@ package chess.game;
 
 import chess.Config;
 import chess.pieces.Piece;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
@@ -10,6 +9,8 @@ import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@SuppressWarnings({"serial","unused"})
 public class Game extends JFrame implements Runnable {
 
     private Board gameBoard;

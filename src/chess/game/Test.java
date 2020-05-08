@@ -2,7 +2,6 @@ package chess.game;
 
 import chess.Config;
 import chess.pieces.*;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
@@ -10,8 +9,9 @@ import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+
+@SuppressWarnings("unused")
 
 public class Test{
 

@@ -14,13 +14,15 @@ public class LauncherWindow extends JFrame {
     public LauncherWindow() {
         super("Chess Mess");
         thisWindow=this;
+        
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
         } 
         catch (Exception exception) {}
+        
         this.setResizable(false);
         this.setSize(960, 520);
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLayout(new GridLayout(2,1));
 
         //region Title
@@ -52,10 +54,19 @@ public class LauncherWindow extends JFrame {
                 JButton button=(JButton)e.getSource();
                 if(button==startButton) {
                     //TODO: Start game
-                    //Test test=new Test(); for some reason this isn't working
+                    Test test=new Test(); //for some reason this isn't working
                 }
                 else if(button==loadGameButton) {
                     //TODO: Load game
+                }
+                if(colorSchemeWindow!=null) {
+                    colorSchemeWindow.dispose();
+                }
+                if(musicChangeFrame!=null) {
+                    musicChangeFrame.dispose();
+                }
+                if(pieceSetupFrame!=null) {
+                    pieceSetupFrame.dispose();
                 }
                 thisWindow.dispose();
 			}

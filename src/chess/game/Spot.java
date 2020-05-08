@@ -23,6 +23,7 @@ public class Spot extends JTextField {
     public synchronized void setPiece(Piece p) {
         if(p!=null){
             this.piece = p;
+            this.setEditable(false);
             this.setText(p.getPieceIcon());
             this.setForeground(p.getColor());
             this.setFont(new Font("Name",this.getFont().getStyle(),this.getWidth()));

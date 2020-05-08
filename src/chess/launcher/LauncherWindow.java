@@ -92,7 +92,7 @@ public class LauncherWindow extends JFrame {
                 Config.Instance().boardWidth=sizeX;
                 Config.Instance().boardHeight=sizeY;
                 Config.Instance().correctValues();
-                updateLauncher();
+                reloadLauncher();
             }
         };
         sizeApplyButton.addActionListener(sizeApplyListener);
@@ -225,7 +225,7 @@ public class LauncherWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
                 Config.loadSettings();
-                updateLauncher();
+                reloadLauncher();
 			}
         };
         loadSettings.addActionListener(loadSetttingsListener);
@@ -345,7 +345,7 @@ public class LauncherWindow extends JFrame {
         //endregion
     }
 
-    void updateLauncher() {
+    void reloadLauncher() {
         if(colorSchemeWindow!=null) {
             colorSchemeWindow.dispose();
         }

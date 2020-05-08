@@ -54,7 +54,6 @@ public class LauncherWindow extends JFrame {
                 JButton button=(JButton)e.getSource();
                 if(button==startButton) {
                     //TODO: Start game
-                    Test test=new Test(); //for some reason this isn't working
                 }
                 else if(button==loadGameButton) {
                     //TODO: Load game

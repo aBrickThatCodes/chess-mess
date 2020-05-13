@@ -15,7 +15,7 @@ public class Board extends JPanel {
     public Board(ArrayList<Player> players){
         setLayout(new GridLayout(Config.Instance().boardHeight,Config.Instance().boardWidth));
         //setBoard(players);
-        //status = GameStatus.ACTIVE;
+        status = GameStatus.ACTIVE;
     }
 
     public synchronized void repaintColors(){
@@ -43,7 +43,7 @@ public class Board extends JPanel {
         }
     }
 
-    /*public synchronized void setBoard(ArrayList<Player> players){
+    public synchronized void setBoard(ArrayList<Player> players){
 
         board = new Spot[Config.Instance().boardWidth][Config.Instance().boardHeight];
 
@@ -55,26 +55,26 @@ public class Board extends JPanel {
 
                     //Pionki
                     for(int j=0;j<8;j++){
-                        board[1][startingRookPosision+j].setPiece(players.get(i).playerPieces[0][j]);
-                        players.get(i).playerPieces[0][j].setLoctaion(1,startingRookPosision+j);
+                        board[1][startingRookPosision+j].setPiece(players.get(i).playerPieces.get(0).get(j));
+                        players.get(i).playerPieces.get(0).get(j).setLoctaion(1,startingRookPosision+j);
                     }
 
                     //Wieże, Gońce, Konie
                     for(int j=0;j<4;j++){
-                        board[0][startingRookPosision+j].setPiece(players.get(i).playerPieces[j+1][0]);
-                        players.get(i).playerPieces[1][0].setLoctaion(0,startingRookPosision+j);
+                        board[0][startingRookPosision+j].setPiece(players.get(i).playerPieces.get(j + 1).get(0));
+                        players.get(i).playerPieces.get(1).get(0).setLoctaion(0,startingRookPosision+j);
 
-                        board[0][startingRookPosision+7-j].setPiece(players.get(i).playerPieces[j+1][1]);
-                        players.get(i).playerPieces[1][0].setLoctaion(0,startingRookPosision+7-j);
+                        board[0][startingRookPosision+7-j].setPiece(players.get(i).playerPieces.get(j + 1).get(1));
+                        players.get(i).playerPieces.get(1).get(0).setLoctaion(0,startingRookPosision+7-j);
                     }
 
                     //Królowa
-                    board[0][startingRookPosision+4].setPiece(players.get(i).playerPieces[5][0]);
-                    players.get(i).playerPieces[1][0].setLoctaion(0,startingRookPosision+4);
+                    board[0][startingRookPosision+4].setPiece(players.get(i).playerPieces.get(5).get(0));
+                    players.get(i).playerPieces.get(1).get(0).setLoctaion(0,startingRookPosision+4);
 
                     //Król
-                    board[0][startingRookPosision+5].setPiece(players.get(i).playerPieces[6][0]);
-                    players.get(i).playerPieces[1][0].setLoctaion(0,startingRookPosision+5);
+                    board[0][startingRookPosision+5].setPiece(players.get(i).playerPieces.get(6).get(0));
+                    players.get(i).playerPieces.get(1).get(0).setLoctaion(0,startingRookPosision+5);
                     break;
 
                 case LEFT:
@@ -82,26 +82,26 @@ public class Board extends JPanel {
 
                     //Pionki
                     for(int j=0;j<8;j++){
-                        board[board.length-1][startingRookPosision+j].setPiece(players.get(i).playerPieces[0][j]);
-                        players.get(i).playerPieces[0][j].setLoctaion(board.length-1,startingRookPosision+j);
+                        board[board.length-1][startingRookPosision+j].setPiece(players.get(i).playerPieces.get(0).get(j));
+                        players.get(i).playerPieces.get(0).get(j).setLoctaion(board.length-1,startingRookPosision+j);
                     }
 
                     //Wieże, Gońce, Konie
                     for(int j=0;j<4;j++){
-                        board[board.length][startingRookPosision+j].setPiece(players.get(i).playerPieces[j+1][0]);
-                        players.get(i).playerPieces[1][0].setLoctaion(board.length,startingRookPosision+j);
+                        board[board.length][startingRookPosision+j].setPiece(players.get(i).playerPieces.get(j + 1).get(0));
+                        players.get(i).playerPieces.get(1).get(0).setLoctaion(board.length,startingRookPosision+j);
 
-                        board[board.length][startingRookPosision+7-j].setPiece(players.get(i).playerPieces[j+1][1]);
-                        players.get(i).playerPieces[1][0].setLoctaion(board.length,startingRookPosision+7-j);
+                        board[board.length][startingRookPosision+7-j].setPiece(players.get(i).playerPieces.get(j + 1).get(1));
+                        players.get(i).playerPieces.get(1).get(0).setLoctaion(board.length,startingRookPosision+7-j);
                     }
 
                     //Królowa
-                    board[board.length][startingRookPosision+5].setPiece(players.get(i).playerPieces[5][0]);
-                    players.get(i).playerPieces[1][0].setLoctaion(board.length,startingRookPosision+5);
+                    board[board.length][startingRookPosision+5].setPiece(players.get(i).playerPieces.get(5).get(0));
+                    players.get(i).playerPieces.get(1).get(0).setLoctaion(board.length,startingRookPosision+5);
 
                     //Król
-                    board[board.length][startingRookPosision+4].setPiece(players.get(i).playerPieces[6][0]);
-                    players.get(i).playerPieces[1][0].setLoctaion(board.length,startingRookPosision+4);
+                    board[board.length][startingRookPosision+4].setPiece(players.get(i).playerPieces.get(6).get(0));
+                    players.get(i).playerPieces.get(1).get(0).setLoctaion(board.length,startingRookPosision+4);
                     break;
                 case UP:
 
@@ -122,7 +122,8 @@ public class Board extends JPanel {
         }
 
         //Kolorowanie
-        for(int i = 0; i<Config.Instance().boardWidth;i++){
+        repaintColors();
+        /*for(int i = 0; i<Config.Instance().boardWidth;i++){
             for(int j = 0; j<Config.Instance().boardHeight;j++){
                 if (j%2 == 0){
                     for(int k = 0; k<Config.Instance().boardWidth;k++){
@@ -143,7 +144,7 @@ public class Board extends JPanel {
                 }
 
             }
-        }
+        }*/
 
         refreshBoard();
 
@@ -221,7 +222,7 @@ public class Board extends JPanel {
 
         //Król
         board[4][0].setPiece(playersPieces.get(0).get(15));
-        board[3][7].setPiece(playersPieces.get(1).get(15));
+        board[3][7].setPiece(playersPieces.get(1).get(15));*/
 
     }
 
@@ -245,7 +246,7 @@ public class Board extends JPanel {
 
     public synchronized Spot[][] getBoard(){
         return this.board;
-    }*/
+    }
 
     public enum GameStatus {
         ACTIVE,

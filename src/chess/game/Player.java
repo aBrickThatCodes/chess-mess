@@ -11,7 +11,7 @@ public abstract class Player {
     public ArrayList<ArrayList<Piece>> playerPieces;
     public AttackDirection attackDirection;
     private int startingRookPosition;
-    private Color playerColor;// = Color.yellow;
+    private Color playerColor;
 
     public synchronized void setPlayerPieces(int startingRookPosition,AttackDirection attackDirection){
         switch(attackDirection){
@@ -483,6 +483,7 @@ public abstract class Player {
         }
     }
 
+    //Tymczasowa metoda dodająca pionki w standardowym ustawieniu
     public synchronized void addPlayerPieces(int startingRookPosition,AttackDirection attackDirection){ //Metoda tworząca podstawowe szachy do testów
 
         playerPieces = new ArrayList<>();

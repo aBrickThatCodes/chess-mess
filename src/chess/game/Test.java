@@ -1,6 +1,5 @@
 package chess.game;
 
-import chess.Config;
 import chess.pieces.*;
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +7,6 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
@@ -118,8 +116,6 @@ public class Test{
             int previusY = currentY;
             currentY = y;
 
-            checkForCheck();
-
             if(currentChosenPiece != null){
                 if(currentChosenPiece.move(currentX,currentY,gameBoard.getBoard())){
                     gameBoard.getBoard()[previusX][previusY].setPiece(null);
@@ -134,6 +130,7 @@ public class Test{
                     currentChosenPiece = null;
                     gameBoard.repaintColors();
                 }
+                setCheck();
             }else {
                 try{
                     currentChosenPiece = gameBoard.getBoard()[currentX][currentY].getPiece();
@@ -272,32 +269,6 @@ public class Test{
         ENDGAME
     }
 
-    public synchronized ArrayList<Spot> checkForCheck(){
-        ArrayList<Spot> isCheck = null;
-        //W nietestowej wersji będzie się brało położenie króla/króli w player pieces z grupy z config
-        Piece king = currentPlayer.playerPieces.get(5).get(0);
-        for(Player p:players){
-            if(p != currentPlayer){
-                for(ArrayList<Piece> pieces: p.playerPieces){
-                    for(Piece piece1:pieces){
-                        for(Spot s:piece1.getPossibleMoves(gameBoard.getBoard())){
-                            if(king.getPossibleMoves(gameBoard.getBoard()).contains(s)){
-                                isCheck.add(s);
-                            }
-                            //kolorowanie pól do obserwacji zachowania szacha
-                            if(gameBoard.getBoard()[s.getX()][s.getY()].getColor() == Color.WHITE){
-                                gameBoard.getBoard()[s.getX()][s.getY()].setColor(Color.red);
-                            }else{
-                                gameBoard.getBoard()[s.getX()][s.getY()].setColor(Color.red);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return isCheck;
-    }
-
     public synchronized boolean validateChoosenPiece(){
         boolean isCorrect = false;
 
@@ -308,6 +279,53 @@ public class Test{
             }
         }
         return isCorrect;
+    }
+
+    //Sprawdza czy jest szach na królu
+    public synchronized boolean checkForCheck(){
+        boolean isCheck= false;
+        King king = new King();
+        for(ArrayList<Piece> aL:currentPlayer.playerPieces){
+            for (Piece piece : aL) {
+                if (piece.getClass().equals(king)) {
+                    king = (King) piece;
+                    if (king.getIsChecked()) {
+                        isCheck = king.getIsChecked();
+                        break;
+                    }
+                }
+            }
+        }
+        return isCheck;
+    }
+
+    //Ustawia szacha na królu
+    public synchronized void setCheck() {
+        ArrayList<Spot> isCheck = null;
+        //W nietestowej wersji będzie się brało położenie króla/króli w player pieces z grupy z config
+
+        King king = (King) currentPlayer.playerPieces.get(5).get(0);
+        for (Player p : players) {
+            if (p != currentPlayer) {
+                for (ArrayList<Piece> pieces : p.playerPieces) {
+                    for (Piece piece : pieces) {
+                        for (Spot s : piece.getPossibleMoves(gameBoard.getBoard())) {
+                            //kolorowanie pól do obserwacji zachowania szacha
+                            /*if (gameBoard.getBoard()[s.getX()][s.getY()].getColor() == Color.WHITE) {
+                                gameBoard.getBoard()[s.getX()][s.getY()].setColor(Color.red);
+                            } else {
+                                gameBoard.getBoard()[s.getX()][s.getY()].setColor(Color.red);
+                            }*/
+                            if(s.getY() == king.getY() && s.getX() == king.getX()){
+                                System.out.println("SZACH");
+                                king.isChecked(true);
+                                gameBoard.getBoard()[s.getX()][s.getY()].setColor(Color.yellow);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public Test() {

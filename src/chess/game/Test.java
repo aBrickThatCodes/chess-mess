@@ -8,6 +8,9 @@ import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 @SuppressWarnings("unused")
@@ -117,7 +120,18 @@ public class Test{
             currentY = y;
 
             if(currentChosenPiece != null){
-                if(currentChosenPiece.move(currentX,currentY,gameBoard.getBoard())){
+                if(currentChosenPiece instanceof King){
+                    King king = (King) currentChosenPiece;
+                    if(king.move(currentX,currentY,gameBoard.getBoard(),mayBeChecked(king))) {
+                        gameBoard.getBoard()[previusX][previusY].setPiece(null);
+                        gameBoard.getBoard()[currentX][currentY].setPiece(currentChosenPiece);
+                        currentChosenPiece = null;
+                        System.out.println("Pionek przestawiono " + currentX + " " + currentY);
+                        gameBoard.repaintColors();
+                        playerNum++;
+                    }
+                }
+                else if(currentChosenPiece.move(currentX,currentY,gameBoard.getBoard())){
                     gameBoard.getBoard()[previusX][previusY].setPiece(null);
                     gameBoard.getBoard()[currentX][currentY].setPiece(currentChosenPiece);
                     currentChosenPiece = null;
@@ -134,7 +148,20 @@ public class Test{
             }else {
                 try{
                     currentChosenPiece = gameBoard.getBoard()[currentX][currentY].getPiece();
-                    if(validateChoosenPiece()){
+                    if(validateChoosenPiece() && currentChosenPiece instanceof King){
+                        King king = (King) currentChosenPiece;
+                        for(Spot s:king.getPossibleMoves(gameBoard.getBoard(),mayBeChecked(king))){
+                            if(gameBoard.getBoard()[s.getX()][s.getY()].getColor() == Color.WHITE){
+                                gameBoard.getBoard()[s.getX()][s.getY()].setColor(Color.blue);
+                            }else{
+                                gameBoard.getBoard()[s.getX()][s.getY()].setColor(Color.blue);
+                            }
+                        }
+                        System.out.println("Current spot " + currentX + " " + currentY);
+                        System.out.println("Previous spot " + previusX + " " + previusY);
+                        System.out.println("Udało się załadować " + currentChosenPiece.getPieceIcon());
+
+                    }else if(validateChoosenPiece()){
                         for(Spot s:currentChosenPiece.getPossibleMoves(gameBoard.getBoard())){
                             if(gameBoard.getBoard()[s.getX()][s.getY()].getColor() == Color.WHITE){
                                 gameBoard.getBoard()[s.getX()][s.getY()].setColor(Color.blue);
@@ -327,6 +354,27 @@ public class Test{
                 }
             }
         }
+    }
+
+    //Usuwa ruchy królowi
+    public synchronized Collection<Spot> mayBeChecked(King king){
+        List<Spot> impossibleMoves = new ArrayList<>();
+        List<Spot> enemyMoves = new ArrayList<>();
+
+        for (Player p : players) {
+            if (p != currentPlayer) {
+                for (ArrayList<Piece> pieces : p.playerPieces) {
+                    for (Piece piece: pieces) {
+                        for(Spot s:piece.getPossibleMoves(gameBoard.getBoard()))
+                        if(king.getPossibleMoves(gameBoard.getBoard()).contains(s)){
+                            impossibleMoves.add(s);
+                        }
+                    }
+                }
+            }
+        }
+
+        return impossibleMoves;
     }
 
     public Test() {

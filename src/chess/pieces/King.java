@@ -81,6 +81,16 @@ public class King extends Piece {
         return possibleMoves;
     }
 
+    public synchronized Collection<Spot> getPossibleMoves(Spot[][] board,Collection<Spot> impossibleMoves){
+        Collection<Spot> possibleMoves = this.getPossibleMoves(board);
+
+        for(Spot ips:impossibleMoves){
+            possibleMoves.remove(ips);
+        }
+
+        return possibleMoves;
+    }
+
     public synchronized void isChecked(boolean check){
         this.isCheck = check;
     }
@@ -89,4 +99,46 @@ public class King extends Piece {
         return isCheck;
     }
 
+    public synchronized boolean contains(int x, int y,Spot[][] board,Collection<Spot> impossibleMoves){
+        boolean contains = false;
+        Collection<Spot> possibleMoves = this.getPossibleMoves(board);
+
+        try {
+            for (Spot ps : possibleMoves) {
+                for (Spot ips : impossibleMoves) {
+                    if (ps.getX() == ips.getX()) {
+                        if (ps.getY() == ips.getY()) {
+                            possibleMoves.remove(ps);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("SACH-MAT");
+        }
+
+        for(Spot s: possibleMoves){
+            if(s.getX() == x){
+                if(s.getY() == y){
+                    contains = true;
+                }
+            }
+        }
+
+        return contains;
+    }
+
+    public synchronized boolean validateMove(int x,int y,Spot[][] board,Collection<Spot> impossibleMoves) { //Sprawdzamy czy należy do zbioru
+        return this.contains(x,y,board,impossibleMoves);
+    }
+
+    public synchronized boolean move(int x,int y,Spot[][] board,Collection<Spot> impossibleMoves){
+        if(validateMove(x,y,board,impossibleMoves)){
+            setX(x);
+            setY(y);
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

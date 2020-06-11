@@ -6,14 +6,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-@SuppressWarnings({"serial","unused"})
+@SuppressWarnings("serial")
 public class Board extends JPanel {
 
     private Spot[][] board;
     private GameStatus status;
 
     public Board(ArrayList<Player> players){
-        setLayout(new GridLayout(Config.Instance().boardHeight,Config.Instance().boardWidth));
+        this.setLayout(new GridLayout(Config.Instance().boardHeight,Config.Instance().boardWidth));
         //setBoard(players);
         status = GameStatus.ACTIVE;
     }

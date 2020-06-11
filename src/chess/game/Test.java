@@ -10,10 +10,9 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
-
-@SuppressWarnings("unused")
 
 public class Test{
 
@@ -70,7 +69,6 @@ public class Test{
                 }
                 System.out.println("Current spot " + currentX + " " + currentY);
                 System.out.println("Previous spot " + previusX + " " + previusY);
-                System.out.println("Udało się załadować " + currentChosenPiece.getPieceIcon());
 
             } catch (Exception e) {
                 System.out.println("Brak pionka");
@@ -189,8 +187,9 @@ public class Test{
         private Spot[][] board;
         private chess.game.Board.GameStatus status;
 
-        public Board(){
-            setLayout(new GridLayout(boardSize,boardSize));
+        public Board() {
+            super();
+            this.setLayout(new GridLayout(boardSize,boardSize));
             setBoard();
             status = chess.game.Board.GameStatus.ACTIVE;
         }
@@ -208,7 +207,7 @@ public class Test{
                 }
             }
 
-            players.add(new Player.HumanPlayer(0, Player.AttackDirection.LEFT,Color.yellow));
+            players.add(new Player.HumanPlayer(0, Player.AttackDirection.LEFT,Color.GREEN));
             players.add(new Player.HumanPlayer(0,Player.AttackDirection.RIGHT,Color.blue));
 
             //Dodawanie pionków
@@ -223,7 +222,6 @@ public class Test{
 
             for(int j = 0; j< boardSize ; j++){
                 for(int i = 0; i< boardSize ; i++){
-                    board[i][j].revalidate();
                     this.add(board[i][j]);
                 }
             }
@@ -339,22 +337,25 @@ public class Test{
                 }
             }
         }
-
         return impossibleMoves;
     }
 
+    public class GameFrame extends JFrame {
+    Board board;
+    public GameFrame() {
+        super("Chess Mess");
+
+        this.setSize(640,640);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setLayout(new BorderLayout());
+        board=new Board();
+        this.add(board,BorderLayout.CENTER);
+        this.revalidate();
+    }
+}
+
     public Test() {
-
-        gameBoard=new Board();
-
-        JFrame frame = new JFrame();
-        frame.setVisible(true);
-        frame.setSize(640,640);
-        frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
-        gameBoard.revalidate();
-        frame.add(gameBoard);
-        frame.revalidate();
+        new GameFrame().setVisible(true);
     }
 
     public static void main(String[] args){

@@ -1,20 +1,24 @@
 package chess.game;
 
+import chess.ImageDrawPanel;
 import chess.pieces.Piece;
-import javax.swing.*;
 import java.awt.*;
 
 @SuppressWarnings("serial")
-public class Spot extends JTextField {
+public class Spot extends ImageDrawPanel {
 
     private Piece piece = null;
     private int x;
     private int y;
 
     public Spot(int x, int y) {
+        super();
         setX(x);
         setY(y);
-        this.setEditable(false);
+        if((x%2+y%2)==0)
+            this.setBackground(Color.WHITE);
+        else
+            this.setBackground(Color.BLACK);
     }
 
     public synchronized void setColor(Color c) {
@@ -24,15 +28,20 @@ public class Spot extends JTextField {
     public synchronized void setPiece(Piece p) {
         if(p!=null){
             this.piece = p;
-            this.setText(p.getPieceIcon());
-            this.setForeground(p.getColor());
-            this.setFont(new Font("Name",this.getFont().getStyle(),this.getWidth()));
-            this.revalidate();
         }else{
             this.piece = null;
-            this.setText(null);
-            this.revalidate();
         }
+        this.revalidate();
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if(piece!=null) {
+            Image image=resizeImage(this.getWidth(), this.getHeight(), piece.getPieceIcon(), this.getColor(), piece.getColor());
+            g.drawImage(image, (this.getWidth()-image.getWidth(null))/2, (this.getHeight()-image.getHeight(null))/2, this);
+        }
+            
     }
 
     public synchronized Piece getPiece() {

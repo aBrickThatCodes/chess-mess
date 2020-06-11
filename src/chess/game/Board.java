@@ -18,31 +18,6 @@ public class Board extends JPanel {
         //status = GameStatus.ACTIVE;
     }
 
-    public synchronized void repaintColors(){
-        for(int i = 0; i<board.length;i++){
-            for(int j = 0; j<board.length;j++){
-                if (j%2 == 0){
-                    for(int k = 0; k<board.length;k++){
-                        if (k%2 == 0){
-                            board[k][j].setColor(Color.WHITE);
-                        }else {
-                            board[k][j].setColor(Color.BLACK);
-                        }
-                    }
-                }else {
-                    for(int k = 0; k<board.length;k++){
-                        if (k%2 == 0){
-                            board[k][j].setColor(Color.BLACK);
-                        }else {
-                            board[k][j].setColor(Color.WHITE);
-                        }
-                    }
-                }
-
-            }
-        }
-    }
-
     /*public synchronized void setBoard(ArrayList<Player> players){
 
         board = new Spot[Config.Instance().boardWidth][Config.Instance().boardHeight];

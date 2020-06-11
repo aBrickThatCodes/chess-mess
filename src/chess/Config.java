@@ -1,14 +1,17 @@
 package chess;
 
-import java.awt.Color;
+import java.awt.*;
+import java.awt.image.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.URL;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -18,13 +21,17 @@ public class Config implements java.io.Serializable {
     //Singleton instance
     private transient static Config instance;
 
+    public static Color backGroundColor=new Color(255, 174, 201);
+
     public enum Pieces {PAWN,ROOK,KNIGHT,BISHOP,QUEEN,KING};
 
-    public Boolean abilities,randFields,randPieces,items,obstacles,pvp,animation,duels;
+    public Boolean abilities,randFields,randPieces,items,obstacles,pvp,animation,duels,resourcesLoaded;
     public int playerAmount,boardWidth,boardHeight,maxPlayers;
     public Color [] colors;
     public Pieces [] pieces;
     public File musicFile;
+    public BufferedImage [] pieceImages;
+    public BufferedImage titleImage;
 
     private Config() {
         //region Booleans
@@ -36,6 +43,7 @@ public class Config implements java.io.Serializable {
         pvp=false;
         animation=false;
         duels=false;
+        resourcesLoaded=true;
         //endregion
 
         //region Pieces
@@ -46,6 +54,23 @@ public class Config implements java.io.Serializable {
         pieces[3]=Pieces.BISHOP;
         pieces[4]=Pieces.QUEEN;
         pieces[5]=Pieces.KING;
+        //endregion
+
+        //region File loading
+        pieceImages=new BufferedImage[6];
+        try {
+            titleImage=ImageIO.read(new URL("http://student.fizyka.pw.edu.pl/~janmak/chessmess/titleScreen.png"));
+            pieceImages[0]=ImageIO.read(new URL("http://student.fizyka.pw.edu.pl/~janmak/chessmess/pawn.png"));
+            pieceImages[1]=ImageIO.read(new URL("http://student.fizyka.pw.edu.pl/~janmak/chessmess/rook.png"));
+            pieceImages[2]=ImageIO.read(new URL("http://student.fizyka.pw.edu.pl/~janmak/chessmess/knight.png"));
+            pieceImages[3]=ImageIO.read(new URL("http://student.fizyka.pw.edu.pl/~janmak/chessmess/bishop.png"));
+            pieceImages[4]=ImageIO.read(new URL("http://student.fizyka.pw.edu.pl/~janmak/chessmess/queen.png"));
+            pieceImages[5]=ImageIO.read(new URL("http://student.fizyka.pw.edu.pl/~janmak/chessmess/king.png"));
+        }
+        catch(IOException exception) {
+            JOptionPane.showMessageDialog(null, "There were problems with loading resources. Check your internet connection", "Error", JOptionPane.ERROR_MESSAGE);
+            resourcesLoaded=false;
+        }
         //endregion
 
         //region Other values

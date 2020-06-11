@@ -28,8 +28,6 @@ public class LauncherWindow extends JFrame {
         //region Title
         TitlePanel title=new TitlePanel();
         this.add(title);
-
-        
         //endregion
 
         //region Menu
@@ -44,18 +42,18 @@ public class LauncherWindow extends JFrame {
         
         JButton startButton=new JButton("Play");
         gameButtons.add(startButton);
-        startButton.setEnabled(false);
+        startButton.setEnabled(Config.Instance().resourcesLoaded);
 
         JButton loadGameButton=new JButton("Load Game");
         gameButtons.add(loadGameButton);
-        loadGameButton.setEnabled(false);
+        loadGameButton.setEnabled(Config.Instance().resourcesLoaded);
 
         ActionListener gameActionListener=new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
                 JButton button=(JButton)e.getSource();
                 if(button==startButton) {
-                    //TODO: Start game
+                    Test test=new Test();
                 }
                 else if(button==loadGameButton) {
                     //TODO: Load game

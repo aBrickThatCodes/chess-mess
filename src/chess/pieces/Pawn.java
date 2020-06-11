@@ -1,15 +1,15 @@
 package chess.pieces;
 
+import chess.Config;
 import chess.game.Player;
 import chess.game.Spot;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.awt.image.BufferedImage;
 
 public class Pawn extends Piece {
-
-    private String pieceIcon = "♟";
     private Player.AttackDirection attackDirection = Player.AttackDirection.LEFT;
 
     public Pawn(Player.AttackDirection attackDirection){
@@ -24,8 +24,8 @@ public class Pawn extends Piece {
         this.attackDirection = attackDirection;
     }
 
-    public synchronized String getPieceIcon(){
-        return this.pieceIcon;
+    public synchronized BufferedImage getPieceIcon(){
+        return Config.Instance().pieceImages[0];
     }
 
     //Zbiór możliwych ruchów

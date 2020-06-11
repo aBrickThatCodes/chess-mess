@@ -125,12 +125,10 @@ public class Test{
                     gameBoard.getBoard()[currentX][currentY].setPiece(currentChosenPiece);
                     currentChosenPiece = null;
                     System.out.println("Pionek przestawiono "+ currentX + " "+ currentY);
-                    gameBoard.repaintColors();
                 }
                 else if (!currentChosenPiece.move(currentX,currentY,gameBoard.getBoard())){
                     System.out.println("Poza możliwościami pionka lub jest tam inny pionek");
                     currentChosenPiece = null;
-                    gameBoard.repaintColors();
                 }
             }else{
                 try{
@@ -170,31 +168,6 @@ public class Test{
             status = chess.game.Board.GameStatus.ACTIVE;
         }
 
-        public synchronized void repaintColors(){
-            for(int i = 0; i<boardSize;i++){
-                for(int j = 0; j<boardSize;j++){
-                    if (j%2 == 0){
-                        for(int k = 0; k<boardSize;k++){
-                            if (k%2 == 0){
-                                board[k][j].setColor(Color.WHITE);
-                            }else {
-                                board[k][j].setColor(Color.BLACK);
-                            }
-                        }
-                    }else {
-                        for(int k = 0; k<boardSize;k++){
-                            if (k%2 == 0){
-                                board[k][j].setColor(Color.BLACK);
-                            }else {
-                                board[k][j].setColor(Color.WHITE);
-                            }
-                        }
-                    }
-
-                }
-            }
-        }
-
         public synchronized void setBoard(){
 
             board = new Spot[boardSize][boardSize];
@@ -208,9 +181,6 @@ public class Test{
                 }
             }
 
-            //Kolorowanie
-            repaintColors();
-
             players.add(new Player.HumanPlayer(0, Player.AttackDirection.LEFT,Color.yellow));
             players.add(new Player.HumanPlayer(0,Player.AttackDirection.RIGHT,Color.blue));
 
@@ -220,7 +190,6 @@ public class Test{
                     for(Piece piece: pieceRow){
                         piece.setColor(player.getPlayerColor());
                         board[piece.getX()][piece.getY()].setPiece(piece);
-
                     }
                 }
             }

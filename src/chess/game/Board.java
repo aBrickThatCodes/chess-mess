@@ -18,7 +18,7 @@ public class Board extends JPanel {
         status = GameStatus.ACTIVE;
     }
 
-    /*public synchronized void setBoard(ArrayList<Player> players){
+    public synchronized void setBoard(ArrayList<Player> players){
 
         board = new Spot[Config.Instance().boardWidth][Config.Instance().boardHeight];
 
@@ -143,7 +143,6 @@ public class Board extends JPanel {
         }
 
         //Kolorowanie
-        repaintColors();
         refreshBoard();
     }
 
@@ -173,5 +172,4 @@ public class Board extends JPanel {
         ACTIVE,
         ENDGAME
     }
-    */
 }

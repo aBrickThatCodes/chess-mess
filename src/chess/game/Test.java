@@ -97,7 +97,8 @@ public class Test{
     }
 }
 
-    public class MyFocusListener implements FocusListener {
+//Mosue listener do textowej wersji
+    /*public class MyFocusListener implements FocusListener {
         private int x;
         private int y;
 
@@ -180,7 +181,7 @@ public class Test{
         public synchronized void focusLost(FocusEvent focusEvent) {
 
         }
-    }
+    }*/
 
     @SuppressWarnings("serial")
     public class Board extends JPanel {
@@ -202,7 +203,7 @@ public class Test{
                 for(int j = 0; j< boardSize ; j++){
                     if(board[i][j] == null){
                         board[i][j] = new Spot(i,j);
-                        board[i][j].addFocusListener(new MyFocusListener(i,j));
+                        board[i][j].addMouseListener(new MyMouseListener(i,j));
                     }
                 }
             }

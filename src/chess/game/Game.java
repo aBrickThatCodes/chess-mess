@@ -1,14 +1,15 @@
 package chess.game;
 
 import chess.Config;
+import chess.pieces.King;
 import chess.pieces.Piece;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -83,12 +84,10 @@ public class Game extends JFrame implements Runnable {
                     gameBoard.getBoard()[currentX][currentY].setPiece(currentChosenPiece);
                     currentChosenPiece = null;
                     System.out.println("Pionek przestawiono "+ currentX + " "+ currentY);
-                    gameBoard.repaintColors();
                 }
                 else if (!currentChosenPiece.move(currentX,currentY,gameBoard.getBoard())){
                     System.out.println("Poza możliwościami pionka lub jest tam inny pionek");
                     currentChosenPiece = null;
-                    gameBoard.repaintColors();
                 }
             }else{
                 try{
@@ -131,7 +130,75 @@ public class Game extends JFrame implements Runnable {
 
     @Override
     public void run() {
+    }
 
+    //Sprawdza czy jest szach na królu
+    public synchronized boolean checkForCheck(){
+        boolean isCheck= false;
+        King king;
+        for(Player p: players) {
+            if(p != currentTurn) {
+                for (ArrayList<Piece> aL : p.playerPieces) {
+                    for (Piece piece : aL) {
+                        if (piece instanceof King) {
+                            king = (King) piece;
+                            if (king.getIsChecked()) {
+                                isCheck = king.getIsChecked();
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return isCheck;
+    }
+
+    //Ustawia szacha na królu
+    public synchronized void setCheck() {
+        for (ArrayList<Piece> pieces : currentTurn.playerPieces) {
+            for (Piece piece : pieces) {
+                for (Spot s : piece.getPossibleMoves(gameBoard.getBoard())) {
+                    for (Player p : players) {
+                        if (p != currentTurn) {
+                            for (ArrayList<Piece> pieces1 : p.playerPieces) {
+                                for (Piece piece1 : pieces1) {
+                                    if(piece1 instanceof King) {
+                                        if(s.getY() == piece1.getY() && s.getX() == piece1.getX()) {
+                                            System.out.println("SZACH");
+                                            King king = (King) piece1;
+                                            king.isChecked(true);
+                                            gameBoard.getBoard()[s.getX()][s.getY()].setColor(Color.yellow);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //Usuwa ruchy królowi
+    public synchronized Collection<Spot> mayBeChecked(King king){
+        List<Spot> impossibleMoves = new ArrayList<>();
+        List<Spot> enemyMoves = new ArrayList<>();
+
+        for (Player p : players) {
+            if (p != currentTurn) {
+                for (ArrayList<Piece> pieces : p.playerPieces) {
+                    for (Piece piece: pieces) {
+                        for(Spot s:piece.getPossibleMoves(gameBoard.getBoard()))
+                            if(king.getPossibleMoves(gameBoard.getBoard()).contains(s)){
+                                impossibleMoves.add(s);
+                            }
+                    }
+                }
+            }
+        }
+
+        return impossibleMoves;
     }
 
     /*public class MyMouseListener implements MouseListener {

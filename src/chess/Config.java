@@ -123,7 +123,7 @@ public class Config implements java.io.Serializable {
                 boolean isSimilar=false;
                 Color c=new Color(random.nextInt(256),random.nextInt(256),random.nextInt(256));
                 for(int j=0;j<index;j++) {
-                    if(similarTo(c,colors[j]))
+                    if(similarTo(c,colors[j]) || c.getRGB()==backGroundColor.getRGB())
                         isSimilar=true;
                 }
                 if(isSimilar)

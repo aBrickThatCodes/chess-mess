@@ -52,7 +52,7 @@ public class Pawn extends Piece {
                 break;
         }
 
-        List<Spot> possibleMoves = new ArrayList<Spot>();
+        List<Spot> possibleMoves = new ArrayList<>();
 
         try{
             Spot ahead = board[getX()+x][getY()+y];

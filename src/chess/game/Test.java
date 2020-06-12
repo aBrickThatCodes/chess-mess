@@ -1,5 +1,6 @@
 package chess.game;
 
+import chess.Config;
 import chess.pieces.*;
 import javax.swing.*;
 import java.awt.*;
@@ -207,8 +208,8 @@ public class Test{
                 }
             }
 
-            players.add(new Player.HumanPlayer(0, Player.AttackDirection.LEFT,Color.GREEN));
-            players.add(new Player.HumanPlayer(0,Player.AttackDirection.RIGHT,Color.blue));
+            players.add(new Player.HumanPlayer(0, Player.AttackDirection.LEFT,Color.BLACK));
+            players.add(new Player.HumanPlayer(0,Player.AttackDirection.RIGHT,Color.GREEN));
 
             //Dodawanie pionków
             for(Player player:players){

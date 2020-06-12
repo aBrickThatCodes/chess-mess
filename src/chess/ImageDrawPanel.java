@@ -10,35 +10,41 @@ public class ImageDrawPanel extends JPanel {
         super();
     }
 
-    protected Image resizeImage(int width, int height, BufferedImage image, Color bgColor, Color imageColor) {     
-        Graphics2D g2d=(Graphics2D)image.getGraphics();
-        if(imageColor==Color.BLACK) {
-            replaceColor(image, Color.WHITE, Color.YELLOW);
-            replaceColor(image, Color.BLACK, Color.WHITE);
-            replaceColor(image, Color.YELLOW, Color.BLACK);
+    protected Image resizeImage(int width, int height, BufferedImage image, Color bgColor, Color imageColor) {
+        BufferedImage imageChanged=new BufferedImage(image.getWidth(),image.getHeight(),BufferedImage.TYPE_INT_RGB);
+        for(int x=0;x<image.getWidth();x++) {
+            for(int y=0;y<image.getHeight();y++) {
+                imageChanged.setRGB(x, y, image.getRGB(x,y));
+            }
         }
-        else if(imageColor!=null);
-            replaceColor(image, Color.WHITE, imageColor);
 
-        if(bgColor!=null)
-            replaceColor(image, Config.backGroundColor, bgColor);
-            
-        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        g2d.drawImage(image,0,0,image.getWidth(this),image.getHeight(this),null);
-        g2d.dispose();
+        if(imageColor==Color.BLACK) {
+            imageChanged=replaceColor(imageChanged, Color.WHITE, Color.YELLOW);
+            imageChanged=replaceColor(imageChanged, Color.BLACK, Color.WHITE);
+            imageChanged=replaceColor(imageChanged, Color.YELLOW, Color.BLACK);
+        }
+        else if(imageColor!=null) {
+            imageChanged=replaceColor(imageChanged, Color.WHITE, imageColor);
+        }
 
-        Image resized=image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        if(bgColor!=null) {
+            imageChanged=replaceColor(imageChanged, Config.backGroundColor, bgColor);
+        }
+
+        Image resized=imageChanged.getScaledInstance(width, height, Image.SCALE_SMOOTH);
         
         return resized;
     }
 
-    protected static void replaceColor(BufferedImage img, Color toReplace, Color replacer) {
-        for (int x = 0; x < img.getWidth(); x++) {
-            for (int y = 0; y < img.getHeight(); y++) {
-                Color color = new Color(img.getRGB(x, y));
+    protected static BufferedImage replaceColor(BufferedImage img, Color toReplace, Color replacer) {
+        BufferedImage imageChanged=img.getSubimage(0, 0, img.getWidth(), img.getHeight());
+        for (int x = 0; x < imageChanged.getWidth(); x++) {
+            for (int y = 0; y < imageChanged.getHeight(); y++) {
+                Color color = new Color(imageChanged.getRGB(x, y));
                 if(color.getRGB()==toReplace.getRGB())
-                    img.setRGB(x, y, replacer.getRGB());
+                    imageChanged.setRGB(x, y, replacer.getRGB());
             }
         }
+        return imageChanged;
     }
 }

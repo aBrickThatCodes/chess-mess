@@ -1,7 +1,6 @@
 package chess.game;
 
 import chess.Config;
-import chess.ImageDrawPanel;
 import chess.pieces.Piece;
 import java.awt.*;
 
@@ -39,7 +38,7 @@ public class Spot extends JTextField {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if(piece!=null) {
-            Image image=resizeImage(this.getWidth(), this.getHeight(), piece.getPieceIcon(), this.getColor(), piece.getColor());
+            Image image=resizeImage(this.getWidth(), this.getHeight(), piece.getPieceIcon(), new Color(this.getColor().getRGB()), piece.getColor());
             g.drawImage(image, 0, 0, null);
         }      
     }
@@ -66,24 +65,27 @@ public class Spot extends JTextField {
     public synchronized int getY(){return this.y;}
 
     protected Image resizeImage(int width, int height, BufferedImage image, Color bgColor, Color imageColor) {
-        BufferedImage imageChanged=image.getSubimage(0, 0, image.getWidth(), image.getHeight());     
-        Graphics2D g2d=(Graphics2D)image.getGraphics();
+        BufferedImage imageChanged=new BufferedImage(image.getWidth(),image.getHeight(),BufferedImage.TYPE_INT_RGB);
+        for(int x=0;x<image.getWidth();x++) {
+            for(int y=0;y<image.getHeight();y++) {
+                imageChanged.setRGB(x, y, image.getRGB(x,y));
+            }
+        }
+
         if(imageColor==Color.BLACK) {
             imageChanged=replaceColor(imageChanged, Color.WHITE, Color.YELLOW);
             imageChanged=replaceColor(imageChanged, Color.BLACK, Color.WHITE);
             imageChanged=replaceColor(imageChanged, Color.YELLOW, Color.BLACK);
         }
-        else if(imageColor!=null);
+        else if(imageColor!=null) {
             imageChanged=replaceColor(imageChanged, Color.WHITE, imageColor);
+        }
 
-        if(bgColor!=null)
+        if(bgColor!=null) {
             imageChanged=replaceColor(imageChanged, Config.backGroundColor, bgColor);
-            
-        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        g2d.drawImage(imageChanged,0,0,image.getWidth(this),image.getHeight(this),null);
-        g2d.dispose();
+        }
 
-        Image resized=image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        Image resized=imageChanged.getScaledInstance(width, height, Image.SCALE_SMOOTH);
         
         return resized;
     }

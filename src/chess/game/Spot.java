@@ -43,7 +43,6 @@ public class Spot extends JTextField implements Serializable {
             g.drawImage(image, 0, 0, null);
         }      
     }
-    
 
     public synchronized Piece getPiece() {
         return piece;

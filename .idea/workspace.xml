@@ -1,78 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c958c2aa-2744-4593-9a67-5d1ce4b405f2" name="Default Changelist" comment="" />
+    <list default="true" id="3c3dfebc-2205-4be5-9363-3a0acada5c71" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1ZwWTbYhP0spdPHeUY9xOvnvFSd" />
+  <component name="ProjectId" id="1dDT1CHPmwCzgUO5oVE6Ez2UwgT" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="Downloaded.Files.Path.Enabled" value="false" />
-    <property name="Repository.Attach.Annotations" value="false" />
-    <property name="Repository.Attach.JavaDocs" value="false" />
-    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="project.structure.last.edited" value="Artifacts" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.2" />
   </component>
-  <component name="RunManager" selected="Application.Test">
-    <configuration name="Game" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="chess.game.Game" />
-      <module name="chess-mess" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="chess.game.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="GameTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="chess.game.GameTest" />
-      <module name="chess-mess" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="chess.game.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LauncherWindow" type="Application" factoryName="Application" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="chess.launcher.LauncherWindow" />
-      <module name="chess-mess" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="chess.launcher.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager">
     <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="chess.game.Test" />
       <module name="chess-mess" />
@@ -89,8 +36,6 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Test" />
-        <item itemvalue="Application.Game" />
-        <item itemvalue="Application.GameTest" />
       </list>
     </recent_temporary>
   </component>
@@ -99,80 +44,30 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c958c2aa-2744-4593-9a67-5d1ce4b405f2" name="Default Changelist" comment="" />
-      <created>1585750645024</created>
+      <changelist id="3c3dfebc-2205-4be5-9363-3a0acada5c71" name="Default Changelist" comment="" />
+      <created>1591958446970</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1585750645024</updated>
+      <updated>1591958446970</updated>
     </task>
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="526" y="190" key="#com.intellij.ide.util.MemberChooser" timestamp="1591915082025">
+    <state width="1397" height="255" key="GridCell.Tab.0.bottom" timestamp="1591959882672">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state x="526" y="190" key="#com.intellij.ide.util.MemberChooser/0.0.1440.960@0.0.1440.960" timestamp="1591915082025" />
-    <state x="701" y="206" key="#com.intellij.ide.util.MemberChooser/1920.56.1280.984/-1768.0.1414.762/0.0.1920.1040@0.0.1920.1040" timestamp="1588792958933" />
-    <state width="1397" height="257" key="GridCell.Tab.0.bottom" timestamp="1591955579417">
+    <state width="1397" height="255" key="GridCell.Tab.0.bottom/0.0.1440.960@0.0.1440.960" timestamp="1591959882672" />
+    <state width="1397" height="255" key="GridCell.Tab.0.center" timestamp="1591959882672">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state width="1397" height="257" key="GridCell.Tab.0.bottom/0.0.1440.960@0.0.1440.960" timestamp="1591955579417" />
-    <state width="1876" height="277" key="GridCell.Tab.0.bottom/1920.56.1280.984/-1768.0.1414.762/0.0.1920.1040@0.0.1920.1040" timestamp="1588804199371" />
-    <state width="1397" height="257" key="GridCell.Tab.0.center" timestamp="1591955579417">
+    <state width="1397" height="255" key="GridCell.Tab.0.center/0.0.1440.960@0.0.1440.960" timestamp="1591959882672" />
+    <state width="1397" height="255" key="GridCell.Tab.0.left" timestamp="1591959882672">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state width="1397" height="257" key="GridCell.Tab.0.center/0.0.1440.960@0.0.1440.960" timestamp="1591955579417" />
-    <state width="1876" height="277" key="GridCell.Tab.0.center/1920.56.1280.984/-1768.0.1414.762/0.0.1920.1040@0.0.1920.1040" timestamp="1588804199371" />
-    <state width="1397" height="257" key="GridCell.Tab.0.left" timestamp="1591955579416">
+    <state width="1397" height="255" key="GridCell.Tab.0.left/0.0.1440.960@0.0.1440.960" timestamp="1591959882672" />
+    <state width="1397" height="255" key="GridCell.Tab.0.right" timestamp="1591959882672">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state width="1397" height="257" key="GridCell.Tab.0.left/0.0.1440.960@0.0.1440.960" timestamp="1591955579416" />
-    <state width="1876" height="277" key="GridCell.Tab.0.left/1920.56.1280.984/-1768.0.1414.762/0.0.1920.1040@0.0.1920.1040" timestamp="1588804199371" />
-    <state width="1397" height="257" key="GridCell.Tab.0.right" timestamp="1591955579417">
-      <screen x="0" y="0" width="1440" height="960" />
-    </state>
-    <state width="1397" height="257" key="GridCell.Tab.0.right/0.0.1440.960@0.0.1440.960" timestamp="1591955579417" />
-    <state width="1876" height="277" key="GridCell.Tab.0.right/1920.56.1280.984/-1768.0.1414.762/0.0.1920.1040@0.0.1920.1040" timestamp="1588804199371" />
-    <state width="1397" height="316" key="GridCell.Tab.1.bottom" timestamp="1591955341070">
-      <screen x="0" y="0" width="1440" height="960" />
-    </state>
-    <state width="1397" height="316" key="GridCell.Tab.1.bottom/0.0.1440.960@0.0.1440.960" timestamp="1591955341070" />
-    <state width="1876" height="342" key="GridCell.Tab.1.bottom/1920.56.1280.984/-1768.0.1414.762/0.0.1920.1040@0.0.1920.1040" timestamp="1588539502037" />
-    <state width="1397" height="316" key="GridCell.Tab.1.center" timestamp="1591955341069">
-      <screen x="0" y="0" width="1440" height="960" />
-    </state>
-    <state width="1397" height="316" key="GridCell.Tab.1.center/0.0.1440.960@0.0.1440.960" timestamp="1591955341069" />
-    <state width="1876" height="342" key="GridCell.Tab.1.center/1920.56.1280.984/-1768.0.1414.762/0.0.1920.1040@0.0.1920.1040" timestamp="1588539502037" />
-    <state width="1397" height="316" key="GridCell.Tab.1.left" timestamp="1591955341069">
-      <screen x="0" y="0" width="1440" height="960" />
-    </state>
-    <state width="1397" height="316" key="GridCell.Tab.1.left/0.0.1440.960@0.0.1440.960" timestamp="1591955341069" />
-    <state width="1876" height="342" key="GridCell.Tab.1.left/1920.56.1280.984/-1768.0.1414.762/0.0.1920.1040@0.0.1920.1040" timestamp="1588539502037" />
-    <state width="1397" height="316" key="GridCell.Tab.1.right" timestamp="1591955341070">
-      <screen x="0" y="0" width="1440" height="960" />
-    </state>
-    <state width="1397" height="316" key="GridCell.Tab.1.right/0.0.1440.960@0.0.1440.960" timestamp="1591955341070" />
-    <state width="1876" height="342" key="GridCell.Tab.1.right/1920.56.1280.984/-1768.0.1414.762/0.0.1920.1040@0.0.1920.1040" timestamp="1588539502037" />
-    <state x="201" y="55" key="SettingsEditor" timestamp="1591646395950">
-      <screen x="0" y="0" width="1440" height="960" />
-    </state>
-    <state x="201" y="55" key="SettingsEditor/0.0.1440.960@0.0.1440.960" timestamp="1591646395950" />
-    <state x="417" y="305" key="com.intellij.ide.util.TipDialog" timestamp="1591903247365">
-      <screen x="0" y="0" width="1440" height="960" />
-    </state>
-    <state x="417" y="305" key="com.intellij.ide.util.TipDialog/0.0.1440.960@0.0.1440.960" timestamp="1591903247365" />
-    <state x="556" y="330" key="com.intellij.ide.util.TipDialog/1920.56.1280.984/-1768.0.1414.762/0.0.1920.1040@0.0.1920.1040" timestamp="1588789848402" />
-    <state x="456" y="374" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1588003365970">
-      <screen x="0" y="0" width="1440" height="960" />
-    </state>
-    <state x="456" y="374" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1440.960@0.0.1440.960" timestamp="1588003365970" />
-    <state x="377" y="223" key="run.anything.popup" timestamp="1589406982632">
-      <screen x="0" y="0" width="1440" height="960" />
-    </state>
-    <state x="377" y="223" key="run.anything.popup/0.0.1440.960@0.0.1440.960" timestamp="1589406982632" />
-    <state x="383" y="205" width="672" height="678" key="search.everywhere.popup" timestamp="1587474029542">
-      <screen x="0" y="0" width="1440" height="960" />
-    </state>
-    <state x="383" y="205" width="672" height="678" key="search.everywhere.popup/0.0.1440.960@0.0.1440.960" timestamp="1587474029542" />
+    <state width="1397" height="255" key="GridCell.Tab.0.right/0.0.1440.960@0.0.1440.960" timestamp="1591959882672" />
   </component>
 </project>

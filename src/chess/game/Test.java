@@ -147,24 +147,23 @@ public class Test implements Runnable{
                         gameBoard.getBoard()[currentX][currentY].setPiece(currentChosenPiece);
                         currentChosenPiece = null;
                         System.out.println("Pionek przestawiono " + currentX + " " + currentY);
-                        gameBoard.repaintColors();
                         playerNum++;
                     }
                 }
                 else if(currentChosenPiece.move(currentX,currentY,gameBoard.getBoard())){
                     gameBoard.getBoard()[previusX][previusY].setPiece(null);
                     gameBoard.getBoard()[currentX][currentY].setPiece(currentChosenPiece);
-                    currentChosenPiece = null;
                     System.out.println("Pionek przestawiono "+ currentX + " "+ currentY);
-                    gameBoard.repaintColors();
                     playerNum++;
+                    currentChosenPiece = null;
                 }
                 else if (!currentChosenPiece.move(currentX,currentY,gameBoard.getBoard())){
                     System.out.println("Poza możliwościami pionka lub jest tam inny pionek");
                     currentChosenPiece = null;
-                    gameBoard.repaintColors();
                 }
                 setCheck();
+                gameBoard.refreshBoard();
+                gameBoard.repaintColors();
             }else {
                 try{
                     currentChosenPiece = gameBoard.getBoard()[currentX][currentY].getPiece();
@@ -269,7 +268,6 @@ public class Test implements Runnable{
                     for(Piece piece: pieceRow){
                         piece.setColor(player.getPlayerColor());
                         board[piece.getX()][piece.getY()].setPiece(piece);
-
                     }
                 }
             }
@@ -286,15 +284,50 @@ public class Test implements Runnable{
         }
 
         public synchronized void refreshBoard(){
+            for(int i = 0; i<boardSize;i++){
+                for(int j = 0; j<boardSize;j++){
+                    if (j%2 == 0){
+                        for(int k = 0; k<boardSize;k++){
+                            if (k%2 == 0){
+                                board[k][j].setColor(Color.BLACK);
+                            }else {
+                                board[k][j].setColor(Color.WHITE);
+                            }
+                        }
+                    }else {
+                        for(int k = 0; k<boardSize;k++){
+                            if (k%2 == 0){
+                                board[k][j].setColor(Color.WHITE);
+                            }else {
+                                board[k][j].setColor(Color.BLACK);
+                            }
+                        }
+                    }
 
-            for(int i = 0; i< boardSize ; i++){
-                for(int j = 0; j< boardSize ; j++){
-                    if(board[i][j] == null){
-                        this.add(board[i][j]);
+                }
+            }
+
+            for(int i = 0; i<boardSize;i++){
+                for(int j = 0; j<boardSize;j++){
+                    if (j%2 == 0){
+                        for(int k = 0; k<boardSize;k++){
+                            if (k%2 == 0){
+                                board[k][j].setColor(Color.WHITE);
+                            }else {
+                                board[k][j].setColor(Color.BLACK);
+                            }
+                        }
+                    }else {
+                        for(int k = 0; k<boardSize;k++){
+                            if (k%2 == 0){
+                                board[k][j].setColor(Color.BLACK);
+                            }else {
+                                board[k][j].setColor(Color.WHITE);
+                            }
+                        }
                     }
                 }
             }
-            this.revalidate();
         }
 
         public synchronized void setStatus(chess.game.Board.GameStatus status){
@@ -376,7 +409,6 @@ public class Test implements Runnable{
                 }
             }
         }
-
         return impossibleMoves;
     }
 

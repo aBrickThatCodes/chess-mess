@@ -10,6 +10,7 @@ import java.util.List;
 import java.awt.image.BufferedImage;
 
 public class Pawn extends Piece {
+    private boolean wasMoved = false;
     private Player.AttackDirection attackDirection = Player.AttackDirection.LEFT;
 
     public Pawn(Player.AttackDirection attackDirection){
@@ -53,6 +54,14 @@ public class Pawn extends Piece {
         }
 
         List<Spot> possibleMoves = new ArrayList<>();
+
+        if(!wasMoved){
+            try{
+                Spot ahead = board[getX()+2*x][getY()+2*y];
+                if (ahead.getPiece() == null) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
+            } catch (Exception e) {
+            }
+        }
 
         try{
             Spot ahead = board[getX()+x][getY()+y];
@@ -113,5 +122,16 @@ public class Pawn extends Piece {
         }
 
         return possibleMoves;
+    }
+
+    public synchronized boolean move(int x,int y,Spot[][] board){
+        if(validateMove(x,y,board)){
+            setX(x);
+            setY(y);
+            wasMoved = true;
+            return true;
+        }else {
+            return false;
+        }
     }
 }

@@ -4,9 +4,11 @@ import chess.Config;
 import chess.game.Spot;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.Collection;
 
-public abstract class Piece {
+public abstract class Piece implements Serializable{
 
     public Piece(){
         super();
@@ -17,7 +19,7 @@ public abstract class Piece {
     private Color color;
     protected Config config;
 
-    public abstract String getPieceIcon();
+    public abstract BufferedImage getPieceIcon();
 
     public abstract Collection<Spot> getPossibleMoves(Spot[][] board);
 

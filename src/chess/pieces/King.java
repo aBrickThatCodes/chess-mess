@@ -1,10 +1,12 @@
 package chess.pieces;
 
+import chess.Config;
 import chess.game.Spot;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.awt.image.BufferedImage;
 
 public class King extends Piece {
 
@@ -13,8 +15,8 @@ public class King extends Piece {
 
     private String pieceIcon = "♚";
 
-    public String getPieceIcon(){
-        return this.pieceIcon;
+    public BufferedImage getPieceIcon(){
+        return Config.Instance().pieceImages[5];
     }
 
     public synchronized Collection<Spot> getPossibleMoves(Spot[][] board) {

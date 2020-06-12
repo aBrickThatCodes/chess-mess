@@ -1,17 +1,22 @@
 package chess.game;
 
+import chess.Config;
 import chess.pieces.Piece;
-import javax.swing.*;
 import java.awt.*;
 
+import javax.swing.JTextField;
+import java.awt.image.*;
+import java.io.Serializable;
+
 @SuppressWarnings("serial")
-public class Spot extends JTextField {
+public class Spot extends JTextField implements Serializable {
 
     private Piece piece = null;
     private int x;
     private int y;
 
     public Spot(int x, int y) {
+        super();
         setX(x);
         setY(y);
         this.setEditable(false);
@@ -24,16 +29,21 @@ public class Spot extends JTextField {
     public synchronized void setPiece(Piece p) {
         if(p!=null){
             this.piece = p;
-            this.setText(p.getPieceIcon());
-            this.setForeground(p.getColor());
-            this.setFont(new Font("Name",this.getFont().getStyle(),this.getWidth()));
-            this.revalidate();
         }else{
             this.piece = null;
-            this.setText(null);
-            this.revalidate();
         }
+        this.revalidate();
     }
+    
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if(piece!=null) {
+            Image image=resizeImage(this.getWidth(), this.getHeight(), piece.getPieceIcon(), new Color(this.getColor().getRGB()), piece.getColor());
+            g.drawImage(image, 0, 0, null);
+        }      
+    }
+    
 
     public synchronized Piece getPiece() {
         return piece;
@@ -54,4 +64,42 @@ public class Spot extends JTextField {
     }
 
     public synchronized int getY(){return this.y;}
+
+    protected Image resizeImage(int width, int height, BufferedImage image, Color bgColor, Color imageColor) {
+        BufferedImage imageChanged=new BufferedImage(image.getWidth(),image.getHeight(),BufferedImage.TYPE_INT_RGB);
+        for(int x=0;x<image.getWidth();x++) {
+            for(int y=0;y<image.getHeight();y++) {
+                imageChanged.setRGB(x, y, image.getRGB(x,y));
+            }
+        }
+
+        if(imageColor==Color.BLACK) {
+            imageChanged=replaceColor(imageChanged, Color.WHITE, Color.YELLOW);
+            imageChanged=replaceColor(imageChanged, Color.BLACK, Color.WHITE);
+            imageChanged=replaceColor(imageChanged, Color.YELLOW, Color.BLACK);
+        }
+        else if(imageColor!=null) {
+            imageChanged=replaceColor(imageChanged, Color.WHITE, imageColor);
+        }
+
+        if(bgColor!=null) {
+            imageChanged=replaceColor(imageChanged, Config.backGroundColor, bgColor);
+        }
+
+        Image resized=imageChanged.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        
+        return resized;
+    }
+
+    protected static BufferedImage replaceColor(BufferedImage img, Color toReplace, Color replacer) {
+        BufferedImage imageChanged=img.getSubimage(0, 0, img.getWidth(), img.getHeight());
+        for (int x = 0; x < imageChanged.getWidth(); x++) {
+            for (int y = 0; y < imageChanged.getHeight(); y++) {
+                Color color = new Color(imageChanged.getRGB(x, y));
+                if(color.getRGB()==toReplace.getRGB())
+                    imageChanged.setRGB(x, y, replacer.getRGB());
+            }
+        }
+        return imageChanged;
+    }
 }

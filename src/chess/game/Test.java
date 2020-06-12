@@ -1,21 +1,22 @@
 package chess.game;
 
-import chess.Config;
-import chess.pieces.*;
+import chess.pieces.King;
+import chess.pieces.Pawn;
+import chess.pieces.Piece;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Random;
 
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
-public class Test{
+@SuppressWarnings("unused")
+
+public class Test implements Runnable{
 
     private int boardSize = 8;
 
@@ -29,8 +30,25 @@ public class Test{
     private Player currentPlayer;
     private int playerNum;
 
+    @Override
+    public void run() {
+        gameBoard=new Board();
+
+        JFrame frame = new JFrame();
+        frame.setVisible(true);
+        frame.setSize(640,640);
+        frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+        ArrayList<Board> boardChanges = new ArrayList<>();
+
+
+        gameBoard.revalidate();
+        frame.add(gameBoard);
+        frame.revalidate();
+    }
+
     //Stara metoda na przesuawnie pionków przy pomocy MauseListenera
-    public class MyMouseListener implements MouseListener {
+    /*public class MyMouseListener implements MouseListener {
     private int x;
     private int y;
 
@@ -53,10 +71,12 @@ public class Test{
                 gameBoard.getBoard()[currentX][currentY].setPiece(currentChosenPiece);
                 currentChosenPiece = null;
                 System.out.println("Pionek przestawiono "+ currentX + " "+ currentY);
+                gameBoard.repaintColors();
             }
             else if (!currentChosenPiece.move(currentX,currentY,gameBoard.getBoard())){
                 System.out.println("Poza możliwościami pionka lub jest tam inny pionek");
                 currentChosenPiece = null;
+                gameBoard.repaintColors();
             }
         }else{
             try{
@@ -70,6 +90,7 @@ public class Test{
                 }
                 System.out.println("Current spot " + currentX + " " + currentY);
                 System.out.println("Previous spot " + previusX + " " + previusY);
+                System.out.println("Udało się załadować " + currentChosenPiece.getPieceIcon());
 
             } catch (Exception e) {
                 System.out.println("Brak pionka");
@@ -94,10 +115,9 @@ public class Test{
     public void mouseExited(MouseEvent mouseEvent) {
 
     }
-}
+}*/
 
-//Mosue listener do textowej wersji
-    /*public class MyFocusListener implements FocusListener {
+    public class MyFocusListener implements FocusListener {
         private int x;
         private int y;
 
@@ -117,6 +137,8 @@ public class Test{
             int previusY = currentY;
             currentY = y;
 
+            if(isMate()) System.out.println("Padłem");
+
             if(currentChosenPiece != null){
                 if(currentChosenPiece instanceof King){
                     King king = (King) currentChosenPiece;
@@ -125,6 +147,7 @@ public class Test{
                         gameBoard.getBoard()[currentX][currentY].setPiece(currentChosenPiece);
                         currentChosenPiece = null;
                         System.out.println("Pionek przestawiono " + currentX + " " + currentY);
+                        gameBoard.repaintColors();
                         playerNum++;
                     }
                 }
@@ -133,10 +156,13 @@ public class Test{
                     gameBoard.getBoard()[currentX][currentY].setPiece(currentChosenPiece);
                     currentChosenPiece = null;
                     System.out.println("Pionek przestawiono "+ currentX + " "+ currentY);
+                    gameBoard.repaintColors();
+                    playerNum++;
                 }
                 else if (!currentChosenPiece.move(currentX,currentY,gameBoard.getBoard())){
                     System.out.println("Poza możliwościami pionka lub jest tam inny pionek");
                     currentChosenPiece = null;
+                    gameBoard.repaintColors();
                 }
                 setCheck();
             }else {
@@ -178,9 +204,8 @@ public class Test{
 
         @Override
         public synchronized void focusLost(FocusEvent focusEvent) {
-
         }
-    }*/
+    }
 
     @SuppressWarnings("serial")
     public class Board extends JPanel {
@@ -188,11 +213,35 @@ public class Test{
         private Spot[][] board;
         private chess.game.Board.GameStatus status;
 
-        public Board() {
-            super();
-            this.setLayout(new GridLayout(boardSize,boardSize));
+        public Board(){
+            setLayout(new GridLayout(boardSize,boardSize));
             setBoard();
             status = chess.game.Board.GameStatus.ACTIVE;
+        }
+
+        public synchronized void repaintColors(){
+            for(int i = 0; i<boardSize;i++){
+                for(int j = 0; j<boardSize;j++){
+                    if (j%2 == 0){
+                        for(int k = 0; k<boardSize;k++){
+                            if (k%2 == 0){
+                                board[k][j].setColor(Color.WHITE);
+                            }else {
+                                board[k][j].setColor(Color.BLACK);
+                            }
+                        }
+                    }else {
+                        for(int k = 0; k<boardSize;k++){
+                            if (k%2 == 0){
+                                board[k][j].setColor(Color.BLACK);
+                            }else {
+                                board[k][j].setColor(Color.WHITE);
+                            }
+                        }
+                    }
+
+                }
+            }
         }
 
         public synchronized void setBoard(){
@@ -203,13 +252,16 @@ public class Test{
                 for(int j = 0; j< boardSize ; j++){
                     if(board[i][j] == null){
                         board[i][j] = new Spot(i,j);
-                        board[i][j].addMouseListener(new MyMouseListener(i,j));
+                        board[i][j].addFocusListener(new MyFocusListener(i,j));
                     }
                 }
             }
 
-            players.add(new Player.HumanPlayer(0, Player.AttackDirection.LEFT,Color.BLACK));
-            players.add(new Player.HumanPlayer(0,Player.AttackDirection.RIGHT,Color.GREEN));
+            //Kolorowanie
+            repaintColors();
+
+            players.add(new Player.HumanPlayer(0, Player.AttackDirection.LEFT,Color.yellow));
+            players.add(new Player.HumanPlayer(0,Player.AttackDirection.RIGHT,Color.blue));
 
             //Dodawanie pionków
             for(Player player:players){
@@ -217,12 +269,14 @@ public class Test{
                     for(Piece piece: pieceRow){
                         piece.setColor(player.getPlayerColor());
                         board[piece.getX()][piece.getY()].setPiece(piece);
+
                     }
                 }
             }
 
             for(int j = 0; j< boardSize ; j++){
                 for(int i = 0; i< boardSize ; i++){
+                    board[i][j].revalidate();
                     this.add(board[i][j]);
                 }
             }
@@ -273,28 +327,6 @@ public class Test{
         return isCorrect;
     }
 
-    //Sprawdza czy jest szach na królu
-    public synchronized boolean checkForCheck(){
-        boolean isCheck= false;
-        King king;
-        for(Player p: players) {
-            if(p != currentPlayer) {
-                for (ArrayList<Piece> aL : p.playerPieces) {
-                    for (Piece piece : aL) {
-                        if (piece instanceof King) {
-                            king = (King) piece;
-                            if (king.getIsChecked()) {
-                                isCheck = king.getIsChecked();
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return isCheck;
-    }
-
     //Ustawia szacha na królu
     public synchronized void setCheck() {
         for (ArrayList<Piece> pieces : currentPlayer.playerPieces) {
@@ -321,42 +353,77 @@ public class Test{
         }
     }
 
-    //Usuwa ruchy królowi
+    //Usuwa ruchy królowi powodujące szach
     public synchronized Collection<Spot> mayBeChecked(King king){
         List<Spot> impossibleMoves = new ArrayList<>();
-        List<Spot> enemyMoves = new ArrayList<>();
 
         for (Player p : players) {
             if (p != currentPlayer) {
                 for (ArrayList<Piece> pieces : p.playerPieces) {
                     for (Piece piece: pieces) {
-                        for(Spot s:piece.getPossibleMoves(gameBoard.getBoard()))
-                        if(king.getPossibleMoves(gameBoard.getBoard()).contains(s)){
-                            impossibleMoves.add(s);
+                        if(piece instanceof Pawn){
+                            for(Spot s:((Pawn) piece).getPossibleAttack(gameBoard.getBoard()))
+                                if(king.getPossibleMoves(gameBoard.getBoard()).contains(s)){
+                                    impossibleMoves.add(s);
+                                }
+                        }else {
+                            for (Spot s : piece.getPossibleMoves(gameBoard.getBoard()))
+                                if (king.getPossibleMoves(gameBoard.getBoard()).contains(s)) {
+                                    impossibleMoves.add(s);
+                                }
                         }
                     }
                 }
             }
         }
+
         return impossibleMoves;
     }
 
-    public class GameFrame extends JFrame {
-    Board board;
-    public GameFrame() {
-        super("Chess Mess");
-
-        this.setSize(640,640);
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.setLayout(new BorderLayout());
-        board=new Board();
-        this.add(board,BorderLayout.CENTER);
-        this.revalidate();
+    //sprawdza czy jest szach na królu gracza
+    public synchronized boolean isChecked(){
+        boolean isChecked = false;
+        for (ArrayList<Piece> pieces1 : currentPlayer.playerPieces) {
+            for (Piece piece1 : pieces1) {
+                if(piece1 instanceof King) {
+                    King king = (King) piece1;
+                    isChecked =  king.getIsChecked();
+                }
+            }
+        }
+        return isChecked;
     }
-}
+
+    //sprawdza czy jest mat na królu gracza
+    public synchronized boolean isMate(){
+        boolean isMate = false;
+        for (ArrayList<Piece> pieces1 : currentPlayer.playerPieces) {
+            for (Piece piece1 : pieces1) {
+                if(piece1 instanceof King) {
+                    King king = (King) piece1;
+                    isMate =  king.getIsMate();
+                }
+            }
+        }
+        if(isMate)gameBoard.setStatus(chess.game.Board.GameStatus.ENDGAME);
+        return isMate;
+    }
+
 
     public Test() {
-        new GameFrame().setVisible(true);
+        gameBoard=new Board();
+
+        JFrame frame = new JFrame();
+        frame.setVisible(true);
+        frame.setSize(640,640);
+        frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+        ArrayList<Board> boardChanges = new ArrayList<>();
+
+
+        gameBoard.revalidate();
+        frame.add(gameBoard);
+        frame.revalidate();
     }
 
     public static void main(String[] args){

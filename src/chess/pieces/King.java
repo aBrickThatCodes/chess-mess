@@ -1,19 +1,20 @@
 package chess.pieces;
 
-import chess.Config;
 import chess.game.Spot;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.awt.image.BufferedImage;
 
 public class King extends Piece {
 
-    boolean isCheck = false;
+    private boolean isCheck = false;
+    private boolean isMate = false; //zmienna do przekazania błędu który jest matem
 
-    public BufferedImage getPieceIcon(){
-        return Config.Instance().pieceImages[5];
+    private String pieceIcon = "♚";
+
+    public String getPieceIcon(){
+        return this.pieceIcon;
     }
 
     public synchronized Collection<Spot> getPossibleMoves(Spot[][] board) {
@@ -114,7 +115,8 @@ public class King extends Piece {
                 }
             }
         } catch (Exception e) {
-            System.out.println("SACH-MAT");
+            System.out.println("SACH-MAT w królu");
+            isMate = true;
         }
 
         for(Spot s: possibleMoves){
@@ -140,5 +142,9 @@ public class King extends Piece {
         }else {
             return false;
         }
+    }
+
+    public synchronized boolean getIsMate(){
+        return isMate;
     }
 }

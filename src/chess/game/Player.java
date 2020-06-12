@@ -624,6 +624,6 @@ public abstract class Player {
         RIGHT,
         LEFT,
         UP,
-        DOWN
+        DOWN;
     }
 }

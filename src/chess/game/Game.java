@@ -14,10 +14,10 @@ import java.util.List;
 
 
 @SuppressWarnings({"serial","unused"})
-public class Game extends JFrame implements Runnable {
+public class Game extends JFrame implements Runnable{
 
     private Board gameBoard;
-    private ArrayList<Board> boardChanges;
+    private ArrayList<Board> boardChanges = new ArrayList<>();
     private ArrayList<Player> players;
     private Player currentTurn;
     private int currentX;
@@ -38,15 +38,16 @@ public class Game extends JFrame implements Runnable {
         //Plansza
         gameBoard = new Board(players);
 
+        Player.AttackDirection[] values = Player.AttackDirection.values();
+
         if(Config.Instance().pvp){
             for(int i = 0; i< Config.Instance().playerAmount; i++){
-                //players.add(new Player.HumanPlayer());
+                players.add(new Player.HumanPlayer((i%2)*7,values[i%Config.Instance().playerAmount], Config.Instance().colors[i]));
                 players.get(i).attackDirection = Player.AttackDirection.values()[i%4];
             }
         }
         else {
-            //players.add(new Player.HumanPlayer());
-            players.get(0).attackDirection = Player.AttackDirection.RIGHT;
+            players.add(new Player.HumanPlayer(0, Player.AttackDirection.RIGHT,Config.Instance().colors[0]));
             for(int i = 0; i< Config.Instance().playerAmount-1; i++){
                 players.add(new Player.AIPlayer());
             }
@@ -84,10 +85,12 @@ public class Game extends JFrame implements Runnable {
                     gameBoard.getBoard()[currentX][currentY].setPiece(currentChosenPiece);
                     currentChosenPiece = null;
                     System.out.println("Pionek przestawiono "+ currentX + " "+ currentY);
+                    gameBoard.repaintColors();
                 }
                 else if (!currentChosenPiece.move(currentX,currentY,gameBoard.getBoard())){
                     System.out.println("Poza możliwościami pionka lub jest tam inny pionek");
                     currentChosenPiece = null;
+                    gameBoard.repaintColors();
                 }
             }else{
                 try{
@@ -128,32 +131,6 @@ public class Game extends JFrame implements Runnable {
         }
     }
 
-    @Override
-    public void run() {
-    }
-
-    //Sprawdza czy jest szach na królu
-    public synchronized boolean checkForCheck(){
-        boolean isCheck= false;
-        King king;
-        for(Player p: players) {
-            if(p != currentTurn) {
-                for (ArrayList<Piece> aL : p.playerPieces) {
-                    for (Piece piece : aL) {
-                        if (piece instanceof King) {
-                            king = (King) piece;
-                            if (king.getIsChecked()) {
-                                isCheck = king.getIsChecked();
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return isCheck;
-    }
-
     //Ustawia szacha na królu
     public synchronized void setCheck() {
         for (ArrayList<Piece> pieces : currentTurn.playerPieces) {
@@ -183,7 +160,6 @@ public class Game extends JFrame implements Runnable {
     //Usuwa ruchy królowi
     public synchronized Collection<Spot> mayBeChecked(King king){
         List<Spot> impossibleMoves = new ArrayList<>();
-        List<Spot> enemyMoves = new ArrayList<>();
 
         for (Player p : players) {
             if (p != currentTurn) {
@@ -199,6 +175,49 @@ public class Game extends JFrame implements Runnable {
         }
 
         return impossibleMoves;
+    }
+
+    //sprawdza czy jest szach na królu gracza
+    public synchronized boolean isChecked(){
+        boolean isChecked = false;
+        for (ArrayList<Piece> pieces1 : currentTurn.playerPieces) {
+            for (Piece piece1 : pieces1) {
+                if(piece1 instanceof King) {
+                    King king = (King) piece1;
+                    isChecked =  king.getIsChecked();
+                }
+            }
+        }
+        return isChecked;
+    }
+
+    //sprawdza czy jest mat na królu gracza
+    public synchronized boolean isMate(){
+        boolean isMate = false;
+        for (ArrayList<Piece> pieces1 : currentTurn.playerPieces) {
+            for (Piece piece1 : pieces1) {
+                if(piece1 instanceof King) {
+                    King king = (King) piece1;
+                    isMate =  king.getIsMate();
+                }
+            }
+        }
+        if(isMate)gameBoard.setStatus(Board.GameStatus.ENDGAME);
+        return isMate;
+    }
+
+    public void run(){
+        currentTurn = players.get(0);
+        boardChanges.add(gameBoard);
+        int i =0;
+        while(gameBoard.getStatus() == Board.GameStatus.ACTIVE){
+            if(gameBoard != boardChanges.get(boardChanges.size()-1)){
+                currentTurn = players.get(i%Config.Instance().playerAmount);
+                i++;
+                isMate();
+            }
+        }
+        System.exit(0);
     }
 
     /*public class MyMouseListener implements MouseListener {
@@ -367,5 +386,4 @@ public class Game extends JFrame implements Runnable {
             playerTurn++;
         }
     }*/
-
 }

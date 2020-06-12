@@ -1,17 +1,17 @@
 package chess.pieces;
 
-import chess.Config;
 import chess.game.Spot;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.awt.image.BufferedImage;
 
 public class Bishop extends Piece {
 
-    public BufferedImage getPieceIcon(){
-        return Config.Instance().pieceImages[3];
+    private String pieceIcon = "♝";
+
+    public String getPieceIcon(){
+        return this.pieceIcon;
     }
 
     public synchronized Collection<Spot> getPossibleMoves(Spot[][] board) {

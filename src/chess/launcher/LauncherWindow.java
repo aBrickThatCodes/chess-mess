@@ -3,6 +3,8 @@ import javax.swing.*;
 import chess.Config;
 import java.awt.*;
 import java.awt.event.*;
+
+import chess.game.Game;
 import chess.game.Test;
 
 @SuppressWarnings({"serial","unused"})
@@ -53,7 +55,12 @@ public class LauncherWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
                 JButton button=(JButton)e.getSource();
                 if(button==startButton) {
-                    Test test=new Test();
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            new Game();
+                        }
+                    });
                 }
                 else if(button==loadGameButton) {
                     //TODO: Load game

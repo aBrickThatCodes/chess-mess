@@ -13,99 +13,83 @@ import java.util.Collection;
 import java.util.List;
 
 
-@SuppressWarnings({"serial","unused"})
-public class Game extends JFrame implements Runnable{
+@SuppressWarnings({"serial", "unused"})
+public class Game extends JFrame{
 
-    private Board gameBoard;
-    private ArrayList<Board> boardChanges = new ArrayList<>();
-    private ArrayList<Player> players;
-    private Player currentTurn;
-    private int currentX;
-    private int currentY;
-    private Piece currentChosenPiece = null;
+    GameData gameData = new GameData();
 
+    public Game() {
 
-    public Game(){
-
-        Config.loadSettings();
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(640,640);
-
-        //Gracze
-        players = new ArrayList<>(Config.Instance().playerAmount);
-
-        //Plansza
-        gameBoard = new Board(players);
+        setSize(640, 640);
 
         Player.AttackDirection[] values = Player.AttackDirection.values();
 
-        if(Config.Instance().pvp){
-            for(int i = 0; i< Config.Instance().playerAmount; i++){
-                players.add(new Player.HumanPlayer((i%2)*7,values[i%Config.Instance().playerAmount], Config.Instance().colors[i]));
-                players.get(i).attackDirection = Player.AttackDirection.values()[i%4];
+        if (Config.Instance().pvp) {
+            for (int i = 0; i < Config.Instance().playerAmount; i++) {
+                gameData.getPlayers().add(new Player.HumanPlayer((i % 2) * 7, values[i % Config.Instance().playerAmount], Config.Instance().colors[i]));
+                gameData.getPlayers().get(i).attackDirection = Player.AttackDirection.values()[i % 4];
             }
-        }
-        else {
-            players.add(new Player.HumanPlayer(0, Player.AttackDirection.RIGHT,Config.Instance().colors[0]));
-            for(int i = 0; i< Config.Instance().playerAmount-1; i++){
-                players.add(new Player.AIPlayer());
-            }
-        }
-
-        for(int i =0; i<Config.Instance().boardWidth;i++){
-            for(int j =0; j<Config.Instance().boardWidth;j++){
-                gameBoard.getBoard()[i][j].addMouseListener(new MyMouseListener(i,j));
+        } else {
+            gameData.getPlayers().add(new Player.HumanPlayer(0, Player.AttackDirection.RIGHT, Config.Instance().colors[0]));
+            for (int i = 0; i < Config.Instance().playerAmount - 1; i++) {
+                gameData.getPlayers().add(new Player.AIPlayer());
             }
         }
 
-        this.add(gameBoard);
+        for (int i = 0; i < Config.Instance().boardHeight; i++) {
+            for (int j = 0; j < Config.Instance().boardWidth; j++) {
+                gameData.getBoard().getBoard()[j][i].addMouseListener(new MyMouseListener(i, j));
+            }
+        }
+
+        this.add(gameData.getBoard());
     }
 
     public class MyMouseListener implements MouseListener {
         private int x;
         private int y;
 
-        public MyMouseListener(int x,int y){
+        public MyMouseListener(int x, int y) {
             this.x = x;
             this.y = y;
         }
 
         @Override
         public void mouseClicked(MouseEvent mouseEvent) {
-            int previusX = currentX;
-            currentX = x;
+            int previusX = gameData.getCurrentX();
+            gameData.setCurrentX(x);
 
-            int previusY = currentY;
-            currentY = y;
+            int previusY = gameData.getCurrentY();
+            gameData.setCurrentY(y);
 
-            if(currentChosenPiece != null){
-                if(currentChosenPiece.move(currentX,currentY,gameBoard.getBoard())){
-                    gameBoard.getBoard()[previusX][previusY].setPiece(null);
-                    gameBoard.getBoard()[currentX][currentY].setPiece(currentChosenPiece);
-                    currentChosenPiece = null;
-                    System.out.println("Pionek przestawiono "+ currentX + " "+ currentY);
-                    gameBoard.repaintColors();
-                }
-                else if (!currentChosenPiece.move(currentX,currentY,gameBoard.getBoard())){
+            if (gameData.getCurrentChosenPiece() != null) {
+                if (gameData.getCurrentChosenPiece().move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard())) {
+                    gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
+                    gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                    gameData.setCurrentChosenPiece(null);
+                    System.out.println("Pionek przestawiono " + gameData.getCurrentX() + " " + gameData.getCurrentY());
+                    gameData.getBoard().repaintColors();
+                } else if (!gameData.getCurrentChosenPiece().move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard())) {
                     System.out.println("Poza możliwościami pionka lub jest tam inny pionek");
-                    currentChosenPiece = null;
-                    gameBoard.repaintColors();
+                    gameData.setCurrentChosenPiece(null);
+                    gameData.getBoard().repaintColors();
                 }
-            }else{
-                try{
-                    currentChosenPiece = gameBoard.getBoard()[currentX][currentY].getPiece();
-                    for(Spot s:currentChosenPiece.getPossibleMoves(gameBoard.getBoard())){
-                        if(gameBoard.getBoard()[s.getX()][s.getY()].getColor() == Color.WHITE){
-                            gameBoard.getBoard()[s.getX()][s.getY()].setColor(Color.blue);
-                        }else{
-                            gameBoard.getBoard()[s.getX()][s.getY()].setColor(Color.blue);
+                setCheck();
+                isMate();
+            } else {
+                try {
+                    gameData.setCurrentChosenPiece(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece());
+                    for (Spot s : gameData.getCurrentChosenPiece().getPossibleMoves(gameData.getBoard().getBoard())) {
+                        if (gameData.getBoard().getBoard()[s.getX()][s.getY()].getColor() == Color.WHITE) {
+                            gameData.getBoard().getBoard()[s.getX()][s.getY()].setColor(Color.blue);
+                        } else {
+                            gameData.getBoard().getBoard()[s.getX()][s.getY()].setColor(Color.blue);
                         }
                     }
-                    System.out.println("Current spot " + currentX + " " + currentY);
+                    System.out.println("Current spot " + gameData.getCurrentX() + " " + gameData.getCurrentY());
                     System.out.println("Previous spot " + previusX + " " + previusY);
-                    System.out.println("Udało się załadować " + currentChosenPiece.getPieceIcon());
-
                 } catch (Exception e) {
                     System.out.println("Brak pionka");
                 }
@@ -133,11 +117,11 @@ public class Game extends JFrame implements Runnable{
 
     //Ustawia szacha na królu pozostałych graczy
     public synchronized void setCheck() {
-        for (ArrayList<Piece> pieces : currentTurn.playerPieces) {
+        for (ArrayList<Piece> pieces : gameData.getCurrentTurn().playerPieces) {
             for (Piece piece : pieces) {
-                for (Spot s : piece.getPossibleMoves(gameBoard.getBoard())) {
-                    for (Player p : players) {
-                        if (p != currentTurn) {
+                for (Spot s : piece.getPossibleMoves(gameData.getBoard().getBoard())) {
+                    for (Player p : gameData.getPlayers()) {
+                        if (p != gameData.getCurrentTurn()) {
                             for (ArrayList<Piece> pieces1 : p.playerPieces) {
                                 for (Piece piece1 : pieces1) {
                                     if (piece1 instanceof King) {
@@ -145,7 +129,7 @@ public class Game extends JFrame implements Runnable{
                                         if (s.getY() == piece1.getY() && s.getX() == piece1.getX()) {
                                             System.out.println("SZACH");
                                             king.isChecked(true);
-                                            gameBoard.getBoard()[s.getX()][s.getY()].setColor(Color.yellow);
+                                            gameData.getBoard().getBoard()[s.getX()][s.getY()].setColor(Color.yellow);
                                         } else {
                                             king.isChecked(false);
                                         }
@@ -163,12 +147,12 @@ public class Game extends JFrame implements Runnable{
     //Tablica ruchów królowi powodujące szach
     public synchronized Collection<Spot> mayBeChecked(King king) {
         List<Spot> impossibleMoves = new ArrayList<>();
-        for (Player p : players) {
-            if (p != currentTurn) {
+        for (Player p : gameData.getPlayers()) {
+            if (p != gameData.getCurrentTurn()) {
                 for (ArrayList<Piece> pieces : p.playerPieces) {
                     for (Piece piece : pieces) {
-                        for (Spot s : piece.getPossibleAttacks(gameBoard.getBoard()))
-                            if (king.getPossibleMoves(gameBoard.getBoard()).contains(s)) {
+                        for (Spot s : piece.getPossibleAttacks(gameData.getBoard().getBoard()))
+                            if (king.getPossibleMoves(gameData.getBoard().getBoard()).contains(s)) {
                                 impossibleMoves.add(s);
                             }
                     }
@@ -181,7 +165,7 @@ public class Game extends JFrame implements Runnable{
     //Sprawdza czy jest szach na królu gracza
     public synchronized boolean isChecked() {
         boolean isChecked = false;
-        for (ArrayList<Piece> pieces1 : currentTurn.playerPieces) {
+        for (ArrayList<Piece> pieces1 : gameData.getCurrentTurn().playerPieces) {
             for (Piece piece1 : pieces1) {
                 if (piece1 instanceof King) {
                     King king = (King) piece1;
@@ -196,16 +180,16 @@ public class Game extends JFrame implements Runnable{
     public synchronized void isMate() {
         List<Spot> impossibleMoves = new ArrayList<>();
         King king;
-        for(ArrayList<Piece> aL:currentTurn.playerPieces) {
-            for(Piece playerPiece:aL){
-                if(playerPiece instanceof King){
+        for (ArrayList<Piece> aL : gameData.getCurrentTurn().playerPieces) {
+            for (Piece playerPiece : aL) {
+                if (playerPiece instanceof King) {
                     king = (King) playerPiece;
-                    for (Player p : players) {
-                        if (p != currentTurn) {
+                    for (Player p : gameData.getPlayers()) {
+                        if (p != gameData.getCurrentTurn()) {
                             for (ArrayList<Piece> pieces : p.playerPieces) {
                                 for (Piece piece : pieces) {
-                                    for (Spot s : piece.getPossibleAttacks(gameBoard.getBoard()))
-                                        if (king.getPossibleMoves(gameBoard.getBoard()).contains(s)) {
+                                    for (Spot s : piece.getPossibleAttacks(gameData.getBoard().getBoard()))
+                                        if (king.getPossibleMoves(gameData.getBoard().getBoard()).contains(s)) {
                                             impossibleMoves.add(s);
                                         }
                                 }
@@ -213,13 +197,13 @@ public class Game extends JFrame implements Runnable{
                         }
                     }
                     ArrayList<Boolean> mateTab = new ArrayList<>();
-                    for(Spot kingSpot: king.getPossibleMoves(gameBoard.getBoard())){
-                        if(impossibleMoves.contains(kingSpot)){
+                    for (Spot kingSpot : king.getPossibleMoves(gameData.getBoard().getBoard())) {
+                        if (impossibleMoves.contains(kingSpot)) {
                             mateTab.add(true);
                         }
                     }
 
-                    if(mateTab.size()!= 0 && mateTab.size() == king.getPossibleMoves(gameBoard.getBoard()).size()){
+                    if (mateTab.size() != 0 && mateTab.size() == king.getPossibleMoves(gameData.getBoard().getBoard()).size()) {
                         king.setIsMate(true);
                     }
                     break;
@@ -262,7 +246,7 @@ public class Game extends JFrame implements Runnable{
     public boolean checkForMate() {
         boolean playerMate = false;
 
-        for (ArrayList<Piece> pieces1 : currentTurn.playerPieces) {
+        for (ArrayList<Piece> pieces1 : gameData.getCurrentTurn().playerPieces) {
             for (Piece piece1 : pieces1) {
                 if (piece1 instanceof King) {
                     King king = (King) piece1;
@@ -271,20 +255,6 @@ public class Game extends JFrame implements Runnable{
             }
         }
         return playerMate;
-    }
-
-    public void run(){
-        currentTurn = players.get(0);
-        boardChanges.add(gameBoard);
-        int i =0;
-        while(gameBoard.getStatus() == Board.GameStatus.ACTIVE){
-            if(gameBoard != boardChanges.get(boardChanges.size()-1)){
-                currentTurn = players.get(i%Config.Instance().playerAmount);
-                i++;
-                isMate();
-            }
-        }
-        System.exit(0);
     }
 
     /*public class MyMouseListener implements MouseListener {

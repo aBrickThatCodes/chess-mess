@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3c3dfebc-2205-4be5-9363-3a0acada5c71" name="Default Changelist" comment="">
+    <list default="true" id="3c3dfebc-2205-4be5-9363-3a0acada5c71" name="Default Changelist" comment="Work in progress on colouring bigger Board">
+      <change afterPath="$PROJECT_DIR$/src/chess/game/GameData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Spot.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Spot.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Board$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Board$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Board$GameStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Board$GameStatus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Board.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Game$MyMouseListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Game$MyMouseListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$10.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$11.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$12.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$13.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$14.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$15.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$15.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$16.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$16.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$8.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow$9.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/launcher/LauncherWindow.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/pieces/Bishop.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/pieces/Bishop.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chess/game/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/game/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chess/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/game/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/pieces/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/pieces/Bishop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chess/launcher/LauncherWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/launcher/LauncherWindow.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,6 +38,13 @@
   </component>
   <component name="FavoritesManager">
     <favorites_list name="chess-mess-app" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -28,7 +59,33 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.LauncherWindow">
+    <configuration name="Game" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="chess.game.Game" />
+      <module name="chess-mess" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="chess.game.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LauncherWindow" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="chess.launcher.LauncherWindow" />
+      <module name="chess-mess" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="chess.launcher.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="chess.game.Test" />
       <module name="chess-mess" />
@@ -44,7 +101,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.LauncherWindow" />
         <item itemvalue="Application.Test" />
+        <item itemvalue="Application.Game" />
       </list>
     </recent_temporary>
   </component>
@@ -94,40 +153,53 @@
       <option name="project" value="LOCAL" />
       <updated>1592054926459</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added check-mate system to Game">
+      <created>1592056324072</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1592056324072</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add .gitignore" />
     <MESSAGE value="Minor improvements in check, attacks and check-mate.&#10;Game still doesn't work." />
     <MESSAGE value="I think I FINALLY made proper check-mate system!" />
-    <option name="LAST_COMMIT_MESSAGE" value="I think I FINALLY made proper check-mate system!" />
+    <MESSAGE value="Added check-mate system to Game" />
+    <MESSAGE value="Work in progress on colouring bigger Board" />
+    <option name="LAST_COMMIT_MESSAGE" value="Work in progress on colouring bigger Board" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="479" y="352" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1592050563484">
+    <state x="526" y="200" key="#com.intellij.ide.util.MemberChooser" timestamp="1592069100355">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state x="479" y="352" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1440.960@0.0.1440.960" timestamp="1592050563484" />
-    <state x="377" y="75" key="CommitChangelistDialog2" timestamp="1592054924803">
+    <state x="526" y="200" key="#com.intellij.ide.util.MemberChooser/0.0.1440.960@0.0.1440.960" timestamp="1592069100355" />
+    <state x="479" y="352" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1592056336575">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state x="377" y="75" key="CommitChangelistDialog2/0.0.1440.960@0.0.1440.960" timestamp="1592054924803" />
-    <state width="1397" height="255" key="GridCell.Tab.0.bottom" timestamp="1592054887147">
+    <state x="479" y="352" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1440.960@0.0.1440.960" timestamp="1592056336575" />
+    <state x="377" y="75" key="CommitChangelistDialog2" timestamp="1592067838528">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state width="1397" height="255" key="GridCell.Tab.0.bottom/0.0.1440.960@0.0.1440.960" timestamp="1592054887147" />
-    <state width="1397" height="255" key="GridCell.Tab.0.center" timestamp="1592054887147">
+    <state x="377" y="75" key="CommitChangelistDialog2/0.0.1440.960@0.0.1440.960" timestamp="1592067838528" />
+    <state width="1397" height="255" key="GridCell.Tab.0.bottom" timestamp="1592069364481">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state width="1397" height="255" key="GridCell.Tab.0.center/0.0.1440.960@0.0.1440.960" timestamp="1592054887147" />
-    <state width="1397" height="255" key="GridCell.Tab.0.left" timestamp="1592054887147">
+    <state width="1397" height="255" key="GridCell.Tab.0.bottom/0.0.1440.960@0.0.1440.960" timestamp="1592069364481" />
+    <state width="1397" height="255" key="GridCell.Tab.0.center" timestamp="1592069364481">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state width="1397" height="255" key="GridCell.Tab.0.left/0.0.1440.960@0.0.1440.960" timestamp="1592054887147" />
-    <state width="1397" height="255" key="GridCell.Tab.0.right" timestamp="1592054887147">
+    <state width="1397" height="255" key="GridCell.Tab.0.center/0.0.1440.960@0.0.1440.960" timestamp="1592069364481" />
+    <state width="1397" height="255" key="GridCell.Tab.0.left" timestamp="1592069364481">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state width="1397" height="255" key="GridCell.Tab.0.right/0.0.1440.960@0.0.1440.960" timestamp="1592054887147" />
+    <state width="1397" height="255" key="GridCell.Tab.0.left/0.0.1440.960@0.0.1440.960" timestamp="1592069364481" />
+    <state width="1397" height="255" key="GridCell.Tab.0.right" timestamp="1592069364481">
+      <screen x="0" y="0" width="1440" height="960" />
+    </state>
+    <state width="1397" height="255" key="GridCell.Tab.0.right/0.0.1440.960@0.0.1440.960" timestamp="1592069364481" />
     <state x="485" y="192" key="RollbackChangesDialog" timestamp="1591982933045">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
@@ -136,21 +208,21 @@
       <screen x="0" y="0" width="1440" height="960" />
     </state>
     <state x="93" y="93" width="1255" height="775" key="VCS.FileHistoryDialog/0.0.1440.960@0.0.1440.960" timestamp="1592037410127" />
-    <state x="313" y="214" key="Vcs.Push.Dialog.v2" timestamp="1592054931166">
+    <state x="313" y="214" key="Vcs.Push.Dialog.v2" timestamp="1592056326482">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state x="313" y="214" key="Vcs.Push.Dialog.v2/0.0.1440.960@0.0.1440.960" timestamp="1592054931166" />
-    <state x="417" y="305" key="com.intellij.ide.util.TipDialog" timestamp="1592036696552">
+    <state x="313" y="214" key="Vcs.Push.Dialog.v2/0.0.1440.960@0.0.1440.960" timestamp="1592056326482" />
+    <state x="417" y="305" key="com.intellij.ide.util.TipDialog" timestamp="1592067818674">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state x="417" y="305" key="com.intellij.ide.util.TipDialog/0.0.1440.960@0.0.1440.960" timestamp="1592036696552" />
-    <state x="377" y="221" key="run.anything.popup" timestamp="1592053621348">
+    <state x="417" y="305" key="com.intellij.ide.util.TipDialog/0.0.1440.960@0.0.1440.960" timestamp="1592067818674" />
+    <state x="377" y="221" key="run.anything.popup" timestamp="1592058775688">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state x="377" y="221" key="run.anything.popup/0.0.1440.960@0.0.1440.960" timestamp="1592053621348" />
-    <state x="383" y="205" width="672" height="678" key="search.everywhere.popup" timestamp="1591982944061">
+    <state x="377" y="221" key="run.anything.popup/0.0.1440.960@0.0.1440.960" timestamp="1592058775688" />
+    <state x="383" y="205" width="672" height="678" key="search.everywhere.popup" timestamp="1592069417506">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state x="383" y="205" width="672" height="678" key="search.everywhere.popup/0.0.1440.960@0.0.1440.960" timestamp="1591982944061" />
+    <state x="383" y="205" width="672" height="678" key="search.everywhere.popup/0.0.1440.960@0.0.1440.960" timestamp="1592069417506" />
   </component>
 </project>

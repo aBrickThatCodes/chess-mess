@@ -131,7 +131,7 @@ public class Game extends JFrame implements Runnable{
         }
     }
 
-    //Ustawia szacha na królu
+    //Ustawia szacha na królu pozostałych graczy
     public synchronized void setCheck() {
         for (ArrayList<Piece> pieces : currentTurn.playerPieces) {
             for (Piece piece : pieces) {
@@ -140,13 +140,16 @@ public class Game extends JFrame implements Runnable{
                         if (p != currentTurn) {
                             for (ArrayList<Piece> pieces1 : p.playerPieces) {
                                 for (Piece piece1 : pieces1) {
-                                    if(piece1 instanceof King) {
-                                        if(s.getY() == piece1.getY() && s.getX() == piece1.getX()) {
+                                    if (piece1 instanceof King) {
+                                        King king = (King) piece1;
+                                        if (s.getY() == piece1.getY() && s.getX() == piece1.getX()) {
                                             System.out.println("SZACH");
-                                            King king = (King) piece1;
                                             king.isChecked(true);
                                             gameBoard.getBoard()[s.getX()][s.getY()].setColor(Color.yellow);
+                                        } else {
+                                            king.isChecked(false);
                                         }
+                                        break;
                                     }
                                 }
                             }
@@ -157,53 +160,117 @@ public class Game extends JFrame implements Runnable{
         }
     }
 
-    //Usuwa ruchy królowi
-    public synchronized Collection<Spot> mayBeChecked(King king){
+    //Tablica ruchów królowi powodujące szach
+    public synchronized Collection<Spot> mayBeChecked(King king) {
         List<Spot> impossibleMoves = new ArrayList<>();
-
         for (Player p : players) {
             if (p != currentTurn) {
                 for (ArrayList<Piece> pieces : p.playerPieces) {
-                    for (Piece piece: pieces) {
-                        for(Spot s:piece.getPossibleMoves(gameBoard.getBoard()))
-                            if(king.getPossibleMoves(gameBoard.getBoard()).contains(s)){
+                    for (Piece piece : pieces) {
+                        for (Spot s : piece.getPossibleAttacks(gameBoard.getBoard()))
+                            if (king.getPossibleMoves(gameBoard.getBoard()).contains(s)) {
                                 impossibleMoves.add(s);
                             }
                     }
                 }
             }
         }
-
         return impossibleMoves;
     }
 
-    //sprawdza czy jest szach na królu gracza
-    public synchronized boolean isChecked(){
+    //Sprawdza czy jest szach na królu gracza
+    public synchronized boolean isChecked() {
         boolean isChecked = false;
         for (ArrayList<Piece> pieces1 : currentTurn.playerPieces) {
             for (Piece piece1 : pieces1) {
-                if(piece1 instanceof King) {
+                if (piece1 instanceof King) {
                     King king = (King) piece1;
-                    isChecked =  king.getIsChecked();
+                    isChecked = king.getIsChecked();
                 }
             }
         }
         return isChecked;
     }
 
-    //sprawdza czy jest mat na królu gracza
-    public synchronized boolean isMate(){
-        boolean isMate = false;
-        for (ArrayList<Piece> pieces1 : currentTurn.playerPieces) {
-            for (Piece piece1 : pieces1) {
-                if(piece1 instanceof King) {
-                    King king = (King) piece1;
-                    isMate =  king.getIsMate();
+    //Ustawia mat na królu gracza
+    public synchronized void isMate() {
+        List<Spot> impossibleMoves = new ArrayList<>();
+        King king;
+        for(ArrayList<Piece> aL:currentTurn.playerPieces) {
+            for(Piece playerPiece:aL){
+                if(playerPiece instanceof King){
+                    king = (King) playerPiece;
+                    for (Player p : players) {
+                        if (p != currentTurn) {
+                            for (ArrayList<Piece> pieces : p.playerPieces) {
+                                for (Piece piece : pieces) {
+                                    for (Spot s : piece.getPossibleAttacks(gameBoard.getBoard()))
+                                        if (king.getPossibleMoves(gameBoard.getBoard()).contains(s)) {
+                                            impossibleMoves.add(s);
+                                        }
+                                }
+                            }
+                        }
+                    }
+                    ArrayList<Boolean> mateTab = new ArrayList<>();
+                    for(Spot kingSpot: king.getPossibleMoves(gameBoard.getBoard())){
+                        if(impossibleMoves.contains(kingSpot)){
+                            mateTab.add(true);
+                        }
+                    }
+
+                    if(mateTab.size()!= 0 && mateTab.size() == king.getPossibleMoves(gameBoard.getBoard()).size()){
+                        king.setIsMate(true);
+                    }
+                    break;
                 }
             }
         }
-        if(isMate)gameBoard.setStatus(Board.GameStatus.ENDGAME);
-        return isMate;
+
+        /*for (ArrayList<Piece> pieces : currentTurn.playerPieces) {
+            for (Piece piece : pieces) {
+                if (piece instanceof King) {
+                    King king = (King) piece;
+                    king.setIsMate(true);
+                    ArrayList<Spot> enemyAttacks = new ArrayList<>();
+                    for (Player p : players) {
+                        if (p != currentTurn) {
+                            for (ArrayList<Piece> pieces1 : p.playerPieces) {
+                                for (Piece enemyPiece : pieces1) {
+                                    if(enemyPiece instanceof Pawn){
+                                        enemyAttacks.addAll(enemyPiece.getPossibleAttacks(gameBoard.getBoard()));
+                                    }else {
+                                        enemyAttacks.addAll(enemyPiece.getPossibleMoves(gameBoard.getBoard()));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    for(Spot kingSpot:king.getPossibleMoves(gameBoard.getBoard(),mayBeChecked(king))){
+                        if(!enemyAttacks.contains(kingSpot)){
+                            System.out.println("king.setIsMate(false)");
+                            king.setIsMate(false);
+                        }
+                    }
+                    break;
+                }
+            }
+        }*/
+    }
+
+    //Sprawdza czy król aktualnego gracza ma mata
+    public boolean checkForMate() {
+        boolean playerMate = false;
+
+        for (ArrayList<Piece> pieces1 : currentTurn.playerPieces) {
+            for (Piece piece1 : pieces1) {
+                if (piece1 instanceof King) {
+                    King king = (King) piece1;
+                    playerMate = king.getIsMate();
+                }
+            }
+        }
+        return playerMate;
     }
 
     public void run(){

@@ -27,9 +27,7 @@ public class Bishop extends Piece {
                 i++;
                 j++;
 
-                /*if (i == 12) {
-                    break;
-                }*/
+
             }
             if (upRight != null && upRight.getPiece() != null && upRight.getPiece().getColor() != getColor()) {
                 possibleMoves.add(upRight);
@@ -46,9 +44,7 @@ public class Bishop extends Piece {
                 i++;
                 j++;
 
-                /*if (i == 12) {
-                    break;
-                }*/
+
             }
             if (upLeft != null && upLeft.getPiece() != null && upLeft.getPiece().getColor() != getColor()) {
                 possibleMoves.add(upLeft);
@@ -65,9 +61,7 @@ public class Bishop extends Piece {
                 i++;
                 j++;
 
-                /*if (i == 12) {
-                    break;
-                }*/
+
             }
             if (downRight != null && downRight.getPiece() != null && downRight.getPiece().getColor() != getColor()) {
                 possibleMoves.add(downRight);
@@ -83,9 +77,7 @@ public class Bishop extends Piece {
                 possibleMoves.add(downLeft);
                 i++;
                 j++;
-                /*if (i == 12) {
-                    break;
-                }*/
+
             }
             if (downLeft != null && downLeft.getPiece() != null && downLeft.getPiece().getColor() != getColor()) {
                 possibleMoves.add(downLeft);

@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3c3dfebc-2205-4be5-9363-3a0acada5c71" name="Default Changelist" comment="Minor improvements in check, attacks and check-mate.&#10;Game still doesn't work.">
+    <list default="true" id="3c3dfebc-2205-4be5-9363-3a0acada5c71" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Test$Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Test$Board.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Test$GameStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Test$GameStatus.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Test$MyFocusListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Test$MyFocusListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Test.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/pieces/Queen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/pieces/Queen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/game/Spot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/game/Spot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/game/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/game/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Spot.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Spot.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chess/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/game/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chess/pieces/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/pieces/Bishop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/pieces/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/pieces/Queen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/pieces/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/pieces/Rook.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,23 +87,31 @@
       <option name="project" value="LOCAL" />
       <updated>1592050498228</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="I think I FINALLY made proper check-mate system!">
+      <created>1592054926459</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1592054926459</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add .gitignore" />
     <MESSAGE value="Minor improvements in check, attacks and check-mate.&#10;Game still doesn't work." />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor improvements in check, attacks and check-mate.&#10;Game still doesn't work." />
+    <MESSAGE value="I think I FINALLY made proper check-mate system!" />
+    <option name="LAST_COMMIT_MESSAGE" value="I think I FINALLY made proper check-mate system!" />
   </component>
   <component name="WindowStateProjectService">
     <state x="479" y="352" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1592050563484">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
     <state x="479" y="352" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1440.960@0.0.1440.960" timestamp="1592050563484" />
-    <state x="377" y="75" key="CommitChangelistDialog2" timestamp="1592054852691">
+    <state x="377" y="75" key="CommitChangelistDialog2" timestamp="1592054924803">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state x="377" y="75" key="CommitChangelistDialog2/0.0.1440.960@0.0.1440.960" timestamp="1592054852691" />
+    <state x="377" y="75" key="CommitChangelistDialog2/0.0.1440.960@0.0.1440.960" timestamp="1592054924803" />
     <state width="1397" height="255" key="GridCell.Tab.0.bottom" timestamp="1592054887147">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
@@ -135,10 +136,10 @@
       <screen x="0" y="0" width="1440" height="960" />
     </state>
     <state x="93" y="93" width="1255" height="775" key="VCS.FileHistoryDialog/0.0.1440.960@0.0.1440.960" timestamp="1592037410127" />
-    <state x="313" y="214" key="Vcs.Push.Dialog.v2" timestamp="1592050517759">
+    <state x="313" y="214" key="Vcs.Push.Dialog.v2" timestamp="1592054931166">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state x="313" y="214" key="Vcs.Push.Dialog.v2/0.0.1440.960@0.0.1440.960" timestamp="1592050517759" />
+    <state x="313" y="214" key="Vcs.Push.Dialog.v2/0.0.1440.960@0.0.1440.960" timestamp="1592054931166" />
     <state x="417" y="305" key="com.intellij.ide.util.TipDialog" timestamp="1592036696552">
       <screen x="0" y="0" width="1440" height="960" />
     </state>

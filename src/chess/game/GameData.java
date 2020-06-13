@@ -7,17 +7,24 @@ import java.util.ArrayList;
 
 public class GameData {
     //Z Game
-    public Board gameBoard;
-    public ArrayList<Board> boardChanges = new ArrayList<>();
-    public ArrayList<Player> players = new ArrayList<>(Config.Instance().playerAmount);
-    public Player currentTurn;
-    public int currentX;
-    public int currentY;
-    public Piece currentChosenPiece = null;
+    private Board gameBoard;
+    private ArrayList<Board> boardChanges;
+    private ArrayList<Player> players;
+    private Player currentTurn;
+    private int currentX;
+    private int currentY;
+    private Piece currentChosenPiece;
 
     //Z Board
-    public Board board = new Board(this.getPlayers());
-    public GameStatus status;
+    private Board board;
+    private GameStatus status;
+
+    public GameData() {
+        board = new Board(this.getPlayers());
+        boardChanges = new ArrayList<>();
+        players = new ArrayList<>(Config.Instance().playerAmount);
+        currentChosenPiece = null;
+    }
 
     public Board getGameBoard() {
         return gameBoard;

@@ -132,6 +132,12 @@ public class Config implements java.io.Serializable {
                 index++;
             }
         }
+        else {
+            for(int i=0;i<colors.length;i++) {
+                if(colors[i].getRGB()==backGroundColor.getRGB())
+                    colors[i]=new Color(254, 174, 201);
+            }
+        }
     }
     
 

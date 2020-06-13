@@ -13,8 +13,16 @@ public abstract class Player {
     private int startingRookPosition;
     private Color playerColor;
 
-    public static class HumanPlayer extends Player{
+    public class HumanPlayer extends Player{
         public HumanPlayer(int startingRookPosition, AttackDirection attackDirection,Color playerColor){
+            addPlayerPieces(startingRookPosition,attackDirection);
+            setStartingRookPosition(startingRookPosition);
+            this.setPlayerColor(playerColor);
+        }
+    }
+
+    public class AIPlayer extends Player{
+        AIPlayer(int startingRookPosition, AttackDirection attackDirection,Color playerColor) {
             addPlayerPieces(startingRookPosition,attackDirection);
             setStartingRookPosition(startingRookPosition);
             this.setPlayerColor(playerColor);
@@ -35,12 +43,6 @@ public abstract class Player {
 
     public synchronized Color getPlayerColor(){
         return this.playerColor;
-    }
-
-    public static class AIPlayer extends Player{
-        AIPlayer() {
-            //setPlayerPieces();
-        }
     }
 
     //Tymczasowa metoda dodająca pionki w standardowym ustawieniu

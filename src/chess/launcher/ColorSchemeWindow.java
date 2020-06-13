@@ -91,6 +91,7 @@ public class ColorSchemeWindow extends JFrame implements ActionListener {
                 for(int i=0;i<pages;i++) {
                     for(int j=0;j<Math.min(16,Config.Instance().colors.length-16*currentPage);j++) {
                         Config.Instance().colors[j+16*i]=colorPanels[i][j].getBackground();
+                        Config.Instance().correctValues();
                     }
                 }
             }

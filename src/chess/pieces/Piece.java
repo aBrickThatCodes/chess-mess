@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.Collection;
 
+@SuppressWarnings("serial")
 public abstract class Piece implements Serializable{
 
     public Piece(){

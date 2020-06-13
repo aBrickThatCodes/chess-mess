@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.List;
 import java.awt.image.BufferedImage;
 
+@SuppressWarnings("serial")
 public class Rook extends Piece {
 
     public BufferedImage getPieceIcon(){

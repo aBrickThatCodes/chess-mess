@@ -9,7 +9,7 @@ import java.awt.image.*;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-public class Spot extends JTextField implements Serializable {
+public class Spot extends JTextField {
 
     private Piece piece = null;
     private int x;

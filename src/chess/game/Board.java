@@ -23,17 +23,17 @@ public class Board extends JPanel {
                 if (j % 2 == 0) {
                     for (int k = 0; k < Config.Instance().boardHeight; k++) {
                         if (k % 2 == 0) {
-                            board[k][j].setColor(Config.Instance().colors[0]);
+                            board[k][j].setColor(Color.WHITE);
                         } else {
-                            board[k][j].setColor(Config.Instance().colors[1]);
+                            board[k][j].setColor(Color.BLACK);
                         }
                     }
                 } else {
                     for (int k = 0; k < Config.Instance().boardHeight; k++) {
                         if (k % 2 == 0) {
-                            board[k][j].setColor(Config.Instance().colors[1]);
+                            board[k][j].setColor(Color.BLACK);
                         } else {
-                            board[k][j].setColor(Config.Instance().colors[0]);
+                            board[k][j].setColor(Color.WHITE);
                         }
                     }
                 }
@@ -43,17 +43,17 @@ public class Board extends JPanel {
                 if (j % 2 == 0) {
                     for (int k = 0; k < Config.Instance().boardHeight; k++) {
                         if (k % 2 == 0) {
-                            board[j][k].setColor(Config.Instance().colors[0]);
+                            board[j][k].setColor(Color.WHITE);
                         } else {
-                            board[j][k].setColor(Config.Instance().colors[1]);
+                            board[j][k].setColor(Color.BLACK);
                         }
                     }
                 } else if (j % 2 == 1) {
                     for (int k = 0; k < Config.Instance().boardHeight; k++) {
                         if (k % 2 == 0) {
-                            board[j][k].setColor(Config.Instance().colors[1]);
+                            board[j][k].setColor(Color.BLACK);
                         } else {
-                            board[j][k].setColor(Config.Instance().colors[0]);
+                            board[j][k].setColor(Color.WHITE);
                         }
                     }
                 }
@@ -218,16 +218,16 @@ public class Board extends JPanel {
             if (j % 2 == 0) {
                 for (int k = 0; k < Config.Instance().boardHeight; k++) {
                     if (k % 2 == 0) {
-                        board[j][k].setColor(Config.Instance().colors[1]);
+                        board[j][k].setColor(Color.BLACK);
                     } else {
-                        board[j][k].setColor(Config.Instance().colors[0]);
+                        board[j][k].setColor(Color.WHITE);
                     }
                 }
             } else for (int k = 0; k < Config.Instance().boardHeight; k++) {
                 if (k % 2 == 0) {
-                    board[j][k].setColor(Config.Instance().colors[0]);
+                    board[j][k].setColor(Color.WHITE);
                 } else {
-                    board[j][k].setColor(Config.Instance().colors[1]);
+                    board[j][k].setColor(Color.BLACK);
                 }
             }
         }

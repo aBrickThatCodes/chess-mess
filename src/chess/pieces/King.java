@@ -8,12 +8,11 @@ import java.util.Collection;
 import java.util.List;
 import java.awt.image.BufferedImage;
 
+@SuppressWarnings("serial")
 public class King extends Piece {
 
     private boolean isCheck = false;
     private boolean isMate = false; //zmienna do przekazania błędu który jest matem
-
-    private String pieceIcon = "♚";
 
     public BufferedImage getPieceIcon(){
         return Config.Instance().pieceImages[5];

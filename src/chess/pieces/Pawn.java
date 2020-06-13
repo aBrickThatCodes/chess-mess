@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.List;
 import java.awt.image.BufferedImage;
 
+@SuppressWarnings("serial")
 public class Pawn extends Piece {
     private boolean wasMoved = false;
     private Player.AttackDirection attackDirection = Player.AttackDirection.LEFT;

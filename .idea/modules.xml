@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/chess-mess.iml" filepath="$PROJECT_DIR$/chess-mess.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chess-mess-app.iml" filepath="$PROJECT_DIR$/chess-mess-app.iml" />
     </modules>
   </component>
 </project>

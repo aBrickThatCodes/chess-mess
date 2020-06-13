@@ -24,16 +24,11 @@ public class Game extends JFrame{
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(640, 640);
 
-        gameData.getPlayers().add(new Player.HumanPlayer(0, Player.AttackDirection.LEFT, Color.yellow));
-        gameData.getPlayers().add(new Player.HumanPlayer(0, Player.AttackDirection.RIGHT, Color.blue));
-
-        gameData.getBoard().setBoard(gameData.getPlayers());
-
-        /*Player.AttackDirection[] values = Player.AttackDirection.values();
+        Player.AttackDirection[] values = Player.AttackDirection.values();
 
         if (Config.Instance().pvp) {
             for (int i = 0; i < Config.Instance().playerAmount; i++) {
-                gameData.getPlayers().add(new Player.HumanPlayer(0, values[i % Config.Instance().playerAmount], Color.yellow));
+                gameData.getPlayers().add(new Player.HumanPlayer(0, values[i % Config.Instance().playerAmount], Config.Instance().colors[i]));
                 gameData.getPlayers().get(i).attackDirection = Player.AttackDirection.values()[i % 4];
             }
         } else {
@@ -41,7 +36,9 @@ public class Game extends JFrame{
             for (int i = 0; i < Config.Instance().playerAmount - 1; i++) {
                 gameData.getPlayers().add(new Player.AIPlayer());
             }
-        }*/
+        }
+
+        gameData.getBoard().setBoard(gameData.getPlayers());
 
         for (int i = 0; i < Config.Instance().boardWidth; i++) {
             for (int j = 0; j < Config.Instance().boardHeight; j++) {
@@ -255,6 +252,7 @@ public class Game extends JFrame{
 
                     if (mateTab.size() != 0 && mateTab.size() == king.getPossibleMoves(gameData.getBoard().getBoard()).size()) {
                         king.setIsMate(true);
+                        System.out.println("MAT!");
                     }
                     break;
                 }

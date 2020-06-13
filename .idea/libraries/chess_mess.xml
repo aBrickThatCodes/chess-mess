@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="chess-mess">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/out/artifacts/chess_mess_jar/chess-mess.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

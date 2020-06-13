@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3c3dfebc-2205-4be5-9363-3a0acada5c71" name="Default Changelist" comment="Better check for mate">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/game/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/game/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/game/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/game/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/game/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/pieces/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/pieces/Bishop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/pieces/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/pieces/King.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/pieces/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/pieces/Knight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/pieces/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/pieces/Pawn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/pieces/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/pieces/Piece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/pieces/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/pieces/Queen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/pieces/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/pieces/Rook.java" afterDir="false" />
-    </list>
+    <list default="true" id="3c3dfebc-2205-4be5-9363-3a0acada5c71" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -70,38 +58,46 @@
       <option name="project" value="LOCAL" />
       <updated>1591983008976</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Minor improvements in check, attacks and check-mate.&#10;Game still doesn't work.">
+      <created>1592050401278</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1592050401278</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add .gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add .gitignore" />
+    <MESSAGE value="Minor improvements in check, attacks and check-mate.&#10;Game still doesn't work." />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor improvements in check, attacks and check-mate.&#10;Game still doesn't work." />
   </component>
   <component name="WindowStateProjectService">
     <state x="479" y="352" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1591982732457">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
     <state x="479" y="352" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1440.960@0.0.1440.960" timestamp="1591982732457" />
-    <state x="377" y="75" key="CommitChangelistDialog2" timestamp="1592044519484">
+    <state x="377" y="75" key="CommitChangelistDialog2" timestamp="1592050429434">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state x="377" y="75" key="CommitChangelistDialog2/0.0.1440.960@0.0.1440.960" timestamp="1592044519484" />
-    <state width="1397" height="255" key="GridCell.Tab.0.bottom" timestamp="1592050317773">
+    <state x="377" y="75" key="CommitChangelistDialog2/0.0.1440.960@0.0.1440.960" timestamp="1592050429434" />
+    <state width="1397" height="255" key="GridCell.Tab.0.bottom" timestamp="1592050410507">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state width="1397" height="255" key="GridCell.Tab.0.bottom/0.0.1440.960@0.0.1440.960" timestamp="1592050317773" />
-    <state width="1397" height="255" key="GridCell.Tab.0.center" timestamp="1592050317772">
+    <state width="1397" height="255" key="GridCell.Tab.0.bottom/0.0.1440.960@0.0.1440.960" timestamp="1592050410507" />
+    <state width="1397" height="255" key="GridCell.Tab.0.center" timestamp="1592050410507">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state width="1397" height="255" key="GridCell.Tab.0.center/0.0.1440.960@0.0.1440.960" timestamp="1592050317772" />
-    <state width="1397" height="255" key="GridCell.Tab.0.left" timestamp="1592050317772">
+    <state width="1397" height="255" key="GridCell.Tab.0.center/0.0.1440.960@0.0.1440.960" timestamp="1592050410507" />
+    <state width="1397" height="255" key="GridCell.Tab.0.left" timestamp="1592050410507">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state width="1397" height="255" key="GridCell.Tab.0.left/0.0.1440.960@0.0.1440.960" timestamp="1592050317772" />
-    <state width="1397" height="255" key="GridCell.Tab.0.right" timestamp="1592050317772">
+    <state width="1397" height="255" key="GridCell.Tab.0.left/0.0.1440.960@0.0.1440.960" timestamp="1592050410507" />
+    <state width="1397" height="255" key="GridCell.Tab.0.right" timestamp="1592050410507">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state width="1397" height="255" key="GridCell.Tab.0.right/0.0.1440.960@0.0.1440.960" timestamp="1592050317772" />
+    <state width="1397" height="255" key="GridCell.Tab.0.right/0.0.1440.960@0.0.1440.960" timestamp="1592050410507" />
     <state x="485" y="192" key="RollbackChangesDialog" timestamp="1591982933045">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
@@ -110,10 +106,10 @@
       <screen x="0" y="0" width="1440" height="960" />
     </state>
     <state x="93" y="93" width="1255" height="775" key="VCS.FileHistoryDialog/0.0.1440.960@0.0.1440.960" timestamp="1592037410127" />
-    <state x="313" y="214" key="Vcs.Push.Dialog.v2" timestamp="1591983014852">
+    <state x="313" y="214" key="Vcs.Push.Dialog.v2" timestamp="1592050404095">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state x="313" y="214" key="Vcs.Push.Dialog.v2/0.0.1440.960@0.0.1440.960" timestamp="1591983014852" />
+    <state x="313" y="214" key="Vcs.Push.Dialog.v2/0.0.1440.960@0.0.1440.960" timestamp="1592050404095" />
     <state x="417" y="305" key="com.intellij.ide.util.TipDialog" timestamp="1592036696552">
       <screen x="0" y="0" width="1440" height="960" />
     </state>

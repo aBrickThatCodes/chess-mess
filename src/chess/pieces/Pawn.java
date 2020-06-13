@@ -4,10 +4,10 @@ import chess.Config;
 import chess.game.Player;
 import chess.game.Spot;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.awt.image.BufferedImage;
 
 @SuppressWarnings("serial")
 public class Pawn extends Piece {
@@ -49,8 +49,14 @@ public class Pawn extends Piece {
                 z = 1;
                 break;
             case DOWN:
+                x=0;
+                y=1;
+                z = 1;
                 break;
             case UP:
+                x=0;
+                y=-1;
+                z = 1;
                 break;
         }
 

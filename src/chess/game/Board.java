@@ -76,10 +76,19 @@ public class Board extends JPanel {
 
         //Ustawienie pionków
         for (Player player : players) {
-            for (ArrayList<Piece> pieceRow : player.playerPieces) {
-                for (Piece piece : pieceRow) {
-                    piece.setColor(player.getPlayerColor());
-                    board[piece.getX()][piece.getY()].setPiece(piece);
+            if (player.attackDirection == Player.AttackDirection.LEFT || player.attackDirection == Player.AttackDirection.RIGHT) {
+                for (ArrayList<Piece> pieceRow : player.playerPieces) {
+                    for (Piece piece : pieceRow) {
+                        piece.setColor(player.getPlayerColor());
+                        board[piece.getX()][piece.getY()].setPiece(piece);
+                    }
+                }
+            }else{
+                for (ArrayList<Piece> pieceRow : player.playerPieces) {
+                    for (Piece piece : pieceRow) {
+                        piece.setColor(player.getPlayerColor());
+                        board[piece.getX()][piece.getY()].setPiece(piece);
+                    }
                 }
             }
         }

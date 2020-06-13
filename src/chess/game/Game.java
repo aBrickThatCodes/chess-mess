@@ -32,7 +32,7 @@ public class Game extends JFrame{
                 gameData.getPlayers().get(i).attackDirection = Player.AttackDirection.values()[i % 4];
             }
         } else {
-            gameData.getPlayers().add(new Player.HumanPlayer(0, Player.AttackDirection.RIGHT, Color.blue));
+            gameData.getPlayers().add(new Player.HumanPlayer(0, Player.AttackDirection.RIGHT, Config.Instance().colors[0]));
             for (int i = 1; i < Config.Instance().playerAmount; i++) {
                 gameData.getPlayers().add(new Player.AIPlayer(0, values[i % Config.Instance().playerAmount], Config.Instance().colors[i]));
             }

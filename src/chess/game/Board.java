@@ -14,7 +14,7 @@ public class Board extends JPanel {
     public Spot[][] board;
 
     public Board() {
-        setLayout(new GridLayout(Config.Instance().boardHeight, Config.Instance().boardWidth));
+        setLayout(new GridLayout(Config.Instance().boardWidth, Config.Instance().boardHeight));
     }
 
     public synchronized void repaintColors() {
@@ -194,12 +194,13 @@ public class Board extends JPanel {
             }
         }*/
 
-        for (int j = 0; j < Config.Instance().boardWidth; j++) {
-            for (int i = 0; i < Config.Instance().boardHeight; i++) {
+        for (int i = 0; i < Config.Instance().boardWidth; i++) {
+            for (int j = 0; j < Config.Instance().boardHeight; j++) {
                 board[i][j].revalidate();
                 this.add(board[i][j]);
             }
         }
+
 
         this.revalidate();
 

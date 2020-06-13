@@ -5,10 +5,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Board.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Player$AIPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Player$AIPlayer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Player$AttackDirection.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Player$AttackDirection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Player$HumanPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Player$HumanPlayer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Player.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chess/game/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/game/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chess/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/game/Game.java" afterDir="false" />
     </list>
@@ -169,7 +165,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592076119364</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Works!">
+      <created>1592076679350</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1592076679350</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -182,7 +185,8 @@
     <MESSAGE value="Added minor changes in GameData" />
     <MESSAGE value="Without errors" />
     <MESSAGE value="Changes....changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes....changes" />
+    <MESSAGE value="Works!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Works!" />
   </component>
   <component name="WindowStateProjectService">
     <state x="526" y="200" key="#com.intellij.ide.util.MemberChooser" timestamp="1592069100355">
@@ -193,26 +197,26 @@
       <screen x="0" y="0" width="1440" height="960" />
     </state>
     <state x="479" y="352" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1440.960@0.0.1440.960" timestamp="1592056336575" />
-    <state x="377" y="75" key="CommitChangelistDialog2" timestamp="1592076117074">
+    <state x="377" y="75" key="CommitChangelistDialog2" timestamp="1592076688923">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state x="377" y="75" key="CommitChangelistDialog2/0.0.1440.960@0.0.1440.960" timestamp="1592076117074" />
-    <state width="1397" height="255" key="GridCell.Tab.0.bottom" timestamp="1592076632058">
+    <state x="377" y="75" key="CommitChangelistDialog2/0.0.1440.960@0.0.1440.960" timestamp="1592076688923" />
+    <state width="1397" height="255" key="GridCell.Tab.0.bottom" timestamp="1592077086816">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state width="1397" height="255" key="GridCell.Tab.0.bottom/0.0.1440.960@0.0.1440.960" timestamp="1592076632058" />
-    <state width="1397" height="255" key="GridCell.Tab.0.center" timestamp="1592076632058">
+    <state width="1397" height="255" key="GridCell.Tab.0.bottom/0.0.1440.960@0.0.1440.960" timestamp="1592077086816" />
+    <state width="1397" height="255" key="GridCell.Tab.0.center" timestamp="1592077086815">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state width="1397" height="255" key="GridCell.Tab.0.center/0.0.1440.960@0.0.1440.960" timestamp="1592076632058" />
-    <state width="1397" height="255" key="GridCell.Tab.0.left" timestamp="1592076632058">
+    <state width="1397" height="255" key="GridCell.Tab.0.center/0.0.1440.960@0.0.1440.960" timestamp="1592077086815" />
+    <state width="1397" height="255" key="GridCell.Tab.0.left" timestamp="1592077086815">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state width="1397" height="255" key="GridCell.Tab.0.left/0.0.1440.960@0.0.1440.960" timestamp="1592076632058" />
-    <state width="1397" height="255" key="GridCell.Tab.0.right" timestamp="1592076632058">
+    <state width="1397" height="255" key="GridCell.Tab.0.left/0.0.1440.960@0.0.1440.960" timestamp="1592077086815" />
+    <state width="1397" height="255" key="GridCell.Tab.0.right" timestamp="1592077086816">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state width="1397" height="255" key="GridCell.Tab.0.right/0.0.1440.960@0.0.1440.960" timestamp="1592076632058" />
+    <state width="1397" height="255" key="GridCell.Tab.0.right/0.0.1440.960@0.0.1440.960" timestamp="1592077086816" />
     <state width="1397" height="316" key="GridCell.Tab.1.bottom" timestamp="1592072412221">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
@@ -245,13 +249,13 @@
       <screen x="0" y="0" width="1440" height="960" />
     </state>
     <state x="417" y="305" key="com.intellij.ide.util.TipDialog/0.0.1440.960@0.0.1440.960" timestamp="1592067818674" />
-    <state x="377" y="221" key="run.anything.popup" timestamp="1592070837818">
+    <state x="377" y="221" key="run.anything.popup" timestamp="1592077094341">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state x="377" y="221" key="run.anything.popup/0.0.1440.960@0.0.1440.960" timestamp="1592070837818" />
-    <state x="383" y="205" width="672" height="678" key="search.everywhere.popup" timestamp="1592070783671">
+    <state x="377" y="221" key="run.anything.popup/0.0.1440.960@0.0.1440.960" timestamp="1592077094341" />
+    <state x="383" y="205" width="672" height="678" key="search.everywhere.popup" timestamp="1592077031758">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state x="383" y="205" width="672" height="678" key="search.everywhere.popup/0.0.1440.960@0.0.1440.960" timestamp="1592070783671" />
+    <state x="383" y="205" width="672" height="678" key="search.everywhere.popup/0.0.1440.960@0.0.1440.960" timestamp="1592077031758" />
   </component>
 </project>

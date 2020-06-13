@@ -43,8 +43,8 @@ public class Game extends JFrame{
             }
         }*/
 
-        for (int i = 0; i < Config.Instance().boardHeight; i++) {
-            for (int j = 0; j < Config.Instance().boardWidth; j++) {
+        for (int i = 0; i < Config.Instance().boardWidth; i++) {
+            for (int j = 0; j < Config.Instance().boardHeight; j++) {
                 gameData.getBoard().getBoard()[i][j].addMouseListener(new MyMouseListener(i, j));
             }
         }

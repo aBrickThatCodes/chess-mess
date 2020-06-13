@@ -108,14 +108,13 @@ public class Bishop extends Piece {
                 possibleMoves.add(upRight);
                 i++;
                 j++;
-                /*if(i == 12){
-                    break;
-                }*/
+
             }
             if (upRight != null && upRight.getPiece() != null && upRight.getPiece().getColor() != getColor()) {
                 possibleMoves.add(upRight);
             }
-            if ((upRight = board[getX() + i + 1][getY() + j + 1]).getPiece() == null && upRight != null) {
+
+            if (upRight != null && upRight.getPiece() instanceof King && (upRight = board[getX() + i + 1][getY() + j + 1]).getPiece() == null && upRight != null) {
                 possibleMoves.add(upRight);
             }
         } catch (Exception ignored) {
@@ -129,14 +128,12 @@ public class Bishop extends Piece {
                 possibleMoves.add(upLeft);
                 i++;
                 j++;
-                /*if(i == 12){
-                    break;
-                }*/
+
             }
             if (upLeft != null && upLeft.getPiece() != null && upLeft.getPiece().getColor() != getColor()) {
                 possibleMoves.add(upLeft);
             }
-            if ((upLeft = board[getX() + i + 1][getY() - j - 1]).getPiece() == null && upLeft != null) {
+            if (upLeft != null && upLeft.getPiece() instanceof King && (upLeft = board[getX() + i + 1][getY() - j - 1]).getPiece() == null && upLeft != null) {
                 possibleMoves.add(upLeft);
             }
         } catch (Exception ignored) {
@@ -150,14 +147,12 @@ public class Bishop extends Piece {
                 possibleMoves.add(downRight);
                 i++;
                 j++;
-                /*if(i == 12){
-                    break;
-                }*/
+
             }
             if (downRight != null && downRight.getPiece() != null && downRight.getPiece().getColor() != getColor()) {
                 possibleMoves.add(downRight);
             }
-            if ((downRight = board[getX() -i - 1][getY() +j+ 1]).getPiece() == null && downRight != null) {
+            if (downRight != null && downRight.getPiece() instanceof King && (downRight = board[getX() - i - 1][getY() + j + 1]).getPiece() == null && downRight != null) {
                 possibleMoves.add(downRight);
             }
         } catch (Exception ignored) {
@@ -171,14 +166,12 @@ public class Bishop extends Piece {
                 possibleMoves.add(downLeft);
                 i++;
                 j++;
-                /*if(i == 12){
-                    break;
-                }*/
+
             }
             if (downLeft != null && downLeft.getPiece() != null && downLeft.getPiece().getColor() != getColor()) {
                 possibleMoves.add(downLeft);
             }
-            if ((downLeft = board[getX() -i- 1][getY() - j - 1]).getPiece() == null && downLeft != null) {
+            if (downLeft != null && downLeft.getPiece() instanceof King && (downLeft = board[getX() - i - 1][getY() - j - 1]).getPiece() == null && downLeft != null) {
                 possibleMoves.add(downLeft);
             }
         } catch (Exception ignored) {

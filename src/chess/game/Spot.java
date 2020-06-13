@@ -27,11 +27,7 @@ public class Spot extends JTextField implements Serializable {
     }
 
     public synchronized void setPiece(Piece p) {
-        if(p!=null){
-            this.piece = p;
-        }else{
-            this.piece = null;
-        }
+        this.piece = p;
         this.revalidate();
     }
     
@@ -85,9 +81,7 @@ public class Spot extends JTextField implements Serializable {
             imageChanged=replaceColor(imageChanged, Config.backGroundColor, bgColor);
         }
 
-        Image resized=imageChanged.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        
-        return resized;
+        return imageChanged.getScaledInstance(width, height, Image.SCALE_SMOOTH);
     }
 
     protected static BufferedImage replaceColor(BufferedImage img, Color toReplace, Color replacer) {

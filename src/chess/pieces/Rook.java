@@ -94,7 +94,7 @@ public class Rook extends Piece {
             if (ahead != null && ahead.getPiece() != null && ahead.getPiece().getColor() != getColor()) {
                 possibleMoves.add(ahead);
             }
-            if ((ahead = board[getX() + i + 1][getY()]).getPiece() == null && ahead != null) {
+            if (ahead != null && ahead.getPiece() instanceof King && (ahead = board[getX() + i + 1][getY()]).getPiece() == null && ahead != null) {
                 possibleMoves.add(ahead);
             }
         } catch (Exception ignored) {
@@ -111,7 +111,7 @@ public class Rook extends Piece {
             if (behind != null && behind.getPiece() != null && behind.getPiece().getColor() != getColor()) {
                 possibleMoves.add(behind);
             }
-            if ((behind = board[getX() - i - 1][getY()]).getPiece() == null && behind != null) {
+            if (behind != null && behind.getPiece() instanceof King && (behind = board[getX() - i - 1][getY()]).getPiece() == null && behind != null) {
                 possibleMoves.add(behind);
             }
         } catch (Exception ignored) {
@@ -128,7 +128,7 @@ public class Rook extends Piece {
             if (left != null && left.getPiece() != null && left.getPiece().getColor() != getColor()) {
                 possibleMoves.add(left);
             }
-            if ((left = board[getX()][getY() - i - 1]).getPiece() == null && left != null) {
+            if (left != null && left.getPiece() instanceof King && (left = board[getX()][getY() - i - 1]).getPiece() == null && left != null) {
                 possibleMoves.add(left);
             }
         } catch (Exception ignored) {
@@ -147,7 +147,7 @@ public class Rook extends Piece {
                 possibleMoves.add(right);
 
             }
-            if ((right = board[getX()][getY() + i + 1]).getPiece() == null && right != null) {
+            if (right != null && right.getPiece() instanceof King && (right = board[getX()][getY() + i + 1]).getPiece() == null && right != null) {
                 possibleMoves.add(right);
             }
         } catch (Exception ignored) {

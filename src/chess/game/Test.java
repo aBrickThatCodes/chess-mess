@@ -163,7 +163,6 @@ public class Test implements Runnable {
                 gameBoard.repaintColors();
                 setCheck();
                 isMate();
-                if (checkForMate()) System.out.println("chyba mat");
             } else {
                 try {
                     currentChosenPiece = gameBoard.getBoard()[currentX][currentY].getPiece();
@@ -388,10 +387,9 @@ public class Test implements Runnable {
         }
     }
 
-    //Usuwa ruchy królowi powodujące szach
+    //Tablica ruchów królowi powodujące szach
     public synchronized Collection<Spot> mayBeChecked(King king) {
         List<Spot> impossibleMoves = new ArrayList<>();
-
         for (Player p : players) {
             if (p != currentPlayer) {
                 for (ArrayList<Piece> pieces : p.playerPieces) {
@@ -421,9 +419,44 @@ public class Test implements Runnable {
         return isChecked;
     }
 
-    //Ustawia mat na królu graczy którzy mają mata
+    //Ustawia mat na królu gracza
     public synchronized void isMate() {
-        for (ArrayList<Piece> pieces : currentPlayer.playerPieces) {
+        List<Spot> impossibleMoves = new ArrayList<>();
+        King king;
+        for(ArrayList<Piece> aL:currentPlayer.playerPieces) {
+            for(Piece playerPiece:aL){
+                if(playerPiece instanceof King){
+                    king = (King) playerPiece;
+                    for (Player p : players) {
+                        if (p != currentPlayer) {
+                            for (ArrayList<Piece> pieces : p.playerPieces) {
+                                for (Piece piece : pieces) {
+                                    for (Spot s : piece.getPossibleAttacks(gameBoard.getBoard()))
+                                        if (king.getPossibleMoves(gameBoard.getBoard()).contains(s)) {
+                                            impossibleMoves.add(s);
+                                        }
+                                }
+                            }
+                        }
+                    }
+                    ArrayList<Boolean> mateTab = new ArrayList<>();
+                    for(Spot kingSpot: king.getPossibleMoves(gameBoard.getBoard())){
+                        if(impossibleMoves.contains(kingSpot)){
+                            mateTab.add(true);
+                        }
+                    }
+
+                    System.out.println(mateTab.size() + " " + king.getPossibleMoves(gameBoard.getBoard()).size());
+                    if(mateTab.size()!= 0 && mateTab.size() == king.getPossibleMoves(gameBoard.getBoard()).size()){
+                        king.setIsMate(true);
+                        System.out.println("king.setIsMate(true);");
+                    }
+                    break;
+                }
+            }
+        }
+
+        /*for (ArrayList<Piece> pieces : currentPlayer.playerPieces) {
             for (Piece piece : pieces) {
                 if (piece instanceof King) {
                     King king = (King) piece;
@@ -444,13 +477,14 @@ public class Test implements Runnable {
                     }
                     for(Spot kingSpot:king.getPossibleMoves(gameBoard.getBoard(),mayBeChecked(king))){
                         if(!enemyAttacks.contains(kingSpot)){
+                            System.out.println("king.setIsMate(false)");
                             king.setIsMate(false);
                         }
                     }
                     break;
                 }
             }
-        }
+        }*/
     }
 
     //Sprawdza czy król aktualnego gracza ma mata

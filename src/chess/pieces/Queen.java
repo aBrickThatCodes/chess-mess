@@ -155,14 +155,13 @@ public class Queen extends Piece {
                 possibleMoves.add(upRight);
                 i++;
                 j++;
-                /*if(i == 12){
-                    break;
-                }*/
+
             }
             if (upRight != null && upRight.getPiece() != null && upRight.getPiece().getColor() != getColor()) {
                 possibleMoves.add(upRight);
             }
-            if ((upRight = board[getX() + i + 1][getY() + j + 1]).getPiece() == null && upRight != null) {
+
+            if (upRight != null && upRight.getPiece() instanceof King && (upRight = board[getX() + i + 1][getY() + j + 1]).getPiece() == null && upRight != null) {
                 possibleMoves.add(upRight);
             }
         } catch (Exception ignored) {
@@ -176,14 +175,12 @@ public class Queen extends Piece {
                 possibleMoves.add(upLeft);
                 i++;
                 j++;
-                /*if(i == 12){
-                    break;
-                }*/
+
             }
             if (upLeft != null && upLeft.getPiece() != null && upLeft.getPiece().getColor() != getColor()) {
                 possibleMoves.add(upLeft);
             }
-            if ((upLeft = board[getX() + i + 1][getY() - j - 1]).getPiece() == null && upLeft != null) {
+            if (upLeft != null && upLeft.getPiece() instanceof King && (upLeft = board[getX() + i + 1][getY() - j - 1]).getPiece() == null && upLeft != null) {
                 possibleMoves.add(upLeft);
             }
         } catch (Exception ignored) {
@@ -197,14 +194,12 @@ public class Queen extends Piece {
                 possibleMoves.add(downRight);
                 i++;
                 j++;
-                /*if(i == 12){
-                    break;
-                }*/
+
             }
             if (downRight != null && downRight.getPiece() != null && downRight.getPiece().getColor() != getColor()) {
                 possibleMoves.add(downRight);
             }
-            if ((downRight = board[getX() - i - 1][getY() + j + 1]).getPiece() == null && downRight != null) {
+            if (downRight != null && downRight.getPiece() instanceof King && (downRight = board[getX() - i - 1][getY() + j + 1]).getPiece() == null && downRight != null) {
                 possibleMoves.add(downRight);
             }
         } catch (Exception ignored) {
@@ -218,14 +213,12 @@ public class Queen extends Piece {
                 possibleMoves.add(downLeft);
                 i++;
                 j++;
-                /*if(i == 12){
-                    break;
-                }*/
+
             }
             if (downLeft != null && downLeft.getPiece() != null && downLeft.getPiece().getColor() != getColor()) {
                 possibleMoves.add(downLeft);
             }
-            if ((downLeft = board[getX() - i - 1][getY() - j - 1]).getPiece() == null && downLeft != null) {
+            if (downLeft != null && downLeft.getPiece() instanceof King && (downLeft = board[getX() - i - 1][getY() - j - 1]).getPiece() == null && downLeft != null) {
                 possibleMoves.add(downLeft);
             }
         } catch (Exception ignored) {
@@ -242,7 +235,7 @@ public class Queen extends Piece {
             if (ahead != null && ahead.getPiece() != null && ahead.getPiece().getColor() != getColor()) {
                 possibleMoves.add(ahead);
             }
-            if ((ahead = board[getX() + i + 1][getY()]).getPiece() == null && ahead != null) {
+            if (ahead != null && ahead.getPiece() instanceof King && (ahead = board[getX() + i + 1][getY()]).getPiece() == null && ahead != null) {
                 possibleMoves.add(ahead);
             }
         } catch (Exception ignored) {
@@ -259,7 +252,7 @@ public class Queen extends Piece {
             if (behind != null && behind.getPiece() != null && behind.getPiece().getColor() != getColor()) {
                 possibleMoves.add(behind);
             }
-            if ((behind = board[getX() - i - 1][getY()]).getPiece() == null && behind != null) {
+            if (behind != null && behind.getPiece() instanceof King && (behind = board[getX() - i - 1][getY()]).getPiece() == null && behind != null) {
                 possibleMoves.add(behind);
             }
         } catch (Exception ignored) {
@@ -276,7 +269,7 @@ public class Queen extends Piece {
             if (left != null && left.getPiece() != null && left.getPiece().getColor() != getColor()) {
                 possibleMoves.add(left);
             }
-            if ((left = board[getX()][getY() - i - 1]).getPiece() == null && left != null) {
+            if (left != null && left.getPiece() instanceof King && (left = board[getX()][getY() - i - 1]).getPiece() == null && left != null) {
                 possibleMoves.add(left);
             }
         } catch (Exception ignored) {
@@ -295,7 +288,7 @@ public class Queen extends Piece {
                 possibleMoves.add(right);
 
             }
-            if ((right = board[getX()][getY() + i + 1]).getPiece() == null && right != null) {
+            if (right != null && right.getPiece() instanceof King && (right = board[getX()][getY() + i + 1]).getPiece() == null && right != null) {
                 possibleMoves.add(right);
             }
         } catch (Exception ignored) {

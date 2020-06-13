@@ -84,7 +84,7 @@ public class Pawn extends Piece {
         return possibleMoves;
     }
 
-    public synchronized Collection<Spot> getPossibleAttack(Spot[][] board) {
+    public synchronized Collection<Spot> getPossibleAttacks(Spot[][] board) {
 
         int x = 0;
         int y =0;

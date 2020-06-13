@@ -24,7 +24,7 @@ public abstract class Player {
 
                         for(int i=0;i<8;i++){
                             Pawn pawn = new Pawn(attackDirection);
-                            pawn.setLoctaion(1,startingRookPosition+i);
+                            pawn.setLocation(1,startingRookPosition+i);
                             pawns.add(pawn);
                         }
 
@@ -35,7 +35,7 @@ public abstract class Player {
 
                         for(int i=0;i<8;i++){
                             Rook rook = new Rook();
-                            rook.setLoctaion(1,startingRookPosition+i);
+                            rook.setLocation(1,startingRookPosition+i);
                             rooks.add(rook);
                         }
 
@@ -46,7 +46,7 @@ public abstract class Player {
 
                         for(int i=0;i<8;i++){
                             Bishop bishop = new Bishop();
-                            bishop.setLoctaion(1,startingRookPosition+i);
+                            bishop.setLocation(1,startingRookPosition+i);
                             bishops.add(bishop);
                         }
 
@@ -57,7 +57,7 @@ public abstract class Player {
 
                         for(int i=0;i<8;i++){
                             Knight knight = new Knight();
-                            knight.setLoctaion(1,startingRookPosition+i);
+                            knight.setLocation(1,startingRookPosition+i);
                             knights.add(knight);
                         }
 
@@ -68,7 +68,7 @@ public abstract class Player {
 
                         for(int i=0;i<8;i++){
                             Queen queen = new Queen();
-                            queen.setLoctaion(1,startingRookPosition+i);
+                            queen.setLocation(1,startingRookPosition+i);
                             queens.add(queen);
                         }
 
@@ -79,7 +79,7 @@ public abstract class Player {
 
                         for(int i=0;i<8;i++){
                             King king = new King();
-                            king.setLoctaion(1,startingRookPosition+i);
+                            king.setLocation(1,startingRookPosition+i);
                             kings.add(king);
                         }
 
@@ -93,62 +93,62 @@ public abstract class Player {
                         case PAWN:
 
                             Pawn pawn = new Pawn(attackDirection);
-                            pawn.setLoctaion(0,startingRookPosition+i);
+                            pawn.setLocation(0,startingRookPosition+i);
                             pieces.add(pawn);
 
                             pawn = new Pawn(attackDirection);
-                            pawn.setLoctaion(0,startingRookPosition+7-i);
+                            pawn.setLocation(0,startingRookPosition+7-i);
                             pieces.add(pawn);
 
                             break;
 
                         case KING:
                             King king = new King();
-                            king.setLoctaion(0,startingRookPosition+i);
+                            king.setLocation(0,startingRookPosition+i);
                             pieces.add(king);
 
                             king = new King();
-                            king.setLoctaion(0,startingRookPosition+7-i);
+                            king.setLocation(0,startingRookPosition+7-i);
                             pieces.add(king);
 
                             break;
                         case KNIGHT:
                             Knight knight = new Knight();
-                            knight.setLoctaion(0,startingRookPosition+i);
+                            knight.setLocation(0,startingRookPosition+i);
                             pieces.add(knight);
 
                             knight = new Knight();
-                            knight.setLoctaion(0,startingRookPosition+7-i);
+                            knight.setLocation(0,startingRookPosition+7-i);
                             pieces.add(knight);
 
                             break;
                         case BISHOP:
                             Bishop Bishop = new Bishop();
-                            Bishop.setLoctaion(0,startingRookPosition+i);
+                            Bishop.setLocation(0,startingRookPosition+i);
                             pieces.add(Bishop);
 
                             Bishop = new Bishop();
-                            Bishop.setLoctaion(0,startingRookPosition+7-i);
+                            Bishop.setLocation(0,startingRookPosition+7-i);
                             pieces.add(Bishop);
 
                             break;
                         case QUEEN:
                             Queen Queen = new Queen();
-                            Queen.setLoctaion(0,startingRookPosition+i);
+                            Queen.setLocation(0,startingRookPosition+i);
                             pieces.add(Queen);
 
                             Queen = new Queen();
-                            Queen.setLoctaion(0,startingRookPosition+7-i);
+                            Queen.setLocation(0,startingRookPosition+7-i);
                             pieces.add(Queen);
 
                             break;
                         case ROOK:
                             Rook Rook = new Rook();
-                            Rook.setLoctaion(0,startingRookPosition+i);
+                            Rook.setLocation(0,startingRookPosition+i);
                             pieces.add(Rook);
 
                             Rook = new Rook();
-                            Rook.setLoctaion(0,startingRookPosition+7-i);
+                            Rook.setLocation(0,startingRookPosition+7-i);
                             pieces.add(Rook);
 
                             break;
@@ -161,33 +161,33 @@ public abstract class Player {
                     case PAWN:
 
                         Pawn pawn = new Pawn(attackDirection);
-                        pawn.setLoctaion(0,startingRookPosition+3);
+                        pawn.setLocation(0,startingRookPosition+3);
                         pieces.add(pawn);
                         break;
 
                     case KING:
                         King king = new King();
-                        king.setLoctaion(0,startingRookPosition+3);
+                        king.setLocation(0,startingRookPosition+3);
                         pieces.add(king);
                         break;
                     case KNIGHT:
                         Knight knight = new Knight();
-                        knight.setLoctaion(0,startingRookPosition+3);
+                        knight.setLocation(0,startingRookPosition+3);
                         pieces.add(knight);
                         break;
                     case BISHOP:
                         Bishop Bishop = new Bishop();
-                        Bishop.setLoctaion(0,startingRookPosition+3);
+                        Bishop.setLocation(0,startingRookPosition+3);
                         pieces.add(Bishop);
                         break;
                     case QUEEN:
                         Queen Queen = new Queen();
-                        Queen.setLoctaion(0,startingRookPosition+3);
+                        Queen.setLocation(0,startingRookPosition+3);
                         pieces.add(Queen);
                         break;
                     case ROOK:
                         Rook Rook = new Rook();
-                        Rook.setLoctaion(0,startingRookPosition+3);
+                        Rook.setLocation(0,startingRookPosition+3);
                         pieces.add(Rook);
                         break;
                 }
@@ -198,33 +198,33 @@ public abstract class Player {
                     case PAWN:
 
                         Pawn pawn = new Pawn(attackDirection);
-                        pawn.setLoctaion(0,startingRookPosition+4);
+                        pawn.setLocation(0,startingRookPosition+4);
                         pieces.add(pawn);
                         break;
 
                     case KING:
                         King king = new King();
-                        king.setLoctaion(0,startingRookPosition+4);
+                        king.setLocation(0,startingRookPosition+4);
                         pieces.add(king);
                         break;
                     case KNIGHT:
                         Knight knight = new Knight();
-                        knight.setLoctaion(0,startingRookPosition+4);
+                        knight.setLocation(0,startingRookPosition+4);
                         pieces.add(knight);
                         break;
                     case BISHOP:
                         Bishop Bishop = new Bishop();
-                        Bishop.setLoctaion(0,startingRookPosition+4);
+                        Bishop.setLocation(0,startingRookPosition+4);
                         pieces.add(Bishop);
                         break;
                     case QUEEN:
                         Queen Queen = new Queen();
-                        Queen.setLoctaion(0,startingRookPosition+4);
+                        Queen.setLocation(0,startingRookPosition+4);
                         pieces.add(Queen);
                         break;
                     case ROOK:
                         Rook Rook = new Rook();
-                        Rook.setLoctaion(0,startingRookPosition+4);
+                        Rook.setLocation(0,startingRookPosition+4);
                         pieces.add(Rook);
                         break;
                 }
@@ -240,7 +240,7 @@ public abstract class Player {
 
                         for(int i=Config.Instance().boardWidth-2;i<8;i++){
                             Pawn pawn = new Pawn(attackDirection);
-                            pawn.setLoctaion(Config.Instance().boardWidth-2,startingRookPosition+i);
+                            pawn.setLocation(Config.Instance().boardWidth-2,startingRookPosition+i);
                             pawns.add(pawn);
                         }
 
@@ -251,7 +251,7 @@ public abstract class Player {
 
                         for(int i=Config.Instance().boardWidth-2;i<8;i++){
                             Rook rook = new Rook();
-                            rook.setLoctaion(Config.Instance().boardWidth-2,startingRookPosition+i);
+                            rook.setLocation(Config.Instance().boardWidth-2,startingRookPosition+i);
                             rooks.add(rook);
                         }
 
@@ -262,7 +262,7 @@ public abstract class Player {
 
                         for(int i=Config.Instance().boardWidth-2;i<8;i++){
                             Bishop bishop = new Bishop();
-                            bishop.setLoctaion(Config.Instance().boardWidth-2,startingRookPosition+i);
+                            bishop.setLocation(Config.Instance().boardWidth-2,startingRookPosition+i);
                             bishops.add(bishop);
                         }
 
@@ -273,7 +273,7 @@ public abstract class Player {
 
                         for(int i=Config.Instance().boardWidth-2;i<8;i++){
                             Knight knight = new Knight();
-                            knight.setLoctaion(Config.Instance().boardWidth-2,startingRookPosition+i);
+                            knight.setLocation(Config.Instance().boardWidth-2,startingRookPosition+i);
                             knights.add(knight);
                         }
 
@@ -284,7 +284,7 @@ public abstract class Player {
 
                         for(int i=Config.Instance().boardWidth-2;i<8;i++){
                             Queen queen = new Queen();
-                            queen.setLoctaion(Config.Instance().boardWidth-2,startingRookPosition+i);
+                            queen.setLocation(Config.Instance().boardWidth-2,startingRookPosition+i);
                             queens.add(queen);
                         }
 
@@ -295,7 +295,7 @@ public abstract class Player {
 
                         for(int i=Config.Instance().boardWidth-2;i<8;i++){
                             King king = new King();
-                            king.setLoctaion(Config.Instance().boardWidth-2,startingRookPosition+i);
+                            king.setLocation(Config.Instance().boardWidth-2,startingRookPosition+i);
                             kings.add(king);
                         }
 
@@ -309,62 +309,62 @@ public abstract class Player {
                         case PAWN:
 
                             Pawn pawn = new Pawn(attackDirection);
-                            pawn.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+i);
+                            pawn.setLocation(Config.Instance().boardWidth-1,startingRookPosition+i);
                             pieces.add(pawn);
 
                             pawn = new Pawn(attackDirection);
-                            pawn.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+7-i);
+                            pawn.setLocation(Config.Instance().boardWidth-1,startingRookPosition+7-i);
                             pieces.add(pawn);
 
                             break;
 
                         case KING:
                             King king = new King();
-                            king.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+i);
+                            king.setLocation(Config.Instance().boardWidth-1,startingRookPosition+i);
                             pieces.add(king);
 
                             king = new King();
-                            king.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+7-i);
+                            king.setLocation(Config.Instance().boardWidth-1,startingRookPosition+7-i);
                             pieces.add(king);
 
                             break;
                         case KNIGHT:
                             Knight knight = new Knight();
-                            knight.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+i);
+                            knight.setLocation(Config.Instance().boardWidth-1,startingRookPosition+i);
                             pieces.add(knight);
 
                             knight = new Knight();
-                            knight.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+7-i);
+                            knight.setLocation(Config.Instance().boardWidth-1,startingRookPosition+7-i);
                             pieces.add(knight);
 
                             break;
                         case BISHOP:
                             Bishop Bishop = new Bishop();
-                            Bishop.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+i);
+                            Bishop.setLocation(Config.Instance().boardWidth-1,startingRookPosition+i);
                             pieces.add(Bishop);
 
                             Bishop = new Bishop();
-                            Bishop.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+7-i);
+                            Bishop.setLocation(Config.Instance().boardWidth-1,startingRookPosition+7-i);
                             pieces.add(Bishop);
 
                             break;
                         case QUEEN:
                             Queen Queen = new Queen();
-                            Queen.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+i);
+                            Queen.setLocation(Config.Instance().boardWidth-1,startingRookPosition+i);
                             pieces.add(Queen);
 
                             Queen = new Queen();
-                            Queen.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+7-i);
+                            Queen.setLocation(Config.Instance().boardWidth-1,startingRookPosition+7-i);
                             pieces.add(Queen);
 
                             break;
                         case ROOK:
                             Rook Rook = new Rook();
-                            Rook.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+i);
+                            Rook.setLocation(Config.Instance().boardWidth-1,startingRookPosition+i);
                             pieces.add(Rook);
 
                             Rook = new Rook();
-                            Rook.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+7-i);
+                            Rook.setLocation(Config.Instance().boardWidth-1,startingRookPosition+7-i);
                             pieces.add(Rook);
 
                             break;
@@ -377,33 +377,33 @@ public abstract class Player {
                     case PAWN:
 
                         Pawn pawn = new Pawn(attackDirection);
-                        pawn.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+4);
+                        pawn.setLocation(Config.Instance().boardWidth-1,startingRookPosition+4);
                         pieces.add(pawn);
                         break;
 
                     case KING:
                         King king = new King();
-                        king.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+4);
+                        king.setLocation(Config.Instance().boardWidth-1,startingRookPosition+4);
                         pieces.add(king);
                         break;
                     case KNIGHT:
                         Knight knight = new Knight();
-                        knight.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+4);
+                        knight.setLocation(Config.Instance().boardWidth-1,startingRookPosition+4);
                         pieces.add(knight);
                         break;
                     case BISHOP:
                         Bishop Bishop = new Bishop();
-                        Bishop.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+4);
+                        Bishop.setLocation(Config.Instance().boardWidth-1,startingRookPosition+4);
                         pieces.add(Bishop);
                         break;
                     case QUEEN:
                         Queen Queen = new Queen();
-                        Queen.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+4);
+                        Queen.setLocation(Config.Instance().boardWidth-1,startingRookPosition+4);
                         pieces.add(Queen);
                         break;
                     case ROOK:
                         Rook Rook = new Rook();
-                        Rook.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+4);
+                        Rook.setLocation(Config.Instance().boardWidth-1,startingRookPosition+4);
                         pieces.add(Rook);
                         break;
                 }
@@ -414,33 +414,33 @@ public abstract class Player {
                     case PAWN:
 
                         Pawn pawn = new Pawn(attackDirection);
-                        pawn.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+3);
+                        pawn.setLocation(Config.Instance().boardWidth-1,startingRookPosition+3);
                         pieces.add(pawn);
                         break;
 
                     case KING:
                         King king = new King();
-                        king.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+3);
+                        king.setLocation(Config.Instance().boardWidth-1,startingRookPosition+3);
                         pieces.add(king);
                         break;
                     case KNIGHT:
                         Knight knight = new Knight();
-                        knight.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+3);
+                        knight.setLocation(Config.Instance().boardWidth-1,startingRookPosition+3);
                         pieces.add(knight);
                         break;
                     case BISHOP:
                         Bishop Bishop = new Bishop();
-                        Bishop.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+3);
+                        Bishop.setLocation(Config.Instance().boardWidth-1,startingRookPosition+3);
                         pieces.add(Bishop);
                         break;
                     case QUEEN:
                         Queen Queen = new Queen();
-                        Queen.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+3);
+                        Queen.setLocation(Config.Instance().boardWidth-1,startingRookPosition+3);
                         pieces.add(Queen);
                         break;
                     case ROOK:
                         Rook Rook = new Rook();
-                        Rook.setLoctaion(Config.Instance().boardWidth-1,startingRookPosition+3);
+                        Rook.setLocation(Config.Instance().boardWidth-1,startingRookPosition+3);
                         pieces.add(Rook);
                         break;
                 }
@@ -493,7 +493,7 @@ public abstract class Player {
                 ArrayList<Piece> pawns = new ArrayList<Piece>();
                 for(int i=0;i<8;i++){
                     Pawn pawn = new Pawn(attackDirection);
-                    pawn.setLoctaion(1,startingRookPosition+i);
+                    pawn.setLocation(1,startingRookPosition+i);
                     pawns.add(pawn);
                 }
                 playerPieces.add(pawns);
@@ -501,11 +501,11 @@ public abstract class Player {
                 ArrayList<Piece> rooks = new ArrayList<>();
 
                 Rook rook1 = new Rook();
-                rook1.setLoctaion(0,startingRookPosition);
+                rook1.setLocation(0,startingRookPosition);
                 rooks.add(rook1);
 
                 Rook rook2 = new Rook();
-                rook2.setLoctaion(0,startingRookPosition+7);
+                rook2.setLocation(0,startingRookPosition+7);
                 rooks.add(rook2);
 
                 playerPieces.add(rooks);
@@ -514,11 +514,11 @@ public abstract class Player {
                 ArrayList<Piece> knights = new ArrayList<>();
 
                 Knight knight1 = new Knight();
-                knight1.setLoctaion(0,startingRookPosition+1);
+                knight1.setLocation(0,startingRookPosition+1);
                 knights.add(knight1);
 
                 Knight knight2 = new Knight();
-                knight2.setLoctaion(0,startingRookPosition+6);
+                knight2.setLocation(0,startingRookPosition+6);
                 knights.add(knight2);
 
                 playerPieces.add(knights);
@@ -526,11 +526,11 @@ public abstract class Player {
                 ArrayList<Piece> bishops = new ArrayList<>();
 
                 Bishop bishop1 = new Bishop();
-                bishop1.setLoctaion(0,startingRookPosition+2);
+                bishop1.setLocation(0,startingRookPosition+2);
                 bishops.add(bishop1);
 
                 Bishop bishop2 = new Bishop();
-                bishop2.setLoctaion(0,startingRookPosition+5);
+                bishop2.setLocation(0,startingRookPosition+5);
                 bishops.add(bishop2);
 
                 playerPieces.add(bishops);
@@ -538,13 +538,13 @@ public abstract class Player {
                 //Królowa
                 ArrayList<Piece> queens = new ArrayList<>();
                 Queen queen = new Queen();
-                queen.setLoctaion(0,startingRookPosition+3);
+                queen.setLocation(0,startingRookPosition+3);
                 queens.add(queen);
                 playerPieces.add(queens);
                 //Król
                 ArrayList<Piece> kings = new ArrayList<>();
                 King king = new King();
-                king.setLoctaion(0,startingRookPosition+4);
+                king.setLocation(0,startingRookPosition+4);
                 kings.add(king);
                 playerPieces.add(kings);
                 break;
@@ -554,7 +554,7 @@ public abstract class Player {
 
                 for(int i=0;i<8;i++){
                     Pawn pawn = new Pawn(attackDirection);
-                    pawn.setLoctaion(6,startingRookPosition+i);
+                    pawn.setLocation(6,startingRookPosition+i);
                     pawns.add(pawn);
                 }
                 playerPieces.add(pawns);
@@ -562,11 +562,11 @@ public abstract class Player {
                 rooks = new ArrayList<>();
 
                 Rook rook6 = new Rook();
-                rook6.setLoctaion(7,startingRookPosition);
+                rook6.setLocation(7,startingRookPosition);
                 rooks.add(rook6);
 
                 rook2 = new Rook();
-                rook2.setLoctaion(7,startingRookPosition+7);
+                rook2.setLocation(7,startingRookPosition+7);
                 rooks.add(rook2);
 
                 playerPieces.add(rooks);
@@ -575,11 +575,11 @@ public abstract class Player {
                 knights = new ArrayList<>();
 
                 Knight knight6 = new Knight();
-                knight6.setLoctaion(7,startingRookPosition+1);
+                knight6.setLocation(7,startingRookPosition+1);
                 knights.add(knight6);
 
                 knight2 = new Knight();
-                knight2.setLoctaion(7,startingRookPosition+6);
+                knight2.setLocation(7,startingRookPosition+6);
                 knights.add(knight2);
 
                 playerPieces.add(knights);
@@ -587,11 +587,11 @@ public abstract class Player {
                  bishops = new ArrayList<>();
 
                 Bishop bishop6 = new Bishop();
-                bishop6.setLoctaion(7,startingRookPosition+2);
+                bishop6.setLocation(7,startingRookPosition+2);
                 bishops.add(bishop6);
 
                 bishop2 = new Bishop();
-                bishop2.setLoctaion(7,startingRookPosition+5);
+                bishop2.setLocation(7,startingRookPosition+5);
                 bishops.add(bishop2);
 
                 playerPieces.add(bishops);
@@ -600,7 +600,7 @@ public abstract class Player {
                 queens = new ArrayList<>();
 
                 queen = new Queen();
-                queen.setLoctaion(7,startingRookPosition+4);
+                queen.setLocation(7,startingRookPosition+4);
                 queens.add(queen);
 
                 playerPieces.add(queens);
@@ -608,7 +608,7 @@ public abstract class Player {
                 kings = new ArrayList<>();
 
                 king = new King();
-                king.setLoctaion(7,startingRookPosition+3);
+                king.setLocation(7,startingRookPosition+3);
                 kings.add(king);
 
                 playerPieces.add(kings);

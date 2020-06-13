@@ -16,7 +16,7 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 @SuppressWarnings("unused")
 
-public class Test implements Runnable{
+public class Test implements Runnable {
 
     private int boardSize = 8;
 
@@ -32,11 +32,11 @@ public class Test implements Runnable{
 
     @Override
     public void run() {
-        gameBoard=new Board();
+        gameBoard = new Board();
 
         JFrame frame = new JFrame();
         frame.setVisible(true);
-        frame.setSize(640,640);
+        frame.setSize(640, 640);
         frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         ArrayList<Board> boardChanges = new ArrayList<>();
@@ -121,7 +121,7 @@ public class Test implements Runnable{
         private int x;
         private int y;
 
-        public MyFocusListener(int x, int y){
+        public MyFocusListener(int x, int y) {
             this.x = x;
             this.y = y;
         }
@@ -129,7 +129,7 @@ public class Test implements Runnable{
         @Override
         public synchronized void focusGained(FocusEvent focusEvent) {
 
-            currentPlayer = players.get(playerNum%players.size());
+            currentPlayer = players.get(playerNum % players.size());
 
             int previusX = currentX;
             currentX = x;
@@ -137,42 +137,42 @@ public class Test implements Runnable{
             int previusY = currentY;
             currentY = y;
 
-            if(isMate()) System.out.println("Padłem");
-
-            if(currentChosenPiece != null){
-                if(currentChosenPiece instanceof King){
+            if (currentChosenPiece != null) {
+                if (currentChosenPiece instanceof King) {
                     King king = (King) currentChosenPiece;
-                    if(king.move(currentX,currentY,gameBoard.getBoard(),mayBeChecked(king))) {
+                    if (king.move(currentX, currentY, gameBoard.getBoard(), mayBeChecked(king))) {
                         gameBoard.getBoard()[previusX][previusY].setPiece(null);
                         gameBoard.getBoard()[currentX][currentY].setPiece(currentChosenPiece);
                         currentChosenPiece = null;
                         System.out.println("Pionek przestawiono " + currentX + " " + currentY);
                         playerNum++;
+                    } else {
+                        currentChosenPiece = null;
                     }
-                }
-                else if(currentChosenPiece.move(currentX,currentY,gameBoard.getBoard())){
+                } else if (currentChosenPiece.move(currentX, currentY, gameBoard.getBoard())) {
                     gameBoard.getBoard()[previusX][previusY].setPiece(null);
                     gameBoard.getBoard()[currentX][currentY].setPiece(currentChosenPiece);
-                    System.out.println("Pionek przestawiono "+ currentX + " "+ currentY);
+                    System.out.println("Pionek przestawiono " + currentX + " " + currentY);
                     playerNum++;
                     currentChosenPiece = null;
-                }
-                else if (!currentChosenPiece.move(currentX,currentY,gameBoard.getBoard())){
+                } else if (!currentChosenPiece.move(currentX, currentY, gameBoard.getBoard())) {
                     System.out.println("Poza możliwościami pionka lub jest tam inny pionek");
                     currentChosenPiece = null;
                 }
-                setCheck();
                 gameBoard.refreshBoard();
                 gameBoard.repaintColors();
-            }else {
-                try{
+                setCheck();
+                isMate();
+                if (checkForMate()) System.out.println("chyba mat");
+            } else {
+                try {
                     currentChosenPiece = gameBoard.getBoard()[currentX][currentY].getPiece();
-                    if(validateChoosenPiece() && currentChosenPiece instanceof King){
+                    if (validateChoosenPiece() && currentChosenPiece instanceof King) {
                         King king = (King) currentChosenPiece;
-                        for(Spot s:king.getPossibleMoves(gameBoard.getBoard(),mayBeChecked(king))){
-                            if(gameBoard.getBoard()[s.getX()][s.getY()].getColor() == Color.WHITE){
+                        for (Spot s : king.getPossibleMoves(gameBoard.getBoard(), mayBeChecked(king))) {
+                            if (gameBoard.getBoard()[s.getX()][s.getY()].getColor() == Color.WHITE) {
                                 gameBoard.getBoard()[s.getX()][s.getY()].setColor(Color.blue);
-                            }else{
+                            } else {
                                 gameBoard.getBoard()[s.getX()][s.getY()].setColor(Color.blue);
                             }
                         }
@@ -180,18 +180,18 @@ public class Test implements Runnable{
                         System.out.println("Previous spot " + previusX + " " + previusY);
                         System.out.println("Udało się załadować " + currentChosenPiece.getPieceIcon());
 
-                    }else if(validateChoosenPiece()){
-                        for(Spot s:currentChosenPiece.getPossibleMoves(gameBoard.getBoard())){
-                            if(gameBoard.getBoard()[s.getX()][s.getY()].getColor() == Color.WHITE){
+                    } else if (validateChoosenPiece()) {
+                        for (Spot s : currentChosenPiece.getPossibleMoves(gameBoard.getBoard())) {
+                            if (gameBoard.getBoard()[s.getX()][s.getY()].getColor() == Color.WHITE) {
                                 gameBoard.getBoard()[s.getX()][s.getY()].setColor(Color.blue);
-                            }else{
+                            } else {
                                 gameBoard.getBoard()[s.getX()][s.getY()].setColor(Color.blue);
                             }
                         }
                         System.out.println("Current spot " + currentX + " " + currentY);
                         System.out.println("Previous spot " + previusX + " " + previusY);
                         System.out.println("Udało się załadować " + currentChosenPiece.getPieceIcon());
-                    }else {
+                    } else {
                         currentChosenPiece = null;
                         System.out.println("Pionek przeciwnika lub puste pole");
                     }
@@ -212,28 +212,28 @@ public class Test implements Runnable{
         private Spot[][] board;
         private chess.game.Board.GameStatus status;
 
-        public Board(){
-            setLayout(new GridLayout(boardSize,boardSize));
+        public Board() {
+            setLayout(new GridLayout(boardSize, boardSize));
             setBoard();
             status = chess.game.Board.GameStatus.ACTIVE;
         }
 
-        public synchronized void repaintColors(){
-            for(int i = 0; i<boardSize;i++){
-                for(int j = 0; j<boardSize;j++){
-                    if (j%2 == 0){
-                        for(int k = 0; k<boardSize;k++){
-                            if (k%2 == 0){
+        public synchronized void repaintColors() {
+            for (int i = 0; i < boardSize; i++) {
+                for (int j = 0; j < boardSize; j++) {
+                    if (j % 2 == 0) {
+                        for (int k = 0; k < boardSize; k++) {
+                            if (k % 2 == 0) {
                                 board[k][j].setColor(Color.WHITE);
-                            }else {
+                            } else {
                                 board[k][j].setColor(Color.BLACK);
                             }
                         }
-                    }else {
-                        for(int k = 0; k<boardSize;k++){
-                            if (k%2 == 0){
+                    } else {
+                        for (int k = 0; k < boardSize; k++) {
+                            if (k % 2 == 0) {
                                 board[k][j].setColor(Color.BLACK);
-                            }else {
+                            } else {
                                 board[k][j].setColor(Color.WHITE);
                             }
                         }
@@ -243,15 +243,14 @@ public class Test implements Runnable{
             }
         }
 
-        public synchronized void setBoard(){
-
+        public synchronized void setBoard() {
             board = new Spot[boardSize][boardSize];
 
-            for(int i = 0; i< boardSize ; i++){
-                for(int j = 0; j< boardSize ; j++){
-                    if(board[i][j] == null){
-                        board[i][j] = new Spot(i,j);
-                        board[i][j].addFocusListener(new MyFocusListener(i,j));
+            for (int i = 0; i < boardSize; i++) {
+                for (int j = 0; j < boardSize; j++) {
+                    if (board[i][j] == null) {
+                        board[i][j] = new Spot(i, j);
+                        board[i][j].addFocusListener(new MyFocusListener(i, j));
                     }
                 }
             }
@@ -259,21 +258,21 @@ public class Test implements Runnable{
             //Kolorowanie
             repaintColors();
 
-            players.add(new Player.HumanPlayer(0, Player.AttackDirection.LEFT,Color.yellow));
-            players.add(new Player.HumanPlayer(0,Player.AttackDirection.RIGHT,Color.blue));
+            players.add(new Player.HumanPlayer(0, Player.AttackDirection.LEFT, Color.yellow));
+            players.add(new Player.HumanPlayer(0, Player.AttackDirection.RIGHT, Color.blue));
 
             //Dodawanie pionków
-            for(Player player:players){
-                for(ArrayList<Piece> pieceRow: player.playerPieces){
-                    for(Piece piece: pieceRow){
+            for (Player player : players) {
+                for (ArrayList<Piece> pieceRow : player.playerPieces) {
+                    for (Piece piece : pieceRow) {
                         piece.setColor(player.getPlayerColor());
                         board[piece.getX()][piece.getY()].setPiece(piece);
                     }
                 }
             }
 
-            for(int j = 0; j< boardSize ; j++){
-                for(int i = 0; i< boardSize ; i++){
+            for (int j = 0; j < boardSize; j++) {
+                for (int i = 0; i < boardSize; i++) {
                     board[i][j].revalidate();
                     this.add(board[i][j]);
                 }
@@ -283,22 +282,22 @@ public class Test implements Runnable{
 
         }
 
-        public synchronized void refreshBoard(){
-            for(int i = 0; i<boardSize;i++){
-                for(int j = 0; j<boardSize;j++){
-                    if (j%2 == 0){
-                        for(int k = 0; k<boardSize;k++){
-                            if (k%2 == 0){
+        public synchronized void refreshBoard() {
+            for (int i = 0; i < boardSize; i++) {
+                for (int j = 0; j < boardSize; j++) {
+                    if (j % 2 == 0) {
+                        for (int k = 0; k < boardSize; k++) {
+                            if (k % 2 == 0) {
                                 board[k][j].setColor(Color.BLACK);
-                            }else {
+                            } else {
                                 board[k][j].setColor(Color.WHITE);
                             }
                         }
-                    }else {
-                        for(int k = 0; k<boardSize;k++){
-                            if (k%2 == 0){
+                    } else {
+                        for (int k = 0; k < boardSize; k++) {
+                            if (k % 2 == 0) {
                                 board[k][j].setColor(Color.WHITE);
-                            }else {
+                            } else {
                                 board[k][j].setColor(Color.BLACK);
                             }
                         }
@@ -307,21 +306,21 @@ public class Test implements Runnable{
                 }
             }
 
-            for(int i = 0; i<boardSize;i++){
-                for(int j = 0; j<boardSize;j++){
-                    if (j%2 == 0){
-                        for(int k = 0; k<boardSize;k++){
-                            if (k%2 == 0){
+            for (int i = 0; i < boardSize; i++) {
+                for (int j = 0; j < boardSize; j++) {
+                    if (j % 2 == 0) {
+                        for (int k = 0; k < boardSize; k++) {
+                            if (k % 2 == 0) {
                                 board[k][j].setColor(Color.WHITE);
-                            }else {
+                            } else {
                                 board[k][j].setColor(Color.BLACK);
                             }
                         }
-                    }else {
-                        for(int k = 0; k<boardSize;k++){
-                            if (k%2 == 0){
+                    } else {
+                        for (int k = 0; k < boardSize; k++) {
+                            if (k % 2 == 0) {
                                 board[k][j].setColor(Color.BLACK);
-                            }else {
+                            } else {
                                 board[k][j].setColor(Color.WHITE);
                             }
                         }
@@ -330,15 +329,15 @@ public class Test implements Runnable{
             }
         }
 
-        public synchronized void setStatus(chess.game.Board.GameStatus status){
+        public synchronized void setStatus(chess.game.Board.GameStatus status) {
             this.status = status;
         }
 
-        public synchronized chess.game.Board.GameStatus getStatus(){
+        public synchronized chess.game.Board.GameStatus getStatus() {
             return this.status;
         }
 
-        public synchronized Spot[][] getBoard(){
+        public synchronized Spot[][] getBoard() {
             return this.board;
         }
     }
@@ -348,11 +347,11 @@ public class Test implements Runnable{
         ENDGAME
     }
 
-    public synchronized boolean validateChoosenPiece(){
+    public synchronized boolean validateChoosenPiece() {
         boolean isCorrect = false;
 
-        for(ArrayList<Piece> pieces: currentPlayer.playerPieces){
-            if(pieces.contains(currentChosenPiece)){
+        for (ArrayList<Piece> pieces : currentPlayer.playerPieces) {
+            if (pieces.contains(currentChosenPiece)) {
                 isCorrect = true;
                 break;
             }
@@ -360,7 +359,7 @@ public class Test implements Runnable{
         return isCorrect;
     }
 
-    //Ustawia szacha na królu
+    //Ustawia szacha na królu pozostałych graczy
     public synchronized void setCheck() {
         for (ArrayList<Piece> pieces : currentPlayer.playerPieces) {
             for (Piece piece : pieces) {
@@ -369,13 +368,16 @@ public class Test implements Runnable{
                         if (p != currentPlayer) {
                             for (ArrayList<Piece> pieces1 : p.playerPieces) {
                                 for (Piece piece1 : pieces1) {
-                                    if(piece1 instanceof King) {
-                                        if(s.getY() == piece1.getY() && s.getX() == piece1.getX()) {
+                                    if (piece1 instanceof King) {
+                                        King king = (King) piece1;
+                                        if (s.getY() == piece1.getY() && s.getX() == piece1.getX()) {
                                             System.out.println("SZACH");
-                                            King king = (King) piece1;
                                             king.isChecked(true);
                                             gameBoard.getBoard()[s.getX()][s.getY()].setColor(Color.yellow);
+                                        } else {
+                                            king.isChecked(false);
                                         }
+                                        break;
                                     }
                                 }
                             }
@@ -387,24 +389,17 @@ public class Test implements Runnable{
     }
 
     //Usuwa ruchy królowi powodujące szach
-    public synchronized Collection<Spot> mayBeChecked(King king){
+    public synchronized Collection<Spot> mayBeChecked(King king) {
         List<Spot> impossibleMoves = new ArrayList<>();
 
         for (Player p : players) {
             if (p != currentPlayer) {
                 for (ArrayList<Piece> pieces : p.playerPieces) {
-                    for (Piece piece: pieces) {
-                        if(piece instanceof Pawn){
-                            for(Spot s:((Pawn) piece).getPossibleAttack(gameBoard.getBoard()))
-                                if(king.getPossibleMoves(gameBoard.getBoard()).contains(s)){
-                                    impossibleMoves.add(s);
-                                }
-                        }else {
-                            for (Spot s : piece.getPossibleMoves(gameBoard.getBoard()))
-                                if (king.getPossibleMoves(gameBoard.getBoard()).contains(s)) {
-                                    impossibleMoves.add(s);
-                                }
-                        }
+                    for (Piece piece : pieces) {
+                        for (Spot s : piece.getPossibleAttacks(gameBoard.getBoard()))
+                            if (king.getPossibleMoves(gameBoard.getBoard()).contains(s)) {
+                                impossibleMoves.add(s);
+                            }
                     }
                 }
             }
@@ -412,42 +407,74 @@ public class Test implements Runnable{
         return impossibleMoves;
     }
 
-    //sprawdza czy jest szach na królu gracza
-    public synchronized boolean isChecked(){
+    //Sprawdza czy jest szach na królu gracza
+    public synchronized boolean isChecked() {
         boolean isChecked = false;
         for (ArrayList<Piece> pieces1 : currentPlayer.playerPieces) {
             for (Piece piece1 : pieces1) {
-                if(piece1 instanceof King) {
+                if (piece1 instanceof King) {
                     King king = (King) piece1;
-                    isChecked =  king.getIsChecked();
+                    isChecked = king.getIsChecked();
                 }
             }
         }
         return isChecked;
     }
 
-    //sprawdza czy jest mat na królu gracza
-    public synchronized boolean isMate(){
-        boolean isMate = false;
-        for (ArrayList<Piece> pieces1 : currentPlayer.playerPieces) {
-            for (Piece piece1 : pieces1) {
-                if(piece1 instanceof King) {
-                    King king = (King) piece1;
-                    isMate =  king.getIsMate();
+    //Ustawia mat na królu graczy którzy mają mata
+    public synchronized void isMate() {
+        for (ArrayList<Piece> pieces : currentPlayer.playerPieces) {
+            for (Piece piece : pieces) {
+                if (piece instanceof King) {
+                    King king = (King) piece;
+                    king.setIsMate(true);
+                    ArrayList<Spot> enemyAttacks = new ArrayList<>();
+                    for (Player p : players) {
+                        if (p != currentPlayer) {
+                            for (ArrayList<Piece> pieces1 : p.playerPieces) {
+                                for (Piece enemyPiece : pieces1) {
+                                    if(enemyPiece instanceof Pawn){
+                                        enemyAttacks.addAll(enemyPiece.getPossibleAttacks(gameBoard.getBoard()));
+                                    }else {
+                                        enemyAttacks.addAll(enemyPiece.getPossibleMoves(gameBoard.getBoard()));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    for(Spot kingSpot:king.getPossibleMoves(gameBoard.getBoard(),mayBeChecked(king))){
+                        if(!enemyAttacks.contains(kingSpot)){
+                            king.setIsMate(false);
+                        }
+                    }
+                    break;
                 }
             }
         }
-        if(isMate)gameBoard.setStatus(chess.game.Board.GameStatus.ENDGAME);
-        return isMate;
+    }
+
+    //Sprawdza czy król aktualnego gracza ma mata
+    public boolean checkForMate() {
+        boolean playerMate = false;
+
+        for (ArrayList<Piece> pieces1 : currentPlayer.playerPieces) {
+            for (Piece piece1 : pieces1) {
+                if (piece1 instanceof King) {
+                    King king = (King) piece1;
+                    playerMate = king.getIsMate();
+                }
+            }
+        }
+        return playerMate;
     }
 
 
     public Test() {
-        gameBoard=new Board();
+        gameBoard = new Board();
 
         JFrame frame = new JFrame();
         frame.setVisible(true);
-        frame.setSize(640,640);
+        frame.setSize(640, 640);
         frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         ArrayList<Board> boardChanges = new ArrayList<>();
@@ -458,7 +485,7 @@ public class Test implements Runnable{
         frame.revalidate();
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new Test();
     }
 }

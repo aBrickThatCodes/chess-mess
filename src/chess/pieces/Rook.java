@@ -26,9 +26,7 @@ public class Rook extends Piece {
             while((ahead = board[getX()+i][getY()]).getPiece() == null){
                 possibleMoves.add(ahead);
                 i++;
-                if(i == 12){
-                    break;
-                }
+
             }
             if(ahead != null && ahead.getPiece()!=null && ahead.getPiece().getColor() != getColor()){
                 possibleMoves.add(ahead);
@@ -42,9 +40,7 @@ public class Rook extends Piece {
             while((behind = board[getX()-i][getY()]).getPiece() == null){
                 possibleMoves.add(behind);
                 i++;
-                if(i == 12){
-                    break;
-                }
+
             }
             if(behind != null && behind.getPiece()!=null && behind.getPiece().getColor() != getColor()){
                 possibleMoves.add(behind);
@@ -58,13 +54,10 @@ public class Rook extends Piece {
             while((left = board[getX()][getY()-i]).getPiece() == null){
                 possibleMoves.add(left);
                 i++;
-                if(i == 12){
-                    break;
-                }
+
             }
             if(left != null && left.getPiece()!=null && left.getPiece().getColor() != getColor()){
                 possibleMoves.add(left);
-               // System.out.println("Dodałem pionek");
             }
         } catch (Exception e) {
         }
@@ -75,9 +68,7 @@ public class Rook extends Piece {
             while((right = board[getX()][getY()+i]).getPiece() == null){
                 possibleMoves.add(right);
                 i++;
-                if(i == 12){
-                    break;
-                }
+
             }
             if(right != null && right.getPiece()!=null && right.getPiece().getColor() != getColor()){
                 possibleMoves.add(right);
@@ -85,6 +76,83 @@ public class Rook extends Piece {
         } catch (Exception e) {
         }
 
+        return possibleMoves;
+    }
+
+    public synchronized Collection<Spot> getPossibleAttacks(Spot[][] board) {
+
+        List<Spot> possibleMoves = new ArrayList<Spot>();
+
+        Spot ahead;
+        int i = 1;
+        try {
+            while ((ahead = board[getX() + i][getY()]).getPiece() == null) {
+                possibleMoves.add(ahead);
+                i++;
+
+            }
+            if (ahead != null && ahead.getPiece() != null && ahead.getPiece().getColor() != getColor()) {
+                possibleMoves.add(ahead);
+            }
+            if ((ahead = board[getX() + i + 1][getY()]).getPiece() == null && ahead != null) {
+                possibleMoves.add(ahead);
+            }
+        } catch (Exception ignored) {
+        }
+
+        Spot behind;
+        i = 1;
+        try {
+            while ((behind = board[getX() - i][getY()]).getPiece() == null) {
+                possibleMoves.add(behind);
+                i++;
+
+            }
+            if (behind != null && behind.getPiece() != null && behind.getPiece().getColor() != getColor()) {
+                possibleMoves.add(behind);
+            }
+            if ((behind = board[getX() - i - 1][getY()]).getPiece() == null && behind != null) {
+                possibleMoves.add(behind);
+            }
+        } catch (Exception ignored) {
+        }
+
+        Spot left;
+        i = 1;
+        try {
+            while ((left = board[getX()][getY() - i]).getPiece() == null) {
+                possibleMoves.add(left);
+                i++;
+
+            }
+            if (left != null && left.getPiece() != null && left.getPiece().getColor() != getColor()) {
+                possibleMoves.add(left);
+            }
+            if ((left = board[getX()][getY() - i - 1]).getPiece() == null && left != null) {
+                possibleMoves.add(left);
+            }
+        } catch (Exception ignored) {
+
+        }
+
+        Spot right;
+        i = 1;
+        try {
+            while ((right = board[getX()][getY() + i]).getPiece() == null) {
+                possibleMoves.add(right);
+                i++;
+
+            }
+            if (right != null && right.getPiece() != null && right.getPiece().getColor() != getColor()) {
+                possibleMoves.add(right);
+
+            }
+            if ((right = board[getX()][getY() + i + 1]).getPiece() == null && right != null) {
+                possibleMoves.add(right);
+            }
+        } catch (Exception ignored) {
+
+        }
         return possibleMoves;
     }
 }

@@ -23,6 +23,8 @@ public abstract class Piece implements Serializable{
 
     public abstract Collection<Spot> getPossibleMoves(Spot[][] board);
 
+    public abstract Collection<Spot> getPossibleAttacks(Spot[][] board);
+
     public synchronized void setColor(Color c) {
         color = c;
     }
@@ -31,7 +33,7 @@ public abstract class Piece implements Serializable{
         return color;
     }
 
-    public  synchronized void setLoctaion(int x, int y){
+    public  synchronized void setLocation(int x, int y){
         setX(x);
         setY(y);
     };

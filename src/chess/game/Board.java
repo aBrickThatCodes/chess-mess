@@ -2,6 +2,7 @@ package chess.game;
 
 
 import chess.Config;
+import chess.pieces.Piece;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,9 +13,8 @@ public class Board extends JPanel {
 
     public Spot[][] board;
 
-    public Board(ArrayList<Player> players) {
+    public Board() {
         setLayout(new GridLayout(Config.Instance().boardHeight, Config.Instance().boardWidth));
-        setBoard(players);
     }
 
     public synchronized void repaintColors() {
@@ -65,8 +65,26 @@ public class Board extends JPanel {
 
         board = new Spot[Config.Instance().boardWidth][Config.Instance().boardHeight];
 
-        for (int i = 0; i < players.size(); i++) {
+        //Wypełnianie planszy polami
+        for (int i = 0; i < Config.Instance().boardWidth; i++) {
+            for (int j = 0; j < Config.Instance().boardHeight; j++) {
+                if (board[i][j] == null) {
+                    board[i][j] = new Spot(i, j);
+                }
+            }
+        }
 
+        //Ustawienie pionków
+        for (Player player : players) {
+            for (ArrayList<Piece> pieceRow : player.playerPieces) {
+                for (Piece piece : pieceRow) {
+                    piece.setColor(player.getPlayerColor());
+                    board[piece.getX()][piece.getY()].setPiece(piece);
+                }
+            }
+        }
+
+        /*for (int i = 0; i < players.size(); i++) {
             switch (players.get(i).attackDirection) {
                 case RIGHT:
                     int startingRookPosision = (board[0].length - 8) / 2;
@@ -174,72 +192,37 @@ public class Board extends JPanel {
                     players.get(i).playerPieces.get(1).get(0).setLocation(5, startingRookPosision);
                     break;
             }
-        }
-
-        //Wypełnianie pozostalych pól
-        for (int i = 0; i < Config.Instance().boardWidth; i++) {
-            for (int j = 0; j < Config.Instance().boardHeight; j++) {
-                if (board[i][j] == null) {
-                    board[i][j] = new Spot(i, j);
-                }
-            }
-        }
+        }*/
 
         //Kolorowanie
-        repaintColors();
         refreshBoard();
     }
-
-    //Metdoda tworząca zwykłą planszę na zaś gdyby setBoard miało problemy
-    /*public synchronized void setBoard() {
-        board = new Spot[Config.Instance().boardWidth][Config.Instance().boardHeight];
-
-        for (int i = 0; i < Config.Instance().boardWidth; i++) {
-            for (int j = 0; j < Config.Instance().boardHeight; j++) {
-                if (board[i][j] == null) {
-                    board[i][j] = new Spot(i, j);
-                    board[i][j].addFocusListener(new Test.MyFocusListener(i, j));
-                }
-            }
-        }
-
-        //Kolorowanie
-        repaintColors();
-
-        players.add(new Player.HumanPlayer(0, Player.AttackDirection.LEFT, Color.yellow));
-        players.add(new Player.HumanPlayer(0, Player.AttackDirection.RIGHT, Color.blue));
-
-        //Dodawanie pionków
-        for (Player player : players) {
-            for (ArrayList<Piece> pieceRow : player.playerPieces) {
-                for (Piece piece : pieceRow) {
-                    piece.setColor(player.getPlayerColor());
-                    board[piece.getX()][piece.getY()].setPiece(piece);
-                }
-            }
-        }
-
-        for (int j = 0; j < boardSize; j++) {
-            for (int i = 0; i < boardSize; i++) {
-                board[i][j].revalidate();
-                this.add(board[i][j]);
-            }
-        }
-
-        this.revalidate();
-
-    }*/
 
     public Spot[][] getBoard() {
         return board;
     }
 
     public synchronized void refreshBoard() {
-        for (int i = 0; i < Config.Instance().boardHeight; i++) {
-            for (int j = 0; j < Config.Instance().boardWidth; j++) {
-                this.add(board[j][i]);
+        for (int j = 0; j < Config.Instance().boardWidth; j++) {
+            if (j % 2 == 0) {
+                for (int k = 0; k < Config.Instance().boardHeight; k++) {
+                    if (k % 2 == 0) {
+                        board[j][k].setColor(Config.Instance().colors[1]);
+                    } else {
+                        board[j][k].setColor(Config.Instance().colors[0]);
+                    }
+                }
+            } else if (j % 2 == 1) {
+                for (int k = 0; k < Config.Instance().boardHeight; k++) {
+                    if (k % 2 == 0) {
+                        board[j][k].setColor(Config.Instance().colors[0]);
+                    } else {
+                        board[j][k].setColor(Config.Instance().colors[1]);
+                    }
+                }
             }
         }
-        this.revalidate();
+
+        repaintColors();
     }
 }

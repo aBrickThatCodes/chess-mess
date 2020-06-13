@@ -453,7 +453,6 @@ public abstract class Player {
     }
 
     public static class HumanPlayer extends Player{
-
         public HumanPlayer(int startingRookPosition, AttackDirection attackDirection,Color playerColor){
             addPlayerPieces(startingRookPosition,attackDirection);
             setStartingRookPosition(startingRookPosition);
@@ -485,7 +484,6 @@ public abstract class Player {
 
     //Tymczasowa metoda dodająca pionki w standardowym ustawieniu
     public synchronized void addPlayerPieces(int startingRookPosition,AttackDirection attackDirection){ //Metoda tworząca podstawowe szachy do testów
-
         playerPieces = new ArrayList<>();
         switch (attackDirection){
             case LEFT:
@@ -554,7 +552,7 @@ public abstract class Player {
 
                 for(int i=0;i<8;i++){
                     Pawn pawn = new Pawn(attackDirection);
-                    pawn.setLocation(6,startingRookPosition+i);
+                    pawn.setLocation(Config.Instance().boardWidth-2,startingRookPosition+i);
                     pawns.add(pawn);
                 }
                 playerPieces.add(pawns);
@@ -562,11 +560,11 @@ public abstract class Player {
                 rooks = new ArrayList<>();
 
                 Rook rook6 = new Rook();
-                rook6.setLocation(7,startingRookPosition);
+                rook6.setLocation(Config.Instance().boardWidth-1,startingRookPosition);
                 rooks.add(rook6);
 
                 rook2 = new Rook();
-                rook2.setLocation(7,startingRookPosition+7);
+                rook2.setLocation(Config.Instance().boardWidth-1,startingRookPosition+7);
                 rooks.add(rook2);
 
                 playerPieces.add(rooks);
@@ -575,11 +573,11 @@ public abstract class Player {
                 knights = new ArrayList<>();
 
                 Knight knight6 = new Knight();
-                knight6.setLocation(7,startingRookPosition+1);
+                knight6.setLocation(Config.Instance().boardWidth-1,startingRookPosition+1);
                 knights.add(knight6);
 
                 knight2 = new Knight();
-                knight2.setLocation(7,startingRookPosition+6);
+                knight2.setLocation(Config.Instance().boardWidth-1,startingRookPosition+6);
                 knights.add(knight2);
 
                 playerPieces.add(knights);
@@ -587,11 +585,11 @@ public abstract class Player {
                  bishops = new ArrayList<>();
 
                 Bishop bishop6 = new Bishop();
-                bishop6.setLocation(7,startingRookPosition+2);
+                bishop6.setLocation(Config.Instance().boardWidth-1,startingRookPosition+2);
                 bishops.add(bishop6);
 
                 bishop2 = new Bishop();
-                bishop2.setLocation(7,startingRookPosition+5);
+                bishop2.setLocation(Config.Instance().boardWidth-1,startingRookPosition+5);
                 bishops.add(bishop2);
 
                 playerPieces.add(bishops);
@@ -600,7 +598,7 @@ public abstract class Player {
                 queens = new ArrayList<>();
 
                 queen = new Queen();
-                queen.setLocation(7,startingRookPosition+4);
+                queen.setLocation(Config.Instance().boardWidth-1,startingRookPosition+4);
                 queens.add(queen);
 
                 playerPieces.add(queens);
@@ -608,7 +606,7 @@ public abstract class Player {
                 kings = new ArrayList<>();
 
                 king = new King();
-                king.setLocation(7,startingRookPosition+3);
+                king.setLocation(Config.Instance().boardWidth-1,startingRookPosition+3);
                 kings.add(king);
 
                 playerPieces.add(kings);

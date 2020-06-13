@@ -24,26 +24,32 @@ public class Game extends JFrame{
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(640, 640);
 
-        Player.AttackDirection[] values = Player.AttackDirection.values();
+        gameData.getPlayers().add(new Player.HumanPlayer(0, Player.AttackDirection.LEFT, Color.yellow));
+        gameData.getPlayers().add(new Player.HumanPlayer(0, Player.AttackDirection.RIGHT, Color.blue));
+
+        gameData.getBoard().setBoard(gameData.getPlayers());
+
+        /*Player.AttackDirection[] values = Player.AttackDirection.values();
 
         if (Config.Instance().pvp) {
             for (int i = 0; i < Config.Instance().playerAmount; i++) {
-                gameData.getPlayers().add(new Player.HumanPlayer((i % 2) * 7, values[i % Config.Instance().playerAmount], Config.Instance().colors[i]));
+                gameData.getPlayers().add(new Player.HumanPlayer(0, values[i % Config.Instance().playerAmount], Color.yellow));
                 gameData.getPlayers().get(i).attackDirection = Player.AttackDirection.values()[i % 4];
             }
         } else {
-            gameData.getPlayers().add(new Player.HumanPlayer(0, Player.AttackDirection.RIGHT, Config.Instance().colors[0]));
+            gameData.getPlayers().add(new Player.HumanPlayer(0, Player.AttackDirection.RIGHT, Color.blue));
             for (int i = 0; i < Config.Instance().playerAmount - 1; i++) {
                 gameData.getPlayers().add(new Player.AIPlayer());
             }
-        }
+        }*/
 
         for (int i = 0; i < Config.Instance().boardHeight; i++) {
             for (int j = 0; j < Config.Instance().boardWidth; j++) {
-                gameData.getBoard().getBoard()[j][i].addMouseListener(new MyMouseListener(i, j));
+                gameData.getBoard().getBoard()[i][j].addMouseListener(new MyMouseListener(i, j));
             }
         }
 
+        gameData.setCurrentTurn(gameData.getPlayers().get(0));
         this.add(gameData.getBoard());
     }
 
@@ -58,6 +64,9 @@ public class Game extends JFrame{
 
         @Override
         public void mouseClicked(MouseEvent mouseEvent) {
+
+            gameData.setCurrentTurn(gameData.getPlayers().get(gameData.getPlayerNum() % gameData.getPlayers().size()));
+
             int previusX = gameData.getCurrentX();
             gameData.setCurrentX(x);
 
@@ -65,31 +74,60 @@ public class Game extends JFrame{
             gameData.setCurrentY(y);
 
             if (gameData.getCurrentChosenPiece() != null) {
-                if (gameData.getCurrentChosenPiece().move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard())) {
+                if (gameData.getCurrentChosenPiece() instanceof King) {
+                    King king = (King) gameData.getCurrentChosenPiece();
+                    if (king.move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard(), mayBeChecked(king))) {
+                        gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
+                        gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(king);
+                        king = null;
+                        gameData.setCurrentChosenPiece(null);
+                        System.out.println("Pionek przestawiono " + gameData.getCurrentY() + " " + gameData.getCurrentY());
+                        gameData.setPlayerNum(gameData.getPlayerNum()+1);
+                    } else {
+                        gameData.setCurrentChosenPiece(null);
+                    }
+                } else if (gameData.getCurrentChosenPiece().move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard())){
                     gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
                     gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
                     gameData.setCurrentChosenPiece(null);
-                    System.out.println("Pionek przestawiono " + gameData.getCurrentX() + " " + gameData.getCurrentY());
-                    gameData.getBoard().repaintColors();
+                    System.out.println("Pionek przestawiono " + gameData.getCurrentY() + " " + gameData.getCurrentY());
+                    gameData.setPlayerNum(gameData.getPlayerNum()+1);
                 } else if (!gameData.getCurrentChosenPiece().move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard())) {
                     System.out.println("Poza możliwościami pionka lub jest tam inny pionek");
                     gameData.setCurrentChosenPiece(null);
-                    gameData.getBoard().repaintColors();
                 }
+                gameData.getBoard().refreshBoard();
+                gameData.getBoard().repaintColors();
                 setCheck();
                 isMate();
             } else {
                 try {
                     gameData.setCurrentChosenPiece(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece());
-                    for (Spot s : gameData.getCurrentChosenPiece().getPossibleMoves(gameData.getBoard().getBoard())) {
-                        if (gameData.getBoard().getBoard()[s.getX()][s.getY()].getColor() == Color.WHITE) {
-                            gameData.getBoard().getBoard()[s.getX()][s.getY()].setColor(Color.blue);
-                        } else {
-                            gameData.getBoard().getBoard()[s.getX()][s.getY()].setColor(Color.blue);
+                    if (validateChoosenPiece() && gameData.getCurrentChosenPiece() instanceof King) {
+                        King king = (King) gameData.getCurrentChosenPiece();
+                        for (Spot s : king.getPossibleMoves(gameData.getBoard().getBoard(), mayBeChecked(king))) {
+                            if (gameData.getBoard().getBoard()[s.getX()][s.getY()].getColor() == Color.WHITE) {
+                                gameData.getBoard().getBoard()[s.getX()][s.getY()].setColor(Color.blue);
+                            } else {
+                                gameData.getBoard().getBoard()[s.getX()][s.getY()].setColor(Color.blue);
+                            }
                         }
+                        System.out.println("Current spot " + gameData.getCurrentY() + " " + gameData.getCurrentY());
+                        System.out.println("Previous spot " + previusX + " " + previusY);
+                    } else if (validateChoosenPiece()) {
+                        for (Spot s : gameData.getCurrentChosenPiece().getPossibleMoves(gameData.getBoard().getBoard())) {
+                            if (gameData.getBoard().getBoard()[s.getX()][s.getY()].getColor() == Color.WHITE) {
+                                gameData.getBoard().getBoard()[s.getX()][s.getY()].setColor(Color.blue);
+                            } else {
+                                gameData.getBoard().getBoard()[s.getX()][s.getY()].setColor(Color.blue);
+                            }
+                        }
+                        System.out.println("Current spot " + gameData.getCurrentY() + " " + gameData.getCurrentY());
+                        System.out.println("Previous spot " + previusX + " " + previusY);
+                    } else {
+                        gameData.setCurrentChosenPiece(null);
+                        System.out.println("Pionek przeciwnika lub puste pole");
                     }
-                    System.out.println("Current spot " + gameData.getCurrentX() + " " + gameData.getCurrentY());
-                    System.out.println("Previous spot " + previusX + " " + previusY);
                 } catch (Exception e) {
                     System.out.println("Brak pionka");
                 }
@@ -113,6 +151,18 @@ public class Game extends JFrame{
         public void mouseExited(MouseEvent mouseEvent) {
 
         }
+    }
+
+    public synchronized boolean validateChoosenPiece() {
+        boolean isCorrect = false;
+
+        for (ArrayList<Piece> pieces : gameData.getCurrentTurn().playerPieces) {
+            if (pieces.contains(gameData.getCurrentChosenPiece())) {
+                isCorrect = true;
+                break;
+            }
+        }
+        return isCorrect;
     }
 
     //Ustawia szacha na królu pozostałych graczy

@@ -18,7 +18,7 @@ public class Board extends JPanel {
     }
 
     public synchronized void repaintColors() {
-        if(Config.Instance().boardWidth == Config.Instance().boardHeight) {
+        if (Config.Instance().boardWidth == Config.Instance().boardHeight) {
             for (int j = 0; j < Config.Instance().boardWidth; j++) {
                 if (j % 2 == 0) {
                     for (int k = 0; k < Config.Instance().boardHeight; k++) {
@@ -38,7 +38,7 @@ public class Board extends JPanel {
                     }
                 }
             }
-        }else{
+        } else {
             for (int j = 0; j < Config.Instance().boardWidth; j++) {
                 if (j % 2 == 0) {
                     for (int k = 0; k < Config.Instance().boardHeight; k++) {
@@ -48,7 +48,7 @@ public class Board extends JPanel {
                             board[j][k].setColor(Config.Instance().colors[1]);
                         }
                     }
-                }else if (j % 2 == 1){
+                } else if (j % 2 == 1) {
                     for (int k = 0; k < Config.Instance().boardHeight; k++) {
                         if (k % 2 == 0) {
                             board[j][k].setColor(Config.Instance().colors[1]);
@@ -194,7 +194,17 @@ public class Board extends JPanel {
             }
         }*/
 
+        for (int j = 0; j < Config.Instance().boardWidth; j++) {
+            for (int i = 0; i < Config.Instance().boardHeight; i++) {
+                board[i][j].revalidate();
+                this.add(board[i][j]);
+            }
+        }
+
+        this.revalidate();
+
         //Kolorowanie
+        repaintColors();
         refreshBoard();
     }
 
@@ -212,17 +222,16 @@ public class Board extends JPanel {
                         board[j][k].setColor(Config.Instance().colors[0]);
                     }
                 }
-            } else if (j % 2 == 1) {
-                for (int k = 0; k < Config.Instance().boardHeight; k++) {
-                    if (k % 2 == 0) {
-                        board[j][k].setColor(Config.Instance().colors[0]);
-                    } else {
-                        board[j][k].setColor(Config.Instance().colors[1]);
-                    }
+            } else for (int k = 0; k < Config.Instance().boardHeight; k++) {
+                if (k % 2 == 0) {
+                    board[j][k].setColor(Config.Instance().colors[0]);
+                } else {
+                    board[j][k].setColor(Config.Instance().colors[1]);
                 }
             }
         }
 
         repaintColors();
+        this.revalidate();
     }
 }

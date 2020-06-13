@@ -3,14 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="3c3dfebc-2205-4be5-9363-3a0acada5c71" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Board$1.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Board.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Game$MyMouseListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Game$MyMouseListener.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Player$AIPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Player$AIPlayer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Player$AttackDirection.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Player$AttackDirection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Player$HumanPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Player$HumanPlayer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess-mess/chess/game/Player.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chess/game/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/game/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chess/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/game/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/game/GameData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/game/GameData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/game/Player.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,7 +162,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592071005258</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Changes....changes">
+      <created>1592076119364</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1592076119364</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -174,7 +181,8 @@
     <MESSAGE value="Added GameData" />
     <MESSAGE value="Added minor changes in GameData" />
     <MESSAGE value="Without errors" />
-    <option name="LAST_COMMIT_MESSAGE" value="Without errors" />
+    <MESSAGE value="Changes....changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes....changes" />
   </component>
   <component name="WindowStateProjectService">
     <state x="526" y="200" key="#com.intellij.ide.util.MemberChooser" timestamp="1592069100355">
@@ -185,26 +193,26 @@
       <screen x="0" y="0" width="1440" height="960" />
     </state>
     <state x="479" y="352" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1440.960@0.0.1440.960" timestamp="1592056336575" />
-    <state x="377" y="75" key="CommitChangelistDialog2" timestamp="1592071003070">
+    <state x="377" y="75" key="CommitChangelistDialog2" timestamp="1592076117074">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state x="377" y="75" key="CommitChangelistDialog2/0.0.1440.960@0.0.1440.960" timestamp="1592071003070" />
-    <state width="1397" height="255" key="GridCell.Tab.0.bottom" timestamp="1592076010144">
+    <state x="377" y="75" key="CommitChangelistDialog2/0.0.1440.960@0.0.1440.960" timestamp="1592076117074" />
+    <state width="1397" height="255" key="GridCell.Tab.0.bottom" timestamp="1592076632058">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state width="1397" height="255" key="GridCell.Tab.0.bottom/0.0.1440.960@0.0.1440.960" timestamp="1592076010144" />
-    <state width="1397" height="255" key="GridCell.Tab.0.center" timestamp="1592076010144">
+    <state width="1397" height="255" key="GridCell.Tab.0.bottom/0.0.1440.960@0.0.1440.960" timestamp="1592076632058" />
+    <state width="1397" height="255" key="GridCell.Tab.0.center" timestamp="1592076632058">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state width="1397" height="255" key="GridCell.Tab.0.center/0.0.1440.960@0.0.1440.960" timestamp="1592076010143" />
-    <state width="1397" height="255" key="GridCell.Tab.0.left" timestamp="1592076010143">
+    <state width="1397" height="255" key="GridCell.Tab.0.center/0.0.1440.960@0.0.1440.960" timestamp="1592076632058" />
+    <state width="1397" height="255" key="GridCell.Tab.0.left" timestamp="1592076632058">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state width="1397" height="255" key="GridCell.Tab.0.left/0.0.1440.960@0.0.1440.960" timestamp="1592076010143" />
-    <state width="1397" height="255" key="GridCell.Tab.0.right" timestamp="1592076010144">
+    <state width="1397" height="255" key="GridCell.Tab.0.left/0.0.1440.960@0.0.1440.960" timestamp="1592076632058" />
+    <state width="1397" height="255" key="GridCell.Tab.0.right" timestamp="1592076632058">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state width="1397" height="255" key="GridCell.Tab.0.right/0.0.1440.960@0.0.1440.960" timestamp="1592076010144" />
+    <state width="1397" height="255" key="GridCell.Tab.0.right/0.0.1440.960@0.0.1440.960" timestamp="1592076632058" />
     <state width="1397" height="316" key="GridCell.Tab.1.bottom" timestamp="1592072412221">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
@@ -229,10 +237,10 @@
       <screen x="0" y="0" width="1440" height="960" />
     </state>
     <state x="93" y="93" width="1255" height="775" key="VCS.FileHistoryDialog/0.0.1440.960@0.0.1440.960" timestamp="1592037410127" />
-    <state x="313" y="214" key="Vcs.Push.Dialog.v2" timestamp="1592071010649">
+    <state x="313" y="214" key="Vcs.Push.Dialog.v2" timestamp="1592076129728">
       <screen x="0" y="0" width="1440" height="960" />
     </state>
-    <state x="313" y="214" key="Vcs.Push.Dialog.v2/0.0.1440.960@0.0.1440.960" timestamp="1592071010649" />
+    <state x="313" y="214" key="Vcs.Push.Dialog.v2/0.0.1440.960@0.0.1440.960" timestamp="1592076129728" />
     <state x="417" y="305" key="com.intellij.ide.util.TipDialog" timestamp="1592067818674">
       <screen x="0" y="0" width="1440" height="960" />
     </state>

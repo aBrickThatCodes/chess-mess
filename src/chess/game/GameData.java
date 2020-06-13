@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class GameData {
     //Z Game
+    private Game game;
     private Board gameBoard;
     private ArrayList<Board> boardChanges;
     private ArrayList<Player> players;
@@ -20,9 +21,9 @@ public class GameData {
     private GameStatus status;
 
     public GameData() {
+        players = new ArrayList<>(Config.Instance().playerAmount);
         board = new Board(this.getPlayers());
         boardChanges = new ArrayList<>();
-        players = new ArrayList<>(Config.Instance().playerAmount);
         currentChosenPiece = null;
     }
 

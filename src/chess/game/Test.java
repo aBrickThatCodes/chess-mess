@@ -209,12 +209,12 @@ public class Test implements Runnable {
     public class Board extends JPanel {
 
         private Spot[][] board;
-        private chess.game.Board.GameStatus status;
+        private GameStatus status;
 
         public Board() {
             setLayout(new GridLayout(boardSize, boardSize));
             setBoard();
-            status = chess.game.Board.GameStatus.ACTIVE;
+            status = GameStatus.ACTIVE;
         }
 
         public synchronized void repaintColors() {
@@ -328,11 +328,11 @@ public class Test implements Runnable {
             }
         }
 
-        public synchronized void setStatus(chess.game.Board.GameStatus status) {
+        public synchronized void setStatus(GameStatus status) {
             this.status = status;
         }
 
-        public synchronized chess.game.Board.GameStatus getStatus() {
+        public synchronized GameStatus getStatus() {
             return this.status;
         }
 

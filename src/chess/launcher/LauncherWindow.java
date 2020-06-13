@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import chess.game.Game;
+import chess.game.GameData;
 import chess.game.Test;
 
 @SuppressWarnings({"serial","unused"})

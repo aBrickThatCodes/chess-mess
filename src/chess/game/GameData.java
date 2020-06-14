@@ -1,22 +1,21 @@
 package chess.game;
 
-import chess.Config;
 import chess.pieces.Piece;
 
 import java.util.ArrayList;
 
 public class GameData {
-    //Z Game
+    // Z Game
     private Board gameBoard;
     private ArrayList<Board> boardChanges;
     private ArrayList<Player> players;
     private Player currentTurn;
     private int currentX;
     private int currentY;
-    private Piece currentChosenPiece = null;
+    public Piece currentChosenPiece = null;
     private int playerNum;
 
-    //Z Board
+    // Z Board
     private Board board = new Board();
     private GameStatus status;
 
@@ -37,7 +36,7 @@ public class GameData {
         return gameBoard;
     }
 
-    public ArrayList<Board> getBoardChanges(){
+    public ArrayList<Board> getBoardChanges() {
         return boardChanges;
     }
 
@@ -70,8 +69,7 @@ public class GameData {
     }
 
     public enum GameStatus {
-        ACTIVE,
-        ENDGAME
+        ACTIVE, ENDGAME
     }
 
     public void setCurrentX(int currentX) {
@@ -110,4 +108,3 @@ public class GameData {
         this.status = status;
     }
 }
-

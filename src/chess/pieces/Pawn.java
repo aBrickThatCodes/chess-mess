@@ -62,18 +62,18 @@ public class Pawn extends Piece {
 
         List<Spot> possibleMoves = new ArrayList<>();
 
+        try{
+            Spot ahead = board[getX()+x][getY()+y];
+            if (ahead.getPiece() == null && !ahead.isBlocked) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
+        } catch (Exception e) {
+        }
+
         if(!wasMoved){
             try{
                 Spot ahead = board[getX()+2*x][getY()+2*y];
-                if (ahead.getPiece() == null) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
+                if (ahead.getPiece() == null && !ahead.isBlocked) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
             } catch (Exception e) {
             }
-        }
-
-        try{
-            Spot ahead = board[getX()+x][getY()+y];
-            if (ahead.getPiece() == null) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
-        } catch (Exception e) {
         }
 
         try{
@@ -118,13 +118,13 @@ public class Pawn extends Piece {
 
         try{
             Spot aheadLeft = board[getX()+x][getY()-z];
-            if (aheadLeft.getPiece() == null) possibleMoves.add(aheadLeft);
+            if (aheadLeft.getPiece() == null && !aheadLeft.isBlocked) possibleMoves.add(aheadLeft);
         } catch (Exception e) {
         }
 
         try{
             Spot aheadRight = board[getX()+x][getY()+z];
-            if (aheadRight.getPiece() == null) possibleMoves.add(aheadRight);
+            if (aheadRight.getPiece() == null && !aheadRight.isBlocked) possibleMoves.add(aheadRight);
         } catch (Exception e) {
         }
 

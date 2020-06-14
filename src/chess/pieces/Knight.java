@@ -22,14 +22,14 @@ public class Knight extends Piece {
 
         try{
             Spot upRight1 = board[getX()+1][getY()+2];
-            if(upRight1.getPiece() == null) possibleMoves.add(upRight1);
+            if(upRight1.getPiece() == null && !upRight1.isBlocked) possibleMoves.add(upRight1);
             else if(upRight1.getPiece().getColor() != this.getColor()) possibleMoves.add(upRight1); //Skok wyższy w prawo góra
         } catch (Exception e) {
         }
 
         try{
             Spot upRight2 = board[getX()+2][getY()+1];
-            if(upRight2.getPiece() == null) possibleMoves.add(upRight2);
+            if(upRight2.getPiece() == null && !upRight2.isBlocked) possibleMoves.add(upRight2);
             else if(upRight2.getPiece().getColor() != this.getColor()) possibleMoves.add(upRight2); //Skok niższy w prawo góra
         } catch (Exception e) {
         }
@@ -37,42 +37,42 @@ public class Knight extends Piece {
         try{
 
             Spot upLeft1 = board[getX()-1][getY()+2];
-            if(upLeft1.getPiece() == null) possibleMoves.add(upLeft1);
+            if(upLeft1.getPiece() == null && !upLeft1.isBlocked) possibleMoves.add(upLeft1);
             else if(upLeft1.getPiece().getColor() != this.getColor()) possibleMoves.add(upLeft1); //Skok wyższy w lewo góra
         } catch (Exception e) {
         }
 
         try{
             Spot upLeft2 = board[getX()-2][getY()+1];
-            if(upLeft2.getPiece() == null) possibleMoves.add(upLeft2);
+            if(upLeft2.getPiece() == null && !upLeft2.isBlocked) possibleMoves.add(upLeft2);
             else if(upLeft2.getPiece().getColor() != this.getColor()) possibleMoves.add(upLeft2); //Skok niższy w lewo góra
         } catch (Exception e) {
         }
 
         try{
             Spot downRight1 = board[getX()+2][getY()-1];
-            if(downRight1.getPiece() == null) possibleMoves.add(downRight1);
+            if(downRight1.getPiece() == null && !downRight1.isBlocked) possibleMoves.add(downRight1);
             else if(downRight1.getPiece().getColor() != this.getColor()) possibleMoves.add(downRight1);
         } catch (Exception e) {
         }
 
         try{
             Spot downRight2 = board[getX()+1][getY()-2];
-            if(downRight2.getPiece() == null) possibleMoves.add(downRight2);
+            if(downRight2.getPiece() == null && !downRight2.isBlocked) possibleMoves.add(downRight2);
             else if(downRight2.getPiece().getColor() != this.getColor()) possibleMoves.add(downRight2);
         } catch (Exception e) {
         }
 
         try{
             Spot downLeft1 = board[getX()-2][getY()-1];
-            if(downLeft1.getPiece() == null) possibleMoves.add(downLeft1);
+            if(downLeft1.getPiece() == null && !downLeft1.isBlocked) possibleMoves.add(downLeft1);
             else if(downLeft1.getPiece().getColor() != this.getColor()) possibleMoves.add(downLeft1);
         } catch (Exception e) {
         }
 
         try{
             Spot downLeft2 =board[getX()-1][getY()-2];
-            if(downLeft2.getPiece() == null) possibleMoves.add(downLeft2);
+            if(downLeft2.getPiece() == null && !downLeft2.isBlocked) possibleMoves.add(downLeft2);
             else if(downLeft2.getPiece().getColor() != this.getColor()) possibleMoves.add(downLeft2);
         } catch (Exception e) {
         }
@@ -86,14 +86,14 @@ public class Knight extends Piece {
 
         try{
             Spot upRight1 = board[getX()+1][getY()+2];
-            if(upRight1.getPiece() == null) possibleMoves.add(upRight1);
+            if(upRight1.getPiece() == null && !upRight1.isBlocked) possibleMoves.add(upRight1);
             else if(upRight1.getPiece().getColor() != this.getColor()) possibleMoves.add(upRight1); //Skok wyższy w prawo góra
         } catch (Exception e) {
         }
 
         try{
             Spot upRight2 = board[getX()+2][getY()+1];
-            if(upRight2.getPiece() == null) possibleMoves.add(upRight2);
+            if(upRight2.getPiece() == null && !upRight2.isBlocked) possibleMoves.add(upRight2);
             else if(upRight2.getPiece().getColor() != this.getColor()) possibleMoves.add(upRight2); //Skok niższy w prawo góra
         } catch (Exception e) {
         }
@@ -101,42 +101,42 @@ public class Knight extends Piece {
         try{
 
             Spot upLeft1 = board[getX()-1][getY()+2];
-            if(upLeft1.getPiece() == null) possibleMoves.add(upLeft1);
+            if(upLeft1.getPiece() == null && !upLeft1.isBlocked) possibleMoves.add(upLeft1);
             else if(upLeft1.getPiece().getColor() != this.getColor()) possibleMoves.add(upLeft1); //Skok wyższy w lewo góra
         } catch (Exception e) {
         }
 
         try{
             Spot upLeft2 = board[getX()-2][getY()+1];
-            if(upLeft2.getPiece() == null) possibleMoves.add(upLeft2);
+            if(upLeft2.getPiece() == null && !upLeft2.isBlocked) possibleMoves.add(upLeft2);
             else if(upLeft2.getPiece().getColor() != this.getColor()) possibleMoves.add(upLeft2); //Skok niższy w lewo góra
         } catch (Exception e) {
         }
 
         try{
             Spot downRight1 = board[getX()+2][getY()-1];
-            if(downRight1.getPiece() == null) possibleMoves.add(downRight1);
+            if(downRight1.getPiece() == null && !downRight1.isBlocked) possibleMoves.add(downRight1);
             else if(downRight1.getPiece().getColor() != this.getColor()) possibleMoves.add(downRight1);
         } catch (Exception e) {
         }
 
         try{
             Spot downRight2 = board[getX()+1][getY()-2];
-            if(downRight2.getPiece() == null) possibleMoves.add(downRight2);
+            if(downRight2.getPiece() == null && !downRight2.isBlocked) possibleMoves.add(downRight2);
             else if(downRight2.getPiece().getColor() != this.getColor()) possibleMoves.add(downRight2);
         } catch (Exception e) {
         }
 
         try{
             Spot downLeft1 = board[getX()-2][getY()-1];
-            if(downLeft1.getPiece() == null) possibleMoves.add(downLeft1);
+            if(downLeft1.getPiece() == null && !downLeft1.isBlocked) possibleMoves.add(downLeft1);
             else if(downLeft1.getPiece().getColor() != this.getColor()) possibleMoves.add(downLeft1);
         } catch (Exception e) {
         }
 
         try{
             Spot downLeft2 =board[getX()-1][getY()-2];
-            if(downLeft2.getPiece() == null) possibleMoves.add(downLeft2);
+            if(downLeft2.getPiece() == null && !downLeft2.isBlocked) possibleMoves.add(downLeft2);
             else if(downLeft2.getPiece().getColor() != this.getColor()) possibleMoves.add(downLeft2);
         } catch (Exception e) {
         }

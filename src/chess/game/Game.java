@@ -13,7 +13,7 @@ import java.util.Collection;
 import java.util.List;
 
 
-@SuppressWarnings({"serial", "unused"})
+@SuppressWarnings("serial")
 public class Game extends JFrame {
 
     GameData gameData = new GameData();

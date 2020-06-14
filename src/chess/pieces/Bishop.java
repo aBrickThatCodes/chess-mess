@@ -23,7 +23,7 @@ public class Bishop extends Piece {
 
         Spot upRight;
         try {
-            while ((upRight = board[getX() + i][getY() + j]).getPiece() == null) {
+            while ((upRight = board[getX() + i][getY() + j]).getPiece() == null && !upRight.isBlocked) {
                 possibleMoves.add(upRight);
                 i++;
                 j++;
@@ -40,7 +40,7 @@ public class Bishop extends Piece {
         j = 1;
         Spot upLeft;
         try {
-            while ((upLeft = board[getX() + i][getY() - j]).getPiece() == null) {
+            while ((upLeft = board[getX() + i][getY() - j]).getPiece() == null && !upLeft.isBlocked) {
                 possibleMoves.add(upLeft);
                 i++;
                 j++;
@@ -57,7 +57,7 @@ public class Bishop extends Piece {
         j = 1;
         Spot downRight;
         try {
-            while ((downRight = board[getX() - i][getY() + j]).getPiece() == null) {
+            while ((downRight = board[getX() - i][getY() + j]).getPiece() == null && !downRight.isBlocked) {
                 possibleMoves.add(downRight);
                 i++;
                 j++;
@@ -74,7 +74,7 @@ public class Bishop extends Piece {
         j = 1;
         Spot downLeft;
         try {
-            while ((downLeft = board[getX() - i][getY() - j]).getPiece() == null) {
+            while ((downLeft = board[getX() - i][getY() - j]).getPiece() == null && !downLeft.isBlocked) {
                 possibleMoves.add(downLeft);
                 i++;
                 j++;
@@ -97,7 +97,7 @@ public class Bishop extends Piece {
 
         Spot upRight;
         try {
-            while ((upRight = board[getX() + i][getY() + j]).getPiece() == null && upRight != null) {
+            while ((upRight = board[getX() + i][getY() + j]).getPiece() == null && upRight != null && !upRight.isBlocked) {
                 possibleMoves.add(upRight);
                 i++;
                 j++;
@@ -117,7 +117,7 @@ public class Bishop extends Piece {
         j = 1;
         Spot upLeft;
         try {
-            while ((upLeft = board[getX() + i][getY() - j]).getPiece() == null && upLeft != null) {
+            while ((upLeft = board[getX() + i][getY() - j]).getPiece() == null && upLeft != null && !upLeft.isBlocked) {
                 possibleMoves.add(upLeft);
                 i++;
                 j++;
@@ -136,7 +136,7 @@ public class Bishop extends Piece {
         j = 1;
         Spot downRight;
         try {
-            while ((downRight = board[getX() - i][getY() + j]).getPiece() == null && downRight != null) {
+            while ((downRight = board[getX() - i][getY() + j]).getPiece() == null && downRight != null && !downRight.isBlocked) {
                 possibleMoves.add(downRight);
                 i++;
                 j++;
@@ -155,7 +155,7 @@ public class Bishop extends Piece {
         j = 1;
         Spot downLeft;
         try {
-            while ((downLeft = board[getX() - i][getY() - j]).getPiece() == null && downLeft != null) {
+            while ((downLeft = board[getX() - i][getY() - j]).getPiece() == null && downLeft != null && !downLeft.isBlocked) {
                 possibleMoves.add(downLeft);
                 i++;
                 j++;

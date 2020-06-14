@@ -6,7 +6,7 @@ import java.awt.*;
 
 import javax.swing.JTextField;
 import java.awt.image.*;
-import java.io.Serializable;
+
 
 @SuppressWarnings("serial")
 public class Spot extends JTextField {
@@ -14,6 +14,7 @@ public class Spot extends JTextField {
     private Piece piece = null;
     private int x;
     private int y;
+	public boolean isRandomizing, isBlocked;
 
     public Spot(int x, int y) {
         super();
@@ -34,7 +35,15 @@ public class Spot extends JTextField {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(piece!=null) {
+        if(this.isBlocked) {
+            Image image=resizeImage(this.getWidth(), this.getHeight(), Config.Instance().obstacleImage, new Color(this.getColor().getRGB()), null);
+            g.drawImage(image, 0, 0, null);
+        }
+        else if(this.isRandomizing) {
+            Image image=resizeImage(this.getWidth(), this.getHeight(), Config.Instance().portalImage, new Color(this.getColor().getRGB()), null);
+            g.drawImage(image, 0, 0, null);
+        }
+        else if(piece!=null) {
             Image image=resizeImage(this.getWidth(), this.getHeight(), piece.getPieceIcon(), new Color(this.getColor().getRGB()), piece.getColor());
             g.drawImage(image, 0, 0, null);
         }      

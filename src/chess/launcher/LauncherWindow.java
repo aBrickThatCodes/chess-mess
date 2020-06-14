@@ -5,15 +5,13 @@ import java.awt.*;
 import java.awt.event.*;
 
 import chess.game.Game;
-import chess.game.GameData;
-import chess.game.Test;
 
-@SuppressWarnings({"serial","unused"})
+@SuppressWarnings("serial")
 public class LauncherWindow extends JFrame {
     LauncherWindow thisWindow;
     ColorSchemeWindow colorSchemeWindow;
     PieceSetupFrame pieceSetupFrame;
-    MusicChangeFrame musicChangeFrame;
+    AssetChangeFrame assetChangeFrame;
     public LauncherWindow() {
         super("Chess Mess");
         thisWindow=this;
@@ -46,31 +44,25 @@ public class LauncherWindow extends JFrame {
         JButton startButton=new JButton("Play");
         gameButtons.add(startButton);
         startButton.setEnabled(Config.Instance().resourcesLoaded);
-
-        JButton loadGameButton=new JButton("Load Game");
-        gameButtons.add(loadGameButton);
-        loadGameButton.setEnabled(Config.Instance().resourcesLoaded);
-
         ActionListener gameActionListener=new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-                JButton button=(JButton)e.getSource();
-                if(button==startButton) {
-                    SwingUtilities.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            new Game();
-                        }
-                    });
+                Config.Instance().correctValues();
+                if(!Config.Instance().resourcesLoaded) {
+                    startButton.setEnabled(false);
+                    return;
                 }
-                else if(button==loadGameButton) {
-                    //TODO: Load game
-                }
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                           new Game();
+                    }
+                });
                 if(colorSchemeWindow!=null) {
                     colorSchemeWindow.dispose();
                 }
-                if(musicChangeFrame!=null) {
-                    musicChangeFrame.dispose();
+                if(assetChangeFrame!=null) {
+                    assetChangeFrame.dispose();
                 }
                 if(pieceSetupFrame!=null) {
                     pieceSetupFrame.dispose();
@@ -79,7 +71,6 @@ public class LauncherWindow extends JFrame {
 			}
         };
         startButton.addActionListener(gameActionListener);
-        loadGameButton.addActionListener(gameActionListener);
         //endregion
 
         //region Menus
@@ -205,12 +196,6 @@ public class LauncherWindow extends JFrame {
         JPanel pieceSettings=new JPanel(new GridLayout(1,3));
         gameSettings.add(pieceSettings);
 
-        /*
-        pieceSettings.add(new JLabel("Number of pieces:"));
-        JTextField pieceNum=new JTextField("16");
-        pieceSettings.add(pieceNum);
-        */
-
         //region Piece setup button
         JButton pieceEdit=new JButton("Choose pieces");
         pieceSettings.add(pieceEdit);
@@ -224,16 +209,8 @@ public class LauncherWindow extends JFrame {
         pieceEdit.addActionListener(pieceEditListener);
         //endregion
 
-        JButton tutorialButton=new JButton("Player guide");
-        gameSettings.add(tutorialButton);
-        tutorialButton.setEnabled(false);
 
-        /*
-        JButton language=new JButton("Choose language");
-        gameSettings.add(language);
-        */
-
-        //region Save to anim checkbox
+/*        //region Save to anim checkbox
         JCheckBox saveAnimationCheckBox=new JCheckBox("Save to animation");
         gameSettings.add(saveAnimationCheckBox);
         saveAnimationCheckBox.setSelected(Config.Instance().animation);
@@ -245,7 +222,7 @@ public class LauncherWindow extends JFrame {
             }
         };
         saveAnimationCheckBox.addActionListener(animListener);
-        //endregion
+*/        //endregion
 
         //endregion
 
@@ -284,13 +261,13 @@ public class LauncherWindow extends JFrame {
         //endregion
 
         //region Change music
-        JButton changeMusic=new JButton("Add some music");
+        JButton changeMusic=new JButton("Add your own assets");
         ruleSettingButtons.add(changeMusic);
         ActionListener changeMusicListener=new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-                musicChangeFrame=new MusicChangeFrame();
-                musicChangeFrame.setVisible(true);
+                assetChangeFrame=new AssetChangeFrame();
+                assetChangeFrame.setVisible(true);
 			}
         };
         changeMusic.addActionListener(changeMusicListener);
@@ -329,7 +306,7 @@ public class LauncherWindow extends JFrame {
         //endregion
 
         //region Random fields checkbox
-        JCheckBox randFieldsCheckBox=new JCheckBox("Randomizing fields");
+        JCheckBox randFieldsCheckBox=new JCheckBox("Teleporting fields");
         ruleCheckBoxes.add(randFieldsCheckBox);
         randFieldsCheckBox.setSelected(Config.Instance().randFields);
         ActionListener randFieldsListener=new ActionListener() {
@@ -342,6 +319,7 @@ public class LauncherWindow extends JFrame {
         randFieldsCheckBox.addActionListener(randFieldsListener);
         //endregion
 
+        /*
         //region Random pieces checkbox
         JCheckBox randPiecesCheckBox=new JCheckBox("Random pieces");
         ruleCheckBoxes.add(randPiecesCheckBox);
@@ -355,6 +333,7 @@ public class LauncherWindow extends JFrame {
         };
         randPiecesCheckBox.addActionListener(randPiecesListener);
         //endregion
+        */
 
         //region jRPG checkbox
         JCheckBox duelsCheckBox=new JCheckBox("jRPG fights");
@@ -370,6 +349,7 @@ public class LauncherWindow extends JFrame {
         duelsCheckBox.addActionListener(duelsListener);
         //endregion
 
+        /*
         //region Items checkbox
         JCheckBox itemsCheckBox=new JCheckBox("Items");
         ruleCheckBoxes.add(itemsCheckBox);
@@ -383,6 +363,7 @@ public class LauncherWindow extends JFrame {
         };
         itemsCheckBox.addActionListener(itemsListener);
         //endregion
+        */
 
         //region Obstacles checkbox
         JCheckBox obstaclesCheckBox=new JCheckBox("Obstacles");
@@ -407,8 +388,8 @@ public class LauncherWindow extends JFrame {
         if(colorSchemeWindow!=null) {
             colorSchemeWindow.dispose();
         }
-        if(musicChangeFrame!=null) {
-            musicChangeFrame.dispose();
+        if(assetChangeFrame!=null) {
+            assetChangeFrame.dispose();
         }
         if(pieceSetupFrame!=null) {
             pieceSetupFrame.dispose();

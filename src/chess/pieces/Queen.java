@@ -25,7 +25,7 @@ public class Queen extends Piece {
 
         Spot upRight;
         try {
-            while ((upRight = board[getX() + i][getY() + j]).getPiece() == null) {
+            while ((upRight = board[getX() + i][getY() + j]).getPiece() == null && !upRight.isBlocked) {
                 possibleMoves.add(upRight);
                 i++;
                 j++;
@@ -40,7 +40,7 @@ public class Queen extends Piece {
         j = 1;
         Spot upLeft;
         try {
-            while ((upLeft = board[getX() + i][getY() - j]).getPiece() == null) {
+            while ((upLeft = board[getX() + i][getY() - j]).getPiece() == null && !upLeft.isBlocked) {
                 possibleMoves.add(upLeft);
                 i++;
                 j++;
@@ -55,7 +55,7 @@ public class Queen extends Piece {
         j = 1;
         Spot downRight;
         try {
-            while ((downRight = board[getX() - i][getY() + j]).getPiece() == null) {
+            while ((downRight = board[getX() - i][getY() + j]).getPiece() == null && !downRight.isBlocked) {
                 possibleMoves.add(downRight);
                 i++;
                 j++;
@@ -70,7 +70,7 @@ public class Queen extends Piece {
         j = 1;
         Spot downLeft;
         try {
-            while ((downLeft = board[getX() - i][getY() - j]).getPiece() == null) {
+            while ((downLeft = board[getX() - i][getY() - j]).getPiece() == null && !downLeft.isBlocked) {
                 possibleMoves.add(downLeft);
                 i++;
                 j++;
@@ -84,7 +84,7 @@ public class Queen extends Piece {
         Spot ahead;
         i = 1;
         try {
-            while ((ahead = board[getX() + i][getY()]).getPiece() == null) {
+            while ((ahead = board[getX() + i][getY()]).getPiece() == null && !ahead.isBlocked) {
                 possibleMoves.add(ahead);
                 i++;
 
@@ -98,7 +98,7 @@ public class Queen extends Piece {
         Spot behind;
         i = 1;
         try {
-            while ((behind = board[getX() - i][getY()]).getPiece() == null) {
+            while ((behind = board[getX() - i][getY()]).getPiece() == null && !behind.isBlocked) {
                 possibleMoves.add(behind);
                 i++;
 
@@ -112,7 +112,7 @@ public class Queen extends Piece {
         Spot left;
         i = 1;
         try {
-            while ((left = board[getX()][getY() - i]).getPiece() == null) {
+            while ((left = board[getX()][getY() - i]).getPiece() == null && !left.isBlocked) {
                 possibleMoves.add(left);
                 i++;
 
@@ -127,7 +127,7 @@ public class Queen extends Piece {
         Spot right;
         i = 1;
         try {
-            while ((right = board[getX()][getY() + i]).getPiece() == null) {
+            while ((right = board[getX()][getY() + i]).getPiece() == null && !right.isBlocked) {
                 possibleMoves.add(right);
                 i++;
 
@@ -152,7 +152,7 @@ public class Queen extends Piece {
 
         Spot upRight;
         try {
-            while ((upRight = board[getX() + i][getY() + j]).getPiece() == null && upRight != null) {
+            while ((upRight = board[getX() + i][getY() + j]).getPiece() == null && upRight != null && !upRight.isBlocked) {
                 possibleMoves.add(upRight);
                 i++;
                 j++;
@@ -172,7 +172,7 @@ public class Queen extends Piece {
         j = 1;
         Spot upLeft;
         try {
-            while ((upLeft = board[getX() + i][getY() - j]).getPiece() == null && upLeft != null) {
+            while ((upLeft = board[getX() + i][getY() - j]).getPiece() == null && upLeft != null && !upLeft.isBlocked) {
                 possibleMoves.add(upLeft);
                 i++;
                 j++;
@@ -191,7 +191,7 @@ public class Queen extends Piece {
         j = 1;
         Spot downRight;
         try {
-            while ((downRight = board[getX() - i][getY() + j]).getPiece() == null && downRight != null) {
+            while ((downRight = board[getX() - i][getY() + j]).getPiece() == null && downRight != null && !downRight.isBlocked) {
                 possibleMoves.add(downRight);
                 i++;
                 j++;
@@ -210,7 +210,7 @@ public class Queen extends Piece {
         j = 1;
         Spot downLeft;
         try {
-            while ((downLeft = board[getX() - i][getY() - j]).getPiece() == null && downLeft != null) {
+            while ((downLeft = board[getX() - i][getY() - j]).getPiece() == null && downLeft != null && !downLeft.isBlocked) {
                 possibleMoves.add(downLeft);
                 i++;
                 j++;
@@ -228,7 +228,7 @@ public class Queen extends Piece {
         Spot ahead;
         i = 1;
         try {
-            while ((ahead = board[getX() + i][getY()]).getPiece() == null) {
+            while ((ahead = board[getX() + i][getY()]).getPiece() == null && !ahead.isBlocked) {
                 possibleMoves.add(ahead);
                 i++;
 
@@ -245,7 +245,7 @@ public class Queen extends Piece {
         Spot behind;
         i = 1;
         try {
-            while ((behind = board[getX() - i][getY()]).getPiece() == null) {
+            while ((behind = board[getX() - i][getY()]).getPiece() == null && !behind.isBlocked) {
                 possibleMoves.add(behind);
                 i++;
 
@@ -262,7 +262,7 @@ public class Queen extends Piece {
         Spot left;
         i = 1;
         try {
-            while ((left = board[getX()][getY() - i]).getPiece() == null) {
+            while ((left = board[getX()][getY() - i]).getPiece() == null && !left.isBlocked) {
                 possibleMoves.add(left);
                 i++;
 
@@ -280,7 +280,7 @@ public class Queen extends Piece {
         Spot right;
         i = 1;
         try {
-            while ((right = board[getX()][getY() + i]).getPiece() == null) {
+            while ((right = board[getX()][getY() + i]).getPiece() == null && !right.isBlocked) {
                 possibleMoves.add(right);
                 i++;
 

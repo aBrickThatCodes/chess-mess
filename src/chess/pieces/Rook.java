@@ -24,7 +24,7 @@ public class Rook extends Piece {
         int i = 1;
 
         try{
-            while((ahead = board[getX()+i][getY()]).getPiece() == null){
+            while((ahead = board[getX()+i][getY()]).getPiece() == null && !ahead.isBlocked){
                 possibleMoves.add(ahead);
                 i++;
 
@@ -38,7 +38,7 @@ public class Rook extends Piece {
         Spot behind;
         i = 1;
         try{
-            while((behind = board[getX()-i][getY()]).getPiece() == null){
+            while((behind = board[getX()-i][getY()]).getPiece() == null && !behind.isBlocked){
                 possibleMoves.add(behind);
                 i++;
 
@@ -52,7 +52,7 @@ public class Rook extends Piece {
         Spot left;
         i = 1;
         try{
-            while((left = board[getX()][getY()-i]).getPiece() == null){
+            while((left = board[getX()][getY()-i]).getPiece() == null && !left.isBlocked){
                 possibleMoves.add(left);
                 i++;
 
@@ -66,7 +66,7 @@ public class Rook extends Piece {
         Spot right;
         i = 1;
         try{
-            while((right = board[getX()][getY()+i]).getPiece() == null){
+            while((right = board[getX()][getY()+i]).getPiece() == null && !right.isBlocked){
                 possibleMoves.add(right);
                 i++;
 
@@ -87,7 +87,7 @@ public class Rook extends Piece {
         Spot ahead;
         int i = 1;
         try {
-            while ((ahead = board[getX() + i][getY()]).getPiece() == null) {
+            while ((ahead = board[getX() + i][getY()]).getPiece() == null && !ahead.isBlocked) {
                 possibleMoves.add(ahead);
                 i++;
 
@@ -104,7 +104,7 @@ public class Rook extends Piece {
         Spot behind;
         i = 1;
         try {
-            while ((behind = board[getX() - i][getY()]).getPiece() == null) {
+            while ((behind = board[getX() - i][getY()]).getPiece() == null && !behind.isBlocked) {
                 possibleMoves.add(behind);
                 i++;
 
@@ -121,7 +121,7 @@ public class Rook extends Piece {
         Spot left;
         i = 1;
         try {
-            while ((left = board[getX()][getY() - i]).getPiece() == null) {
+            while ((left = board[getX()][getY() - i]).getPiece() == null && !left.isBlocked) {
                 possibleMoves.add(left);
                 i++;
 
@@ -139,7 +139,7 @@ public class Rook extends Piece {
         Spot right;
         i = 1;
         try {
-            while ((right = board[getX()][getY() + i]).getPiece() == null) {
+            while ((right = board[getX()][getY() + i]).getPiece() == null && !right.isBlocked) {
                 possibleMoves.add(right);
                 i++;
 

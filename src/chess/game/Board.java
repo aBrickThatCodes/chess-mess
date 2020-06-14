@@ -1,14 +1,14 @@
 package chess.game;
 
-
 import chess.Config;
 import chess.pieces.Piece;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
-@SuppressWarnings({"serial", "unused"})
+@SuppressWarnings("serial")
 public class Board extends JPanel {
 
     public Spot[][] board;
@@ -20,23 +20,9 @@ public class Board extends JPanel {
     public synchronized void repaintColors() {
         if (Config.Instance().boardWidth == Config.Instance().boardHeight) {
             for (int j = 0; j < Config.Instance().boardWidth; j++) {
-                if (j % 2 == 0) {
                     for (int k = 0; k < Config.Instance().boardHeight; k++) {
-                        if (k % 2 == 0) {
-                            board[k][j].setColor(Color.WHITE);
-                        } else {
-                            board[k][j].setColor(Color.BLACK);
-                        }
+                        board[k][j].setColor(Config.Instance().colors[(k+j)%2]);
                     }
-                } else {
-                    for (int k = 0; k < Config.Instance().boardHeight; k++) {
-                        if (k % 2 == 0) {
-                            board[k][j].setColor(Color.BLACK);
-                        } else {
-                            board[k][j].setColor(Color.WHITE);
-                        }
-                    }
-                }
             }
         } else {
             for (int j = 0; j < Config.Instance().boardWidth; j++) {
@@ -93,6 +79,33 @@ public class Board extends JPanel {
             }
         }
 
+        
+        //region Random fields
+        if(Config.Instance().randFields) {
+            for(int i=0;i<Config.Instance().maxRandFields;i++) {
+                Spot spot;
+                do {
+                    spot=randomFreeSpot();
+                } while(spot.isRandomizing);
+                spot.isRandomizing=true;
+            }
+        }
+        //endregion
+
+        
+        //region Obstacles
+        if(Config.Instance().obstacles) {
+            for(int i=0;i<Config.Instance().maxObstacles;i++) {
+                Spot spot;
+                do {
+                    spot=randomFreeSpot();
+                } while(spot.isBlocked && !spot.isRandomizing);
+                spot.isBlocked=true;
+            }
+        }
+        
+        //endregion
+        
         /*for (int i = 0; i < players.size(); i++) {
             switch (players.get(i).attackDirection) {
                 case RIGHT:
@@ -243,5 +256,14 @@ public class Board extends JPanel {
 
         repaintColors();
         this.revalidate();
+    }
+
+    public Spot randomFreeSpot() {
+        Spot spot;
+        do {
+            Random random=new Random();
+            spot=board[random.nextInt(Config.Instance().boardWidth)][random.nextInt(Config.Instance().boardHeight)];
+        } while(spot.getPiece()!=null);
+        return spot;
     }
 }

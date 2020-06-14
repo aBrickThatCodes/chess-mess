@@ -289,5 +289,6 @@ public class Board extends JPanel {
             p.setColor(spot.getPiece().getColor());
             spot.setPiece(p);
         }
+        spot.item=0;
     }
 }

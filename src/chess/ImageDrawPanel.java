@@ -10,7 +10,7 @@ public class ImageDrawPanel extends JPanel {
         super();
     }
 
-    protected Image resizeImage(int width, int height, BufferedImage image, Color bgColor, Color imageColor) {
+    public Image resizeImage(int width, int height, BufferedImage image, Color bgColor, Color imageColor) {
         BufferedImage imageChanged=new BufferedImage(image.getWidth(),image.getHeight(),BufferedImage.TYPE_INT_RGB);
         for(int x=0;x<image.getWidth();x++) {
             for(int y=0;y<image.getHeight();y++) {

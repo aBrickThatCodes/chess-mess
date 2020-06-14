@@ -23,7 +23,7 @@ public class Config implements java.io.Serializable {
     private transient static Config instance;
 
     public static final Color backGroundColor = new Color(255, 174, 201);
-    public static final int assetNum=10;
+    public static final int assetNum=12;
 
     public enum Pieces {
         PAWN, ROOK, KNIGHT, BISHOP, QUEEN, KING
@@ -33,10 +33,9 @@ public class Config implements java.io.Serializable {
     public int playerAmount, boardWidth, boardHeight, maxPlayers, maxPlacements;
     public Color[] colors;
     public Pieces[] pieces;
-    public File musicFile;
-    public File[] pieceImagesFile;
-    public BufferedImage[] pieceImages;
-    public BufferedImage titleImage, obstacleImage, portalImage;
+    transient public File musicFile;
+    transient public BufferedImage [] pieceImages, itemImages;
+    transient public BufferedImage titleImage, obstacleImage, portalImage;
     public String[] filePaths;
     public URL[] urls;
 
@@ -75,6 +74,8 @@ public class Config implements java.io.Serializable {
             urls[6] = new URL("http://student.fizyka.pw.edu.pl/~janmak/chessmess/bishop.png");
             urls[7] = new URL("http://student.fizyka.pw.edu.pl/~janmak/chessmess/queen.png");
             urls[8] = new URL("http://student.fizyka.pw.edu.pl/~janmak/chessmess/king.png");
+            urls[9]=new URL("http://student.fizyka.pw.edu.pl/~janmak/chessmess/bomb.png");
+            urls[10]=new URL("http://student.fizyka.pw.edu.pl/~janmak/chessmess/potion.png");
         } catch (MalformedURLException e) {
             JOptionPane.showMessageDialog(null,
                 "There were problems with loading resources. Check your internet connection", "Error",
@@ -83,6 +84,7 @@ public class Config implements java.io.Serializable {
         }
 
         pieceImages = new BufferedImage[6];
+        itemImages=new BufferedImage[2];
         fileControl();
         // endregion
 
@@ -157,28 +159,37 @@ public class Config implements java.io.Serializable {
 
     
     void fileControl() {
-        for(int i=0;i<assetNum-1;i++) {
+        for(int i=0;i<assetNum;i++) {
             try {
                 if(filePaths!=null && filePaths[i]!="") { 
-                        if(i==0)
-                            titleImage = ImageIO.read(new File(filePaths[i]));
+                        if(i==0) {
+                            musicFile=new File(filePaths[i]);
+                        }
                         else if(i==1)
-                            obstacleImage=ImageIO.read(new File(filePaths[i]));
+                            titleImage = ImageIO.read(new File(filePaths[i]));
                         else if(i==2)
+                            obstacleImage=ImageIO.read(new File(filePaths[i]));
+                        else if(i==3)
                             portalImage=ImageIO.read(new File(filePaths[i]));
+                        else if(i<9)
+                            pieceImages[i-4]=ImageIO.read(new File(filePaths[i]));
                         else
-                            pieceImages[i-3]=ImageIO.read(new File(filePaths[i]));
+                            itemImages[i-10]=ImageIO.read(new File(filePaths[i]));
                 }
                 else {
-                    if(i==0)
-                        titleImage = ImageIO.read(urls[i]);
+                    if(i==0);
                     else if(i==1)
-                        obstacleImage=ImageIO.read(urls[i]);
+                        titleImage = ImageIO.read(urls[i-1]);
                     else if(i==2)
-                        portalImage=ImageIO.read(urls[i]);
-                    else {
-                        pieceImages[i-3]=ImageIO.read(urls[i]);
+                        obstacleImage=ImageIO.read(urls[i-1]);
+                    else if(i==3)
+                        portalImage=ImageIO.read(urls[i-1]);
+                    else if(i<10) {
+                        pieceImages[i-4]=ImageIO.read(urls[i-1]);
                     }   
+                    else {
+                        itemImages[i-10]=ImageIO.read(urls[i-1]);
+                    }
                 }
             }
             catch(IOException exception) {
@@ -189,14 +200,18 @@ public class Config implements java.io.Serializable {
             }
             catch(NullPointerException exception) {
                 try {
-                    if(i==0)
-                        titleImage = ImageIO.read(urls[i]);
+                    if(i==0);
                     else if(i==1)
-                        obstacleImage=ImageIO.read(urls[i]);
+                        titleImage = ImageIO.read(urls[i-1]);
                     else if(i==2)
-                        portalImage=ImageIO.read(urls[i]);
+                        obstacleImage=ImageIO.read(urls[i-1]);
+                    else if(i==3)
+                        portalImage=ImageIO.read(urls[i-1]);
+                    else if(i<10) {
+                        pieceImages[i-4]=ImageIO.read(urls[i-1]);
+                    }   
                     else {
-                        pieceImages[i-3]=ImageIO.read(urls[i]);
+                        itemImages[i-10]=ImageIO.read(urls[i-1]);
                     }
                 }
                 catch(IOException ex) {

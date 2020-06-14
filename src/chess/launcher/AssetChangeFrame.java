@@ -44,6 +44,8 @@ public class AssetChangeFrame extends JFrame implements ActionListener {
         assetNameLabelPanel.add(new JLabel("Bishop"));
         assetNameLabelPanel.add(new JLabel("Queen"));
         assetNameLabelPanel.add(new JLabel("King"));
+        assetNameLabelPanel.add(new JLabel("Bomb item"));
+        assetNameLabelPanel.add(new JLabel("Potion item"));
         //endregion
 
         //region File paths
@@ -73,9 +75,9 @@ public class AssetChangeFrame extends JFrame implements ActionListener {
                 FileNameExtensionFilter filter;
 
                 if(button==browseButtons[0])
-                    filter=new FileNameExtensionFilter("Music file", "mp3");
+                    filter=new FileNameExtensionFilter("Music file (.wav)", "wav");
                 else
-                    filter=new FileNameExtensionFilter("Image file", "jpg","png");
+                    filter=new FileNameExtensionFilter("Image file (.jpg, .png))", "jpg","png");
 
                 fileChooser.setFileFilter(filter);
                 int result=fileChooser.showOpenDialog(null);

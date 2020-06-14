@@ -49,6 +49,9 @@ public class Game extends JFrame {
 
         gameData.setCurrentTurn(gameData.getPlayers().get(0));
         this.add(gameData.getBoard());
+
+        MusicThread musicThread=new MusicThread(this);
+        musicThread.start();
     }
 
     public class MyMouseListener implements MouseListener {

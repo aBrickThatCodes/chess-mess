@@ -46,6 +46,10 @@ public class Spot extends JTextField {
             Image image=resizeImage(this.getWidth(), this.getHeight(), Config.Instance().portalImage, new Color(this.getColor().getRGB()), null);
             g.drawImage(image, 0, 0, null);
         }
+        else if(item!=0) {
+            Image image=resizeImage(this.getWidth(), this.getHeight(), Config.Instance().itemImages[item-1], new Color(this.getColor().getRGB()), null);
+            g.drawImage(image, 0, 0, null);
+        }
         else if(piece!=null) {
             Image image=resizeImage(this.getWidth(), this.getHeight(), piece.getPieceIcon(), new Color(this.getColor().getRGB()), piece.getColor());
             g.drawImage(image, 0, 0, null);

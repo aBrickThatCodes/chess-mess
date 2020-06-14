@@ -261,6 +261,7 @@ public class Board extends JPanel {
             } while(s.getPiece()==null || s.getPiece().getColor()==spot.getPiece().getColor());
             s.setPiece(null);
         }
+        /*
         else if(spot.item==2) {
             int newPiece=new Random().nextInt(5);
             Piece p;
@@ -289,6 +290,7 @@ public class Board extends JPanel {
             p.setColor(spot.getPiece().getColor());
             spot.setPiece(p);
         }
+        */
         spot.item=0;
     }
 }

@@ -3,7 +3,9 @@ package chess.game;
 import java.util.Random;
 
 public class DuelThread extends Thread {
-    public DuelThread() {}
+    public DuelThread() {
+        super();
+    }
 
     public void run() {
         boolean duel=true;

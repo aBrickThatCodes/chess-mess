@@ -33,6 +33,8 @@ public class Pawn extends Piece {
     //Zbiór możliwych ruchów
     public synchronized Collection<Spot> getPossibleMoves(Spot[][] board) {
 
+        List<Spot> possibleMoves = new ArrayList<>();
+
         int x = 0;
         int y =0;
         int z =0;
@@ -42,50 +44,125 @@ public class Pawn extends Piece {
                 x=1;
                 y=0;
                 z =1;
+
+                if(!wasMoved){
+                    try{
+                        Spot ahead = board[getX()+2*x][getY()+2*y];
+                        if (ahead.getPiece() == null) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
+                    } catch (Exception e) {
+                    }
+                }
+
+                try{
+                    Spot ahead = board[getX()+x][getY()+y];
+                    if (ahead.getPiece() == null) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
+                } catch (Exception e) {
+                }
+
+                try{
+                    Spot aheadLeft = board[getX()+x][getY()-z];
+                    if (aheadLeft.getPiece().getColor() != this .getColor()) possibleMoves.add(aheadLeft);
+                } catch (Exception e) {
+                }
+
+                try{
+                    Spot aheadRight = board[getX()+x][getY()+z];
+                    if (aheadRight.getPiece().getColor() != this .getColor()) possibleMoves.add(aheadRight);
+                } catch (Exception e) {
+                }
                 break;
             case RIGHT:
                 x=-1;
                 y=0;
                 z = 1;
+
+                if(!wasMoved){
+                    try{
+                        Spot ahead = board[getX()+2*x][getY()+2*y];
+                        if (ahead.getPiece() == null) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
+                    } catch (Exception e) {
+                    }
+                }
+
+                try{
+                    Spot ahead = board[getX()+x][getY()+y];
+                    if (ahead.getPiece() == null) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
+                } catch (Exception e) {
+                }
+
+                try{
+                    Spot aheadLeft = board[getX()+x][getY()-z];
+                    if (aheadLeft.getPiece().getColor() != this .getColor()) possibleMoves.add(aheadLeft);
+                } catch (Exception e) {
+                }
+
+                try{
+                    Spot aheadRight = board[getX()+x][getY()+z];
+                    if (aheadRight.getPiece().getColor() != this .getColor()) possibleMoves.add(aheadRight);
+                } catch (Exception e) {
+                }
                 break;
             case DOWN:
                 x=0;
                 y=1;
                 z = 1;
+
+                if(!wasMoved){
+                    try{
+                        Spot ahead = board[getX()+2*x][getY()+2*y];
+                        if (ahead.getPiece() == null) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
+                    } catch (Exception e) {
+                    }
+                }
+
+                try{
+                    Spot ahead = board[getX()+x][getY()+y];
+                    if (ahead.getPiece() == null) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
+                } catch (Exception e) {
+                }
+
+                try{
+                    Spot aheadLeft = board[getX()-z][getY()+y];
+                    if (aheadLeft.getPiece().getColor() != this .getColor()) possibleMoves.add(aheadLeft);
+                } catch (Exception e) {
+                }
+
+                try{
+                    Spot aheadRight = board[getX()+z][getY()+y];
+                    if (aheadRight.getPiece().getColor() != this .getColor()) possibleMoves.add(aheadRight);
+                } catch (Exception e) {
+                }
                 break;
             case UP:
                 x=0;
                 y=-1;
                 z = 1;
+                if(!wasMoved){
+                    try{
+                        Spot ahead = board[getX()+2*x][getY()+2*y];
+                        if (ahead.getPiece() == null) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
+                    } catch (Exception e) {
+                    }
+                }
+
+                try{
+                    Spot ahead = board[getX()+x][getY()+y];
+                    if (ahead.getPiece() == null) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
+                } catch (Exception e) {
+                }
+
+                try{
+                    Spot aheadLeft = board[getX()-z][getY()+y];
+                    if (aheadLeft.getPiece().getColor() != this .getColor()) possibleMoves.add(aheadLeft);
+                } catch (Exception e) {
+                }
+
+                try{
+                    Spot aheadRight = board[getX()+z][getY()+y];
+                    if (aheadRight.getPiece().getColor() != this .getColor()) possibleMoves.add(aheadRight);
+                } catch (Exception e) {
+                }
                 break;
-        }
-
-        List<Spot> possibleMoves = new ArrayList<>();
-
-        try{
-            Spot ahead = board[getX()+x][getY()+y];
-            if (ahead.getPiece() == null && !ahead.isBlocked) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
-        } catch (Exception e) {
-        }
-
-        if(!wasMoved){
-            try{
-                Spot ahead = board[getX()+2*x][getY()+2*y];
-                if (ahead.getPiece() == null && !ahead.isBlocked) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
-            } catch (Exception e) {
-            }
-        }
-
-        try{
-            Spot aheadLeft = board[getX()+x][getY()-z];
-            if (aheadLeft.getPiece().getColor() != this .getColor()) possibleMoves.add(aheadLeft);
-        } catch (Exception e) {
-        }
-
-        try{
-            Spot aheadRight = board[getX()+x][getY()+z];
-            if (aheadRight.getPiece().getColor() != this .getColor()) possibleMoves.add(aheadRight);
-        } catch (Exception e) {
         }
 
         return possibleMoves;

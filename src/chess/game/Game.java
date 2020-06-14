@@ -2,7 +2,9 @@ package chess.game;
 
 import chess.Config;
 import chess.pieces.King;
+import chess.pieces.Pawn;
 import chess.pieces.Piece;
+import chess.pieces.Queen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -65,7 +67,7 @@ public class Game extends JFrame {
             gameData.setCurrentTurn(gameData.getPlayers().get(gameData.getPlayerNum() % gameData.getPlayers().size()));
 
             if (gameData.getCurrentTurn() instanceof Player.HumanPlayer) {
-
+                //Zwykły gracz
                 int previusX = gameData.getCurrentX();
                 gameData.setCurrentX(x);
 
@@ -78,7 +80,19 @@ public class Game extends JFrame {
                         if (king.move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard(), mayBeChecked(king))) {
                             gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
                             gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(king);
-                            king = null;
+                            gameData.setCurrentChosenPiece(null);
+                            System.out.println("Pionek przestawiono " + gameData.getCurrentY() + " " + gameData.getCurrentY());
+                            gameData.setPlayerNum(gameData.getPlayerNum() + 1);
+                        } else {
+                            gameData.setCurrentChosenPiece(null);
+                        }
+                    } else if (gameData.getCurrentChosenPiece() instanceof Pawn) {
+                        Pawn pawn = (Pawn) gameData.getCurrentChosenPiece();
+                        if (pawn.move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard())) {
+                            gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
+                            pawnAscension(pawn);
+                            gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                            gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
                             gameData.setCurrentChosenPiece(null);
                             System.out.println("Pionek przestawiono " + gameData.getCurrentY() + " " + gameData.getCurrentY());
                             gameData.setPlayerNum(gameData.getPlayerNum() + 1);
@@ -131,6 +145,7 @@ public class Game extends JFrame {
                         System.out.println("Brak pionka");
                     }
                 }
+                //Sztuczna inteligencja
             } else if (gameData.getCurrentTurn() instanceof Player.AIPlayer) {
 
                 ArrayList<Piece> possiblePieces = new ArrayList<>();
@@ -161,7 +176,6 @@ public class Game extends JFrame {
                     if (king.move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard(), mayBeChecked(king))) {
                         gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
                         gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(king);
-                        king = null;
                         gameData.setCurrentChosenPiece(null);
                         System.out.println("Pionek przestawiono " + gameData.getCurrentY() + " " + gameData.getCurrentY());
                         gameData.setPlayerNum(gameData.getPlayerNum() + 1);
@@ -203,6 +217,88 @@ public class Game extends JFrame {
         public void mouseExited(MouseEvent mouseEvent) {
 
         }
+    }
+
+    public void pawnAscension(Pawn pawn) {
+        switch (pawn.getAttackDirection()) {
+            case LEFT:
+                if (pawn.getX() == Config.Instance().boardWidth-1) {
+                    for (ArrayList<Piece> p : gameData.getCurrentTurn().playerPieces) {
+                        for (Piece piece : p) {
+                            if (piece instanceof Pawn && piece == pawn) {
+                                Queen queen = new Queen();
+                                queen.setX(pawn.getX());
+                                queen.setY(pawn.getY());
+                                queen.setColor(pawn.getColor());
+                                p.remove(piece);
+                                p.add(queen);
+                                gameData.setCurrentChosenPiece(queen);
+                                break;
+                            }
+                        }
+                    }
+                }
+                break;
+            case RIGHT:
+                if (pawn.getX() == 0) {
+                    for (ArrayList<Piece> p : gameData.getCurrentTurn().playerPieces) {
+                        for (Piece piece : p) {
+                            if (piece instanceof Pawn && piece == pawn) {
+                                Queen queen = new Queen();
+                                queen.setX(pawn.getX());
+                                queen.setY(pawn.getY());
+                                queen.setColor(pawn.getColor());
+                                p.remove(piece);
+                                p.add(queen);
+                                gameData.setCurrentChosenPiece(queen);
+                                break;
+                            }
+                        }
+                    }
+
+                }
+                break;
+            case UP:
+                if (pawn.getY() == 0) {
+                    for (ArrayList<Piece> p : gameData.getCurrentTurn().playerPieces) {
+                        for (Piece piece : p) {
+                            if (piece instanceof Pawn && piece == pawn) {
+                                Queen queen = new Queen();
+                                queen.setX(pawn.getX());
+                                queen.setY(pawn.getY());
+                                queen.setColor(pawn.getColor());
+                                p.remove(piece);
+                                p.add(queen);
+                                gameData.setCurrentChosenPiece(queen);
+                                break;
+                            }
+                        }
+                    }
+
+                }
+                break;
+            case DOWN:
+                if (pawn.getY() == Config.Instance().boardHeight-1) {
+                    for (ArrayList<Piece> p : gameData.getCurrentTurn().playerPieces) {
+                        for (Piece piece : p) {
+                            if (piece instanceof Pawn && piece == pawn) {
+                                Queen queen = new Queen();
+                                queen.setX(pawn.getX());
+                                queen.setY(pawn.getY());
+                                queen.setColor(pawn.getColor());
+                                p.remove(piece);
+                                p.add(queen);
+                                gameData.setCurrentChosenPiece(queen);
+                                break;
+                            }
+                        }
+                    }
+
+                }
+                break;
+        }
+        gameData.getBoard().refreshBoard();
+
     }
 
     public synchronized boolean validateChoosenPiece() {

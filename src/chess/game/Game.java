@@ -79,7 +79,7 @@ public class Game extends JFrame {
                         if (king.move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard(), mayBeChecked(king))) {
                             gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
                             if(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].isTeleporting) {
-                                gameData.getBoard().randomFreeField().setPiece(gameData.getCurrentChosenPiece());
+                                gameData.getBoard().randomFreeSpot().setPiece(gameData.getCurrentChosenPiece());
                             }else{
                                 gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(king);
                             }
@@ -95,7 +95,7 @@ public class Game extends JFrame {
                             gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
                             pawnAscension(pawn);
                             if(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].isTeleporting) {
-                                gameData.getBoard().randomFreeField().setPiece(gameData.getCurrentChosenPiece());
+                                gameData.getBoard().randomFreeSpot().setPiece(gameData.getCurrentChosenPiece());
                             }else{
                                 gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(pawn);
                             }
@@ -108,7 +108,7 @@ public class Game extends JFrame {
                     } else if (gameData.getCurrentChosenPiece().move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard())) {
                         gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
                         if(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].isTeleporting) {
-                            gameData.getBoard().randomFreeField().setPiece(gameData.getCurrentChosenPiece());
+                            gameData.getBoard().randomFreeSpot().setPiece(gameData.getCurrentChosenPiece());
                         }else{
                             gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
                         }
@@ -186,7 +186,7 @@ public class Game extends JFrame {
                     if (king.move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard(), mayBeChecked(king))) {
                         gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
                         if(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].isTeleporting) {
-                            gameData.getBoard().randomFreeField().setPiece(gameData.getCurrentChosenPiece());
+                            gameData.getBoard().randomFreeSpot().setPiece(gameData.getCurrentChosenPiece());
                         }else{
                             gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(king);
                         }
@@ -203,7 +203,7 @@ public class Game extends JFrame {
                         gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
                         pawnAscension(pawn);
                         if (gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].isTeleporting) {
-                            gameData.getBoard().randomFreeField().setPiece(gameData.getCurrentChosenPiece());
+                            gameData.getBoard().randomFreeSpot().setPiece(gameData.getCurrentChosenPiece());
                         } else {
                             gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(pawn);
                         }
@@ -216,7 +216,7 @@ public class Game extends JFrame {
                 }else if (gameData.getCurrentChosenPiece().move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard())) {
                     gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
                     if(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].isTeleporting) {
-                        gameData.getBoard().randomFreeField().setPiece(gameData.getCurrentChosenPiece(););
+                        gameData.getBoard().randomFreeSpot().setPiece(gameData.getCurrentChosenPiece());
                     }else{
                         gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
                     }

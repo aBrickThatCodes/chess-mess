@@ -14,13 +14,16 @@ public class Spot extends JTextField {
     private Piece piece = null;
     private int x;
     private int y;
-	public boolean isRandomizing, isBlocked;
+    public boolean isTeleporting, isBlocked;
+    public int item;
 
     public Spot(int x, int y) {
         super();
         setX(x);
         setY(y);
         this.setEditable(false);
+        item=0;
+        isTeleporting=isBlocked=false;
     }
 
     public synchronized void setColor(Color c) {
@@ -39,7 +42,7 @@ public class Spot extends JTextField {
             Image image=resizeImage(this.getWidth(), this.getHeight(), Config.Instance().obstacleImage, new Color(this.getColor().getRGB()), null);
             g.drawImage(image, 0, 0, null);
         }
-        else if(this.isRandomizing) {
+        else if(this.isTeleporting) {
             Image image=resizeImage(this.getWidth(), this.getHeight(), Config.Instance().portalImage, new Color(this.getColor().getRGB()), null);
             g.drawImage(image, 0, 0, null);
         }

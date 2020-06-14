@@ -30,7 +30,7 @@ public class Config implements java.io.Serializable {
     };
 
     public Boolean abilities, randFields, randPieces, items, obstacles, pvp, animation, duels, resourcesLoaded;
-    public int playerAmount, boardWidth, boardHeight, maxPlayers, maxRandFields, maxObstacles;
+    public int playerAmount, boardWidth, boardHeight, maxPlayers, maxPlacements;
     public Color[] colors;
     public Pieces[] pieces;
     public File musicFile;
@@ -90,7 +90,7 @@ public class Config implements java.io.Serializable {
         boardWidth = boardHeight = 8;
         playerAmount = 2;
         maxPlayers = 2 * (Math.max(boardWidth / 12, 1) + boardHeight / 12);
-        maxRandFields = maxObstacles = (boardWidth * boardHeight - 16 * maxPlayers) / 10;
+        maxPlacements = (boardWidth * boardHeight - 16 * maxPlayers) / 10;
         filePaths=new String[assetNum];
         colorSetup();
         // endregion
@@ -107,7 +107,7 @@ public class Config implements java.io.Serializable {
     // region Forgive me Father, for I have sinned
     public void correctValues() {
         maxPlayers = 2 * (Math.max(Config.Instance().boardWidth / 12, 1) + Config.Instance().boardHeight / 12);
-        maxRandFields = maxObstacles = (boardWidth * boardHeight - 16 * maxPlayers) / 10;
+        maxPlacements = (boardWidth * boardHeight - 16 * maxPlayers) / 10;
         if (playerAmount > maxPlayers)
             playerAmount = maxPlayers;
         colorSetup();

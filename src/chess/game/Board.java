@@ -1,7 +1,7 @@
 package chess.game;
 
 import chess.Config;
-import chess.pieces.Piece;
+import chess.pieces.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -80,22 +80,15 @@ public class Board extends JPanel {
         }
 
         
-        //region Random fields
-        if(Config.Instance().randFields) {
-            for(int i=0;i<Config.Instance().maxRandFields;i++) {
-                randomFreeSpot().isRandomizing=true;
-            }
+        //region Random stuff
+        for(int i=0;i<Config.Instance().maxPlacements;i++) {
+            if(Config.Instance().randFields)
+                randomFreeSpot().isTeleporting=true;
+            if(Config.Instance().obstacles)
+                randomFreeSpot().isBlocked=true;
+            if(Config.Instance().items)
+                randomFreeSpot().item=new Random().nextInt(2)+1;
         }
-        //endregion
-
-        
-        //region Obstacles
-        if(Config.Instance().obstacles) {
-            for(int i=0;i<Config.Instance().maxObstacles;i++) {
-               randomFreeSpot().isBlocked=true;
-            }
-        }
-        
         //endregion
         
         /*for (int i = 0; i < players.size(); i++) {
@@ -255,7 +248,46 @@ public class Board extends JPanel {
         do {
             Random random=new Random();
             spot=board[random.nextInt(Config.Instance().boardWidth)][random.nextInt(Config.Instance().boardHeight)];
-        } while(spot.getPiece()!=null || spot.isBlocked || spot.isRandomizing);
+        } while(spot.getPiece()!=null || spot.isBlocked || spot.isTeleporting);
         return spot;
+    }
+
+    public void useItem(Spot spot) {
+        if(spot.item==1) {
+            Spot s;
+            do {
+                Random random=new Random();
+                s=board[random.nextInt(Config.Instance().boardWidth)][random.nextInt(Config.Instance().boardHeight)];
+            } while(s.getPiece()==null);
+            s.setPiece(null);
+        }
+        else if(spot.item==2) {
+            int newPiece=new Random().nextInt(5);
+            Piece p;
+            switch(newPiece) {
+                case 0:
+                    p=new Pawn():
+                    //configure it
+                    break;
+                case 1:
+                    p=new Rook();
+                    //configure it
+                    break;
+                case 2:
+                    p=new Knight();
+                    //configure it
+                    break;
+                case 3:
+                    p=new Bishop();
+                    //configure it
+                    break;
+                case 4:
+                    p=new Queen();
+                    //configure it
+                    break;
+            }
+            p.setColor(spot.getPiece().getColor());
+            spot.setPiece(p);
+        }
     }
 }

@@ -261,16 +261,16 @@ public class LauncherWindow extends JFrame {
         //endregion
 
         //region Change music
-        JButton changeMusic=new JButton("Add your own assets");
-        ruleSettingButtons.add(changeMusic);
-        ActionListener changeMusicListener=new ActionListener() {
+        JButton changeAssets=new JButton("Add your own assets");
+        ruleSettingButtons.add(changeAssets);
+        ActionListener changeAssetsListener=new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
                 assetChangeFrame=new AssetChangeFrame();
                 assetChangeFrame.setVisible(true);
 			}
         };
-        changeMusic.addActionListener(changeMusicListener);
+        changeAssets.addActionListener(changeAssetsListener);
         //endregion
 
         //region Color picker

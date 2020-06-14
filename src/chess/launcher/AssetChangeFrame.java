@@ -4,10 +4,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.BorderFactory;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import chess.Config;
 import javax.swing.JFileChooser;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
@@ -23,7 +25,7 @@ public class AssetChangeFrame extends JFrame implements ActionListener {
         super("Add your own assets");
         this.setResizable(false);
         this.setLayout(new BorderLayout());
-        this.setSize(400,100);
+        this.setSize(600,25*(Config.assetNum+1));
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         JPanel assetChooserPanel=new JPanel(new BorderLayout());
@@ -46,10 +48,12 @@ public class AssetChangeFrame extends JFrame implements ActionListener {
 
         //region File paths
         JPanel filePathLabelPanel=new JPanel(new GridLayout(Config.assetNum,1));
+        filePathLabelPanel.setBorder(BorderFactory.createLineBorder(new Color(0,0,0)));
         assetChooserPanel.add(filePathLabelPanel,BorderLayout.CENTER);
 
         filePathLabels=new JLabel[Config.assetNum];
         for(int i=0;i<filePathLabels.length;i++) {
+            filePathLabels[i]=new JLabel();
             if(Config.Instance().filePaths!=null)
                 if(Config.Instance().filePaths[i]!=null)
                     filePathLabels[i].setText(Config.Instance().filePaths[i]);
@@ -89,6 +93,7 @@ public class AssetChangeFrame extends JFrame implements ActionListener {
         browseButtons=new JButton[Config.assetNum];
         for(int i=0;i<browseButtons.length;i++) {
             browseButtons[i]=new JButton("Browse");
+            browseButtonsPanel.add(browseButtons[i]);
             browseButtons[i].addActionListener(browseListener);
         }
         //endregion

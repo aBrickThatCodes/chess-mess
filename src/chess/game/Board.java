@@ -258,7 +258,7 @@ public class Board extends JPanel {
             do {
                 Random random=new Random();
                 s=board[random.nextInt(Config.Instance().boardWidth)][random.nextInt(Config.Instance().boardHeight)];
-            } while(s.getPiece()==null);
+            } while(s.getPiece()==null || s.getPiece().getColor()==spot.getPiece().getColor());
             s.setPiece(null);
         }
         else if(spot.item==2) {

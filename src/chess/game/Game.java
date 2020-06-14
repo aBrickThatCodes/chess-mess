@@ -185,16 +185,41 @@ public class Game extends JFrame {
                     King king = (King) gameData.getCurrentChosenPiece();
                     if (king.move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard(), mayBeChecked(king))) {
                         gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
-                        gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(king);
+                        if(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].isTeleporting) {
+                            gameData.getBoard().randomFreeField().setPiece(gameData.getCurrentChosenPiece());
+                        }else{
+                            gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(king);
+                        }
                         gameData.setCurrentChosenPiece(null);
                         System.out.println("Pionek przestawiono " + gameData.getCurrentY() + " " + gameData.getCurrentY());
                         gameData.setPlayerNum(gameData.getPlayerNum() + 1);
                     } else {
                         gameData.setCurrentChosenPiece(null);
                     }
-                } else if (gameData.getCurrentChosenPiece().move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard())) {
+                }
+                else if (gameData.getCurrentChosenPiece() instanceof Pawn) {
+                    Pawn pawn = (Pawn) gameData.getCurrentChosenPiece();
+                    if (pawn.move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard())) {
+                        gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
+                        pawnAscension(pawn);
+                        if (gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].isTeleporting) {
+                            gameData.getBoard().randomFreeField().setPiece(gameData.getCurrentChosenPiece());
+                        } else {
+                            gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(pawn);
+                        }
+                        gameData.setCurrentChosenPiece(null);
+                        System.out.println("Pionek przestawiono " + gameData.getCurrentY() + " " + gameData.getCurrentY());
+                        gameData.setPlayerNum(gameData.getPlayerNum() + 1);
+                    } else {
+                        gameData.setCurrentChosenPiece(null);
+                    }
+                }else if (gameData.getCurrentChosenPiece().move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard())) {
                     gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
-                    gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                    if(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].isTeleporting) {
+                        gameData.getBoard().randomFreeField().setPiece(gameData.getCurrentChosenPiece(););
+                    }else{
+                        gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                    }
                     gameData.setCurrentChosenPiece(null);
                     System.out.println("Pionek przestawiono " + gameData.getCurrentY() + " " + gameData.getCurrentY());
                     gameData.setPlayerNum(gameData.getPlayerNum() + 1);

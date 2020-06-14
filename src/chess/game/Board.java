@@ -83,11 +83,7 @@ public class Board extends JPanel {
         //region Random fields
         if(Config.Instance().randFields) {
             for(int i=0;i<Config.Instance().maxRandFields;i++) {
-                Spot spot;
-                do {
-                    spot=randomFreeSpot();
-                } while(spot.isRandomizing);
-                spot.isRandomizing=true;
+                randomFreeSpot().isRandomizing=true;
             }
         }
         //endregion
@@ -96,11 +92,7 @@ public class Board extends JPanel {
         //region Obstacles
         if(Config.Instance().obstacles) {
             for(int i=0;i<Config.Instance().maxObstacles;i++) {
-                Spot spot;
-                do {
-                    spot=randomFreeSpot();
-                } while(spot.isBlocked && !spot.isRandomizing);
-                spot.isBlocked=true;
+               randomFreeSpot().isBlocked=true;
             }
         }
         
@@ -263,7 +255,7 @@ public class Board extends JPanel {
         do {
             Random random=new Random();
             spot=board[random.nextInt(Config.Instance().boardWidth)][random.nextInt(Config.Instance().boardHeight)];
-        } while(spot.getPiece()!=null);
+        } while(spot.getPiece()!=null || spot.isBlocked || spot.isRandomizing);
         return spot;
     }
 }

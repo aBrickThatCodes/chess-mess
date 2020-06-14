@@ -48,14 +48,14 @@ public class Pawn extends Piece {
                 if(!wasMoved){
                     try{
                         Spot ahead = board[getX()+2*x][getY()+2*y];
-                        if (ahead.getPiece() == null) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
+                        if (ahead.getPiece() == null && !ahead.isBlocked) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
                     } catch (Exception e) {
                     }
                 }
 
                 try{
                     Spot ahead = board[getX()+x][getY()+y];
-                    if (ahead.getPiece() == null) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
+                    if (ahead.getPiece() == null && !ahead.isBlocked) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
                 } catch (Exception e) {
                 }
 
@@ -79,14 +79,14 @@ public class Pawn extends Piece {
                 if(!wasMoved){
                     try{
                         Spot ahead = board[getX()+2*x][getY()+2*y];
-                        if (ahead.getPiece() == null) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
+                        if (ahead.getPiece() == null && !ahead.isBlocked) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
                     } catch (Exception e) {
                     }
                 }
 
                 try{
                     Spot ahead = board[getX()+x][getY()+y];
-                    if (ahead.getPiece() == null) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
+                    if (ahead.getPiece() == null && !ahead.isBlocked) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
                 } catch (Exception e) {
                 }
 
@@ -110,14 +110,14 @@ public class Pawn extends Piece {
                 if(!wasMoved){
                     try{
                         Spot ahead = board[getX()+2*x][getY()+2*y];
-                        if (ahead.getPiece() == null) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
+                        if (ahead.getPiece() == null && !ahead.isBlocked) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
                     } catch (Exception e) {
                     }
                 }
 
                 try{
                     Spot ahead = board[getX()+x][getY()+y];
-                    if (ahead.getPiece() == null) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
+                    if (ahead.getPiece() == null && !ahead.isBlocked) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
                 } catch (Exception e) {
                 }
 
@@ -140,14 +140,13 @@ public class Pawn extends Piece {
                 if(!wasMoved){
                     try{
                         Spot ahead = board[getX()+2*x][getY()+2*y];
-                        if (ahead.getPiece() == null) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
+                        if (ahead.getPiece() == null && !ahead.isBlocked) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
                     } catch (Exception e) {
                     }
                 }
-
                 try{
                     Spot ahead = board[getX()+x][getY()+y];
-                    if (ahead.getPiece() == null) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
+                    if (ahead.getPiece() == null && !ahead.isBlocked) possibleMoves.add(ahead); //Sprawdzamy dostępność i dodajemy do listy możliwych
                 } catch (Exception e) {
                 }
 

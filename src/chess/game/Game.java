@@ -14,6 +14,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/* Do this
+if(spotNaKtoryStawiasz.isTeleporting) {
+    board.randomFreeField().setPiece(tenPiece);
+}
+*/
+
 
 @SuppressWarnings("serial")
 public class Game extends JFrame {

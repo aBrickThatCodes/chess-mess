@@ -287,10 +287,12 @@ public class LauncherWindow extends JFrame {
 
         //endregion
 
+
         //region Rule Checkboxes
         JPanel ruleCheckBoxes=new JPanel(new GridLayout(3,2));
         rulesSettings.add(ruleCheckBoxes, BorderLayout.CENTER);
 
+        /*
         //region Abilities checkbox
         JCheckBox addAbilitiesCheckBox=new JCheckBox("Additional abilities");
         ruleCheckBoxes.add(addAbilitiesCheckBox);
@@ -304,6 +306,7 @@ public class LauncherWindow extends JFrame {
         };
         addAbilitiesCheckBox.addActionListener(abilitiesListener);
         //endregion
+        */
 
         //region Random fields checkbox
         JCheckBox randFieldsCheckBox=new JCheckBox("Teleporting fields");
@@ -349,7 +352,7 @@ public class LauncherWindow extends JFrame {
         duelsCheckBox.addActionListener(duelsListener);
         //endregion
 
-        /*
+        
         //region Items checkbox
         JCheckBox itemsCheckBox=new JCheckBox("Items");
         ruleCheckBoxes.add(itemsCheckBox);
@@ -363,7 +366,6 @@ public class LauncherWindow extends JFrame {
         };
         itemsCheckBox.addActionListener(itemsListener);
         //endregion
-        */
 
         //region Obstacles checkbox
         JCheckBox obstaclesCheckBox=new JCheckBox("Obstacles");

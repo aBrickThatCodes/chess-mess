@@ -12,7 +12,7 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class Pawn extends Piece {
     private boolean wasMoved = false;
-    private Player.AttackDirection attackDirection = Player.AttackDirection.LEFT;
+    private Player.AttackDirection attackDirection;
 
     public Pawn(Player.AttackDirection attackDirection){
         this.attackDirection = attackDirection;
@@ -173,35 +173,73 @@ public class Pawn extends Piece {
         int y =0;
         int z =0;
 
+        List<Spot> possibleMoves = new ArrayList<>();
+
         switch (attackDirection){
             case LEFT:
                 x=1;
                 y=0;
                 z =1;
+                try{
+                    Spot aheadLeft = board[getX()+x][getY()-z];
+                    if (aheadLeft.getPiece() == null && !aheadLeft.isBlocked) possibleMoves.add(aheadLeft);
+                } catch (Exception e) {
+                }
+
+                try{
+                    Spot aheadRight = board[getX()+x][getY()+z];
+                    if (aheadRight.getPiece() == null && !aheadRight.isBlocked) possibleMoves.add(aheadRight);
+                } catch (Exception e) {
+                }
                 break;
             case RIGHT:
                 x=-1;
                 y=0;
                 z = 1;
+                try{
+                    Spot aheadLeft = board[getX()+x][getY()-z];
+                    if (aheadLeft.getPiece() == null && !aheadLeft.isBlocked) possibleMoves.add(aheadLeft);
+                } catch (Exception e) {
+                }
+
+                try{
+                    Spot aheadRight = board[getX()+x][getY()+z];
+                    if (aheadRight.getPiece() == null && !aheadRight.isBlocked) possibleMoves.add(aheadRight);
+                } catch (Exception e) {
+                }
                 break;
             case DOWN:
+                x=0;
+                y=1;
+                z = 1;
+                try{
+                    Spot aheadLeft = board[getX()-z][getY()+y];
+                    if (aheadLeft.getPiece().getColor() != this .getColor()) possibleMoves.add(aheadLeft);
+                } catch (Exception e) {
+                }
+
+                try{
+                    Spot aheadRight = board[getX()+z][getY()+y];
+                    if (aheadRight.getPiece().getColor() != this .getColor()) possibleMoves.add(aheadRight);
+                } catch (Exception e) {
+                }
                 break;
             case UP:
+                x=0;
+                y=-1;
+                z = 1;
+                try{
+                    Spot aheadLeft = board[getX()-z][getY()+y];
+                    if (aheadLeft.getPiece().getColor() != this .getColor()) possibleMoves.add(aheadLeft);
+                } catch (Exception e) {
+                }
+
+                try{
+                    Spot aheadRight = board[getX()+z][getY()+y];
+                    if (aheadRight.getPiece().getColor() != this .getColor()) possibleMoves.add(aheadRight);
+                } catch (Exception e) {
+                }
                 break;
-        }
-
-        List<Spot> possibleMoves = new ArrayList<>();
-
-        try{
-            Spot aheadLeft = board[getX()+x][getY()-z];
-            if (aheadLeft.getPiece() == null && !aheadLeft.isBlocked) possibleMoves.add(aheadLeft);
-        } catch (Exception e) {
-        }
-
-        try{
-            Spot aheadRight = board[getX()+x][getY()+z];
-            if (aheadRight.getPiece() == null && !aheadRight.isBlocked) possibleMoves.add(aheadRight);
-        } catch (Exception e) {
         }
 
         return possibleMoves;

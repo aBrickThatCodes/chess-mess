@@ -80,11 +80,33 @@ public class Game extends JFrame {
                     if (gameData.getCurrentChosenPiece() instanceof King) {
                         King king = (King) gameData.getCurrentChosenPiece();
                         if (king.move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard(), mayBeChecked(king))) {
-                            gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
-                            if(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].isTeleporting) {
-                                gameData.getBoard().randomFreeSpot().setPiece(gameData.getCurrentChosenPiece());
-                            }else{
+                            //Przedmioty
+                            if (Config.Instance().items) {
+                                gameData.getBoard().useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()], gameData.getCurrentTurn());
+                            }
+                            //Pojedynki
+                            if (Config.Instance().duels && gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null && !(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() instanceof King)) {
+                                Piece oldPiece = gameData.getCurrentChosenPiece();
+                                gameData.setCurrentChosenPiece(DuelPane.duel(gameData.getCurrentChosenPiece(), gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece()));
+                                if (gameData.getCurrentChosenPiece() != oldPiece) {
+                                    searchAndDestroy(oldPiece, gameData.getCurrentTurn());
+                                }
+                                gameData.getCurrentChosenPiece().setLocation(gameData.getCurrentX(), gameData.getCurrentY());
+                                gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                            }
+                            //Teleportacja
+                            if (gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].isTeleporting) {
+                                Spot spot = gameData.getBoard().randomFreeSpot();
+                                spot.setPiece(gameData.getCurrentChosenPiece());
+                                gameData.currentChosenPiece.setLocation(spot.getX(), spot.getY());
+                            } else {
+                                king.setLocation(gameData.getCurrentX(), gameData.getCurrentY());
                                 gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(king);
+                            }
+
+                            //Usuwanie pionka przy zbiciu
+                            if (gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null) {
+                                searchAndDestroy(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece());
                             }
                             gameData.setCurrentChosenPiece(null);
                             System.out.println("Pionek przestawiono " + gameData.getCurrentY() + " " + gameData.getCurrentY());
@@ -95,12 +117,36 @@ public class Game extends JFrame {
                     } else if (gameData.getCurrentChosenPiece() instanceof Pawn) {
                         Pawn pawn = (Pawn) gameData.getCurrentChosenPiece();
                         if (pawn.move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard())) {
+                            //Czyszczenie poprzedniego pola
                             gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
-                            pawnAscension(pawn);
-                            if(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].isTeleporting) {
-                                gameData.getBoard().randomFreeSpot().setPiece(gameData.getCurrentChosenPiece());
-                            }else{
+                            //Przedmioty
+                            if (Config.Instance().items) {
+                                gameData.getBoard().useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()], gameData.getCurrentTurn());
+                            }
+                            //Pojedynki
+                            if (Config.Instance().duels && gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null && !(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() instanceof King)) {
+                                Piece oldPiece = gameData.getCurrentChosenPiece();
+                                gameData.setCurrentChosenPiece(DuelPane.duel(gameData.getCurrentChosenPiece(), gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece()));
+                                if (gameData.getCurrentChosenPiece() != oldPiece) {
+                                    searchAndDestroy(oldPiece, gameData.getCurrentTurn());
+                                }
+                                gameData.getCurrentChosenPiece().setLocation(gameData.getCurrentX(), gameData.getCurrentY());
+                                gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                            }
+                            //Teleportacja
+                            if (gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].isTeleporting) {
+                                Spot spot = gameData.getBoard().randomFreeSpot();
+                                spot.setPiece(gameData.getCurrentChosenPiece());
+                                gameData.currentChosenPiece.setLocation(spot.getX(), spot.getY());
+                            } else {
+
+                                pawn.setLocation(gameData.getCurrentX(), gameData.getCurrentY());
                                 gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(pawn);
+                            }
+
+                            //Usuwanie pionka przy zbiciu
+                            if (gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null) {
+                                searchAndDestroy(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece());
                             }
                             gameData.setCurrentChosenPiece(null);
                             System.out.println("Pionek przestawiono " + gameData.getCurrentY() + " " + gameData.getCurrentY());
@@ -109,11 +155,36 @@ public class Game extends JFrame {
                             gameData.setCurrentChosenPiece(null);
                         }
                     } else if (gameData.getCurrentChosenPiece().move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard())) {
+                        //Czyszczenie poprzedniego pola
                         gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
-                        if(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].isTeleporting) {
-                            gameData.getBoard().randomFreeSpot().setPiece(gameData.getCurrentChosenPiece());
-                        }else{
+
+                        //Przedmioty
+                        if (Config.Instance().items) {
+                            gameData.getBoard().useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()], gameData.getCurrentTurn());
+                        }
+                        //Pojedynki
+                        if (Config.Instance().duels && gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null && !(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() instanceof King)) {
+                            Piece oldPiece = gameData.getCurrentChosenPiece();
+                            gameData.setCurrentChosenPiece(DuelPane.duel(gameData.getCurrentChosenPiece(), gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece()));
+                            if (gameData.getCurrentChosenPiece() != oldPiece) {
+                                searchAndDestroy(oldPiece, gameData.getCurrentTurn());
+                            }
+                            gameData.getCurrentChosenPiece().setLocation(gameData.getCurrentX(), gameData.getCurrentY());
                             gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                        }
+                        //Teleportacja
+                        if (gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].isTeleporting) {
+                            Spot spot = gameData.getBoard().randomFreeSpot();
+                            spot.setPiece(gameData.getCurrentChosenPiece());
+                            gameData.currentChosenPiece.setLocation(spot.getX(), spot.getY());
+                        } else {
+                            gameData.getCurrentChosenPiece().setLocation(gameData.getCurrentX(), gameData.getCurrentY());
+                            gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                        }
+
+                        //Usuwanie pionka przy zbiciu
+                        if (gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null) {
+                            searchAndDestroy(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece());
                         }
                         gameData.setCurrentChosenPiece(null);
                         System.out.println("Pionek przestawiono " + gameData.getCurrentY() + " " + gameData.getCurrentY());
@@ -187,28 +258,37 @@ public class Game extends JFrame {
                 if (gameData.getCurrentChosenPiece() instanceof King) {
                     King king = (King) gameData.getCurrentChosenPiece();
                     if (king.move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard(), mayBeChecked(king))) {
+
+                        //Czyszczenie poprzedniego pola
                         gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
-                        if(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].isTeleporting) {
-                            gameData.getBoard().randomFreeSpot().setPiece(gameData.getCurrentChosenPiece());
-                        }else{
+
+                        //Przedmioty
+                        if (Config.Instance().items) {
+                            gameData.getBoard().useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()], gameData.getCurrentTurn());
+                        }
+                        //Pojedynki
+                        if (Config.Instance().duels && gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null && !(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() instanceof King)) {
+                            Piece oldPiece = gameData.getCurrentChosenPiece();
+                            gameData.setCurrentChosenPiece(DuelPane.duel(gameData.getCurrentChosenPiece(), gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece()));
+                            if (gameData.getCurrentChosenPiece() != oldPiece) {
+                                searchAndDestroy(oldPiece, gameData.getCurrentTurn());
+                            }
+                            gameData.getCurrentChosenPiece().setLocation(gameData.getCurrentX(), gameData.getCurrentY());
+                            gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                        }
+                        //Teleportacja
+                        if (gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].isTeleporting) {
+                            Spot spot = gameData.getBoard().randomFreeSpot();
+                            spot.setPiece(gameData.getCurrentChosenPiece());
+                            gameData.currentChosenPiece.setLocation(spot.getX(), spot.getY());
+                        } else {
+                            king.setLocation(gameData.getCurrentX(), gameData.getCurrentY());
                             gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(king);
                         }
-                        gameData.setCurrentChosenPiece(null);
-                        System.out.println("Pionek przestawiono " + gameData.getCurrentY() + " " + gameData.getCurrentY());
-                        gameData.setPlayerNum(gameData.getPlayerNum() + 1);
-                    } else {
-                        gameData.setCurrentChosenPiece(null);
-                    }
-                }
-                else if (gameData.getCurrentChosenPiece() instanceof Pawn) {
-                    Pawn pawn = (Pawn) gameData.getCurrentChosenPiece();
-                    if (pawn.move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard())) {
-                        gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
-                        pawnAscension(pawn);
-                        if (gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].isTeleporting) {
-                            gameData.getBoard().randomFreeSpot().setPiece(gameData.getCurrentChosenPiece());
-                        } else {
-                            gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(pawn);
+
+                        //Usuwanie pionka przy zbiciu
+                        if (gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null) {
+                            searchAndDestroy(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece());
                         }
                         gameData.setCurrentChosenPiece(null);
                         System.out.println("Pionek przestawiono " + gameData.getCurrentY() + " " + gameData.getCurrentY());
@@ -216,13 +296,81 @@ public class Game extends JFrame {
                     } else {
                         gameData.setCurrentChosenPiece(null);
                     }
-                }else if (gameData.getCurrentChosenPiece().move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard())) {
+                } else if (gameData.getCurrentChosenPiece() instanceof Pawn) {
+                    Pawn pawn = (Pawn) gameData.getCurrentChosenPiece();
+                    if (pawn.move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard())) {
+
+                        //Czyszczenie poprzedniego pola
+                        gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
+
+                        //Przedmioty
+                        if (Config.Instance().items) {
+                            gameData.getBoard().useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()], gameData.getCurrentTurn());
+                        }
+                        //Pojedynki
+                        if (Config.Instance().duels && gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null && !(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() instanceof King)) {
+                            Piece oldPiece = gameData.getCurrentChosenPiece();
+                            gameData.setCurrentChosenPiece(DuelPane.duel(gameData.getCurrentChosenPiece(), gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece()));
+                            if (gameData.getCurrentChosenPiece() != oldPiece) {
+                                searchAndDestroy(oldPiece, gameData.getCurrentTurn());
+                            }
+                            gameData.getCurrentChosenPiece().setLocation(gameData.getCurrentX(), gameData.getCurrentY());
+                            gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                        }
+                        //Teleportacja
+                        if (gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].isTeleporting) {
+                            Spot spot = gameData.getBoard().randomFreeSpot();
+                            spot.setPiece(gameData.getCurrentChosenPiece());
+                            gameData.currentChosenPiece.setLocation(spot.getX(), spot.getY());
+                        } else {
+                            pawn.setLocation(gameData.getCurrentX(), gameData.getCurrentY());
+                            gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(pawn);
+                        }
+
+                        //Usuwanie pionka przy zbiciu
+                        if (gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null) {
+                            searchAndDestroy(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece());
+                        }
+
+                        gameData.setCurrentChosenPiece(null);
+                        System.out.println("Pionek przestawiono " + gameData.getCurrentY() + " " + gameData.getCurrentY());
+                        gameData.setPlayerNum(gameData.getPlayerNum() + 1);
+                    } else {
+                        gameData.setCurrentChosenPiece(null);
+                    }
+                } else if (gameData.getCurrentChosenPiece().move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard())) {
+                    //Czyszczenie poprzedniego pola
                     gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
-                    if(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].isTeleporting) {
-                        gameData.getBoard().randomFreeSpot().setPiece(gameData.getCurrentChosenPiece());
-                    }else{
+
+                    //Przedmioty
+                    if (Config.Instance().items) {
+                        gameData.getBoard().useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()], gameData.getCurrentTurn());
+                    }
+                    //Pojedynki
+                    if (Config.Instance().duels && gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null && !(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() instanceof King)) {
+                        Piece oldPiece = gameData.getCurrentChosenPiece();
+                        gameData.setCurrentChosenPiece(DuelPane.duel(gameData.getCurrentChosenPiece(), gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece()));
+                        if (gameData.getCurrentChosenPiece() != oldPiece) {
+                            searchAndDestroy(oldPiece, gameData.getCurrentTurn());
+                        }
+                        gameData.getCurrentChosenPiece().setLocation(gameData.getCurrentX(), gameData.getCurrentY());
                         gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
                     }
+                    //Teleportacja
+                    if (gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].isTeleporting) {
+                        Spot spot = gameData.getBoard().randomFreeSpot();
+                        spot.setPiece(gameData.getCurrentChosenPiece());
+                        gameData.currentChosenPiece.setLocation(spot.getX(), spot.getY());
+                    } else {
+                        gameData.getCurrentChosenPiece().setLocation(gameData.getCurrentX(), gameData.getCurrentY());
+                        gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                    }
+
+                    //Usuwanie pionka przy zbiciu
+                    if (gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null) {
+                        searchAndDestroy(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece());
+                    }
+
                     gameData.setCurrentChosenPiece(null);
                     System.out.println("Pionek przestawiono " + gameData.getCurrentY() + " " + gameData.getCurrentY());
                     gameData.setPlayerNum(gameData.getPlayerNum() + 1);
@@ -257,16 +405,43 @@ public class Game extends JFrame {
         }
     }
 
+    public void searchAndDestroy(Piece piece) {
+        for (Player p : gameData.getPlayers()) {
+            if (p != gameData.getCurrentTurn()) {
+                for (ArrayList<Piece> pieces : p.playerPieces) {
+                    for (Piece pieceN : pieces) {
+                        if (pieceN == piece) {
+                            pieces.remove(pieceN);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void searchAndDestroy(Piece piece, Player player) {
+
+        for (ArrayList<Piece> pieces : player.playerPieces) {
+            for (Piece pieceN : pieces) {
+                if (pieceN == piece) {
+                    pieces.remove(pieceN);
+                    break;
+                }
+            }
+
+        }
+    }
+
     public void pawnAscension(Pawn pawn) {
         switch (pawn.getAttackDirection()) {
             case LEFT:
-                if (pawn.getX() == Config.Instance().boardWidth-1) {
+                if (pawn.getX() == Config.Instance().boardWidth - 1) {
                     for (ArrayList<Piece> p : gameData.getCurrentTurn().playerPieces) {
                         for (Piece piece : p) {
                             if (piece instanceof Pawn && piece == pawn) {
                                 Queen queen = new Queen();
-                                queen.setX(pawn.getX());
-                                queen.setY(pawn.getY());
+                                queen.setLocation(pawn.getX(), pawn.getY());
                                 queen.setColor(pawn.getColor());
                                 p.remove(piece);
                                 p.add(queen);
@@ -316,7 +491,7 @@ public class Game extends JFrame {
                 }
                 break;
             case DOWN:
-                if (pawn.getY() == Config.Instance().boardHeight-1) {
+                if (pawn.getY() == Config.Instance().boardHeight - 1) {
                     for (ArrayList<Piece> p : gameData.getCurrentTurn().playerPieces) {
                         for (Piece piece : p) {
                             if (piece instanceof Pawn && piece == pawn) {

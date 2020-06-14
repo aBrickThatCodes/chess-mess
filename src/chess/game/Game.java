@@ -614,6 +614,12 @@ public class Game extends JFrame {
                     if (mateTab.size() != 0 && mateTab.size() == king.getPossibleMoves(gameData.getBoard().getBoard()).size()) {
                         king.setIsMate(true);
                         System.out.println("MAT!");
+                        for(Player p: gameData.getPlayers()){
+                            if(p == gameData.getCurrentTurn()){
+                                gameData.getPlayers().remove(p);
+                                break;
+                            }
+                        }
                     }
                     break;
                 }

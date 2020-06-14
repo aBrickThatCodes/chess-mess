@@ -145,13 +145,16 @@ public class Board extends JPanel {
     public void useItem(Spot spot,Player player) {
         if(spot.item==1) {
             Spot s;
-            do {
+            while(true) {
                 Random random=new Random();
                 s=board[random.nextInt(Config.Instance().boardWidth)][random.nextInt(Config.Instance().boardHeight)];
-            } while(s.getPiece()==null || s.getPiece().getColor()==spot.getPiece().getColor());
+                if(s.getPiece()!=null)
+                    if(s.getPiece().getColor()!=spot.getPiece().getColor());
+                        break;
+            }
             s.setPiece(null);
         }
-        /*
+        
         else if(spot.item==2) {
             int newPiece=new Random().nextInt(5);
             Piece p;
@@ -184,7 +187,6 @@ public class Board extends JPanel {
             p.setLocation(spot.getX(),spot.getY());
             board[spot.getX()][spot.getY()].setPiece(p);
         }
-        */
         spot.item=0;
     }
 }

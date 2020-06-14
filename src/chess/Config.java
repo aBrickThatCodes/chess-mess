@@ -8,10 +8,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Random;
-
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -23,7 +21,7 @@ public class Config implements java.io.Serializable {
     private transient static Config instance;
 
     public static final Color backGroundColor = new Color(255, 174, 201);
-    public static final int assetNum=12;
+    public static final int assetNum = 12;
 
     public enum Pieces {
         PAWN, ROOK, KNIGHT, BISHOP, QUEEN, KING
@@ -34,10 +32,9 @@ public class Config implements java.io.Serializable {
     public Color[] colors;
     public Pieces[] pieces;
     transient public File musicFile;
-    transient public BufferedImage [] pieceImages, itemImages;
+    transient public BufferedImage[] pieceImages, itemImages;
     transient public BufferedImage titleImage, obstacleImage, portalImage;
-    public String[] filePaths;
-    public URL[] urls;
+    public String[] filePaths, urls;
 
     private Config() {
         // region Booleans
@@ -63,28 +60,20 @@ public class Config implements java.io.Serializable {
         // endregion
 
         // region File loading
-        urls = new URL[assetNum-1];
-        try {
-            urls[0] = new URL("http://student.fizyka.pw.edu.pl/~janmak/chessmess/titleScreen.png");
-            urls[1] = new URL("http://student.fizyka.pw.edu.pl/~janmak/chessmess/obstacle.png");
-            urls[2] = new URL("http://student.fizyka.pw.edu.pl/~janmak/chessmess/portal.png");
-            urls[3] = new URL("http://student.fizyka.pw.edu.pl/~janmak/chessmess/pawn.png");
-            urls[4] = new URL("http://student.fizyka.pw.edu.pl/~janmak/chessmess/rook.png");
-            urls[5] = new URL("http://student.fizyka.pw.edu.pl/~janmak/chessmess/knight.png");
-            urls[6] = new URL("http://student.fizyka.pw.edu.pl/~janmak/chessmess/bishop.png");
-            urls[7] = new URL("http://student.fizyka.pw.edu.pl/~janmak/chessmess/queen.png");
-            urls[8] = new URL("http://student.fizyka.pw.edu.pl/~janmak/chessmess/king.png");
-            urls[9]=new URL("http://student.fizyka.pw.edu.pl/~janmak/chessmess/bomb.png");
-            urls[10]=new URL("http://student.fizyka.pw.edu.pl/~janmak/chessmess/potion.png");
-        } catch (MalformedURLException e) {
-            JOptionPane.showMessageDialog(null,
-                "There were problems with loading resources. Check your internet connection", "Error",
-                JOptionPane.ERROR_MESSAGE);
-            resourcesLoaded = false;
-        }
-
+        urls = new String[assetNum - 1];
+        urls[0] =  "http://student.fizyka.pw.edu.pl/~janmak/chessmess/titleScreen.png";
+         urls[1] =  "http://student.fizyka.pw.edu.pl/~janmak/chessmess/obstacle.png";
+        urls[2] =  "http://student.fizyka.pw.edu.pl/~janmak/chessmess/portal.png";
+        urls[3] =  "http://student.fizyka.pw.edu.pl/~janmak/chessmess/pawn.png";
+        urls[4] =  "http://student.fizyka.pw.edu.pl/~janmak/chessmess/rook.png";
+        urls[5] =  "http://student.fizyka.pw.edu.pl/~janmak/chessmess/knight.png";
+        urls[6] =  "http://student.fizyka.pw.edu.pl/~janmak/chessmess/bishop.png";
+        urls[7] =  "http://student.fizyka.pw.edu.pl/~janmak/chessmess/queen.png";
+        urls[8] =  "http://student.fizyka.pw.edu.pl/~janmak/chessmess/king.png";
+        urls[9] =  "http://student.fizyka.pw.edu.pl/~janmak/chessmess/bomb.png";
+        urls[10] =  "http://student.fizyka.pw.edu.pl/~janmak/chessmess/potion.png";
         pieceImages = new BufferedImage[6];
-        itemImages=new BufferedImage[2];
+        itemImages = new BufferedImage[2];
         fileControl();
         // endregion
 
@@ -93,7 +82,9 @@ public class Config implements java.io.Serializable {
         playerAmount = 2;
         maxPlayers = 2 * (Math.max(boardWidth / 12, 1) + boardHeight / 12);
         maxPlacements = (boardWidth * boardHeight - 16 * maxPlayers) / 10;
-        filePaths=new String[assetNum];
+        filePaths = new String[assetNum];
+        for (int i = 0; i < assetNum; i++)
+            filePaths[i] = "";
         colorSetup();
         // endregion
     }
@@ -157,73 +148,87 @@ public class Config implements java.io.Serializable {
         }
     }
 
-    
     void fileControl() {
-        for(int i=0;i<assetNum;i++) {
+        for (int i = 0; i < assetNum; i++) {
             try {
-                if(filePaths!=null && filePaths[i]!="") { 
-                        if(i==0) {
-                            musicFile=new File(filePaths[i]);
-                        }
-                        else if(i==1)
-                            titleImage = ImageIO.read(new File(filePaths[i]));
-                        else if(i==2)
-                            obstacleImage=ImageIO.read(new File(filePaths[i]));
-                        else if(i==3)
-                            portalImage=ImageIO.read(new File(filePaths[i]));
-                        else if(i<9)
-                            pieceImages[i-4]=ImageIO.read(new File(filePaths[i]));
-                        else
-                            itemImages[i-10]=ImageIO.read(new File(filePaths[i]));
-                }
-                else {
-                    if(i==0);
-                    else if(i==1)
-                        titleImage = ImageIO.read(urls[i-1]);
-                    else if(i==2)
-                        obstacleImage=ImageIO.read(urls[i-1]);
-                    else if(i==3)
-                        portalImage=ImageIO.read(urls[i-1]);
-                    else if(i<10) {
-                        pieceImages[i-4]=ImageIO.read(urls[i-1]);
-                    }   
-                    else {
-                        itemImages[i-10]=ImageIO.read(urls[i-1]);
+                if (filePaths != null && filePaths[i] != "") {
+                    if (i == 0) {
+                        musicFile = new File(filePaths[i]);
+                    } else if (i == 1)
+                        titleImage = ImageIO.read(new File(filePaths[i]));
+                    else if (i == 2)
+                        obstacleImage = ImageIO.read(new File(filePaths[i]));
+                    else if (i == 3)
+                        portalImage = ImageIO.read(new File(filePaths[i]));
+                    else if (i < 9)
+                        pieceImages[i - 4] = ImageIO.read(new File(filePaths[i]));
+                    else
+                        itemImages[i - 10] = ImageIO.read(new File(filePaths[i]));
+                } else {
+                    if (i == 0)
+                        ;
+                    else if (i == 1)
+                        titleImage = ImageIO.read(new URL(urls[i - 1]));
+                    else if (i == 2)
+                        obstacleImage = ImageIO.read(new URL(urls[i - 1]));
+                    else if (i == 3)
+                        portalImage = ImageIO.read(new URL(urls[i - 1]));
+                    else if (i < 10) {
+                        pieceImages[i - 4] = ImageIO.read(new URL(urls[i - 1]));
+                    } else {
+                        itemImages[i - 10] = ImageIO.read(new URL(urls[i - 1]));
                     }
                 }
-            }
-            catch(IOException exception) {
-                JOptionPane.showMessageDialog(null,
-                        "There were problems with loading resources. Check your internet connection", "Error",
-                        JOptionPane.ERROR_MESSAGE);
-                resourcesLoaded = false;
-            }
-            catch(NullPointerException exception) {
+            } catch (IOException exception) {
+                filePaths[i] = "";
                 try {
-                    if(i==0);
-                    else if(i==1)
-                        titleImage = ImageIO.read(urls[i-1]);
-                    else if(i==2)
-                        obstacleImage=ImageIO.read(urls[i-1]);
-                    else if(i==3)
-                        portalImage=ImageIO.read(urls[i-1]);
-                    else if(i<10) {
-                        pieceImages[i-4]=ImageIO.read(urls[i-1]);
-                    }   
-                    else {
-                        itemImages[i-10]=ImageIO.read(urls[i-1]);
+                    if (i == 0)
+                        ;
+                    else if (i == 1)
+                        titleImage = ImageIO.read(new URL(urls[i - 1]));
+                    else if (i == 2)
+                        obstacleImage = ImageIO.read(new URL(urls[i - 1]));
+                    else if (i == 3)
+                        portalImage = ImageIO.read(new URL(urls[i - 1]));
+                    else if (i < 10) {
+                        pieceImages[i - 4] = ImageIO.read(new URL(urls[i - 1]));
+                    } else {
+                        itemImages[i - 10] = ImageIO.read(new URL(urls[i - 1]));
+                    }
+                } catch (IOException exception2) {
+                    if (resourcesLoaded) {
+                        JOptionPane.showMessageDialog(null,
+                                "There were problems with loading resources. Check your internet connection", "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                        resourcesLoaded = false;
                     }
                 }
-                catch(IOException ex) {
-                    JOptionPane.showMessageDialog(null,
-                            "There were problems with loading resources. Check your internet connection", "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                    resourcesLoaded = false;
+            } catch (NullPointerException exception) {
+                try {
+                    if (i == 0)
+                        ;
+                    else if (i == 1)
+                        titleImage = ImageIO.read(new URL(urls[i - 1]));
+                    else if (i == 2)
+                        obstacleImage = ImageIO.read(new URL(urls[i - 1]));
+                    else if (i == 3)
+                        portalImage = ImageIO.read(new URL(urls[i - 1]));
+                    else if (i < 10) {
+                        pieceImages[i - 4] = ImageIO.read(new URL(urls[i - 1]));
+                    } else {
+                        itemImages[i - 10] = ImageIO.read(new URL(urls[i - 1]));
+                    }
+                } catch (IOException ex) {
+                    if (resourcesLoaded) {
+                        JOptionPane.showMessageDialog(null,
+                                "There were problems with loading resources. Check your internet connection", "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                        resourcesLoaded = false;
+                    }
                 }
             }
         }
     }
-    
 
     boolean similarTo(Color c1, Color c2) {
         double distance = Math.pow((c1.getRed() - c2.getRed()), 2) + Math.pow((c1.getGreen() - c2.getGreen()), 2)
@@ -250,7 +255,7 @@ public class Config implements java.io.Serializable {
                 out.close();
                 fileOut.close();
             } catch (IOException exception) {
-                JOptionPane.showMessageDialog(null, exception.getStackTrace().toString(), "Error",
+                JOptionPane.showMessageDialog(null, exception.getStackTrace().toString(), "IOException 1",
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -269,8 +274,9 @@ public class Config implements java.io.Serializable {
                 instance = (Config) in.readObject();
                 in.close();
                 fileIn.close();
+                instance.correctValues();
             } catch (IOException exception) {
-                JOptionPane.showMessageDialog(null, exception.getStackTrace().toString(), "Error",
+                JOptionPane.showMessageDialog(null, exception.getStackTrace().toString(), "IOException 2",
                         JOptionPane.ERROR_MESSAGE);
                 return false;
             } catch (ClassNotFoundException exception) {

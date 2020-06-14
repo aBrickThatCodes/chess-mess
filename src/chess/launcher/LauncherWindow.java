@@ -8,7 +8,7 @@ import chess.game.Game;
 
 @SuppressWarnings("serial")
 public class LauncherWindow extends JFrame {
-    LauncherWindow thisWindow;
+    public static LauncherWindow thisWindow;
     ColorSchemeWindow colorSchemeWindow;
     PieceSetupFrame pieceSetupFrame;
     AssetChangeFrame assetChangeFrame;

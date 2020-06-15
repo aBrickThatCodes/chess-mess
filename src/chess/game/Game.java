@@ -1,10 +1,7 @@
 package chess.game;
 
 import chess.Config;
-import chess.pieces.King;
-import chess.pieces.Pawn;
-import chess.pieces.Piece;
-import chess.pieces.Queen;
+import chess.pieces.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,8 +10,9 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 
-@SuppressWarnings({"serial","unused"})
+@SuppressWarnings({"serial", "unused"})
 public class Game extends JFrame {
 
     GameData gameData = new GameData();
@@ -50,7 +48,7 @@ public class Game extends JFrame {
         gameData.setCurrentTurn(gameData.getPlayers().get(0));
         this.add(gameData.getBoard());
 
-        MusicThread musicThread=new MusicThread(this);
+        MusicThread musicThread = new MusicThread(this);
         musicThread.start();
     }
 
@@ -76,18 +74,17 @@ public class Game extends JFrame {
                 int previusY = gameData.getCurrentY();
                 gameData.setCurrentY(y);
 
+                //Opuszczenie pionka
                 if (gameData.getCurrentChosenPiece() != null) {
                     if (gameData.getCurrentChosenPiece() instanceof King) {
                         King king = (King) gameData.getCurrentChosenPiece();
                         if (king.move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard(), mayBeChecked(king))) {
-                            //Przedmioty
-                            if (Config.Instance().items) {
-                                gameData.getBoard().useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()], gameData.getCurrentTurn());
-                            }
+
                             //Pojedynki
                             if (Config.Instance().duels && gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null && !(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() instanceof King)) {
                                 Piece oldPiece = gameData.getCurrentChosenPiece();
-                                gameData.setCurrentChosenPiece(DuelPane.duel(gameData.getCurrentChosenPiece(), gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece()));
+                                Piece winner = DuelPane.duel(gameData.getCurrentChosenPiece(), gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece());
+                                gameData.setCurrentChosenPiece(winner);
                                 if (gameData.getCurrentChosenPiece() != oldPiece) {
                                     searchAndDestroy(oldPiece, gameData.getCurrentTurn());
                                 }
@@ -104,6 +101,11 @@ public class Game extends JFrame {
                                 gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(king);
                             }
 
+                            //Przedmioty
+                    if (Config.Instance().items) {
+                        useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()]);
+                        gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                    }
                             //Usuwanie pionka przy zbiciu
                             if (gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null) {
                                 searchAndDestroy(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece());
@@ -119,14 +121,12 @@ public class Game extends JFrame {
                         if (pawn.move(gameData.getCurrentX(), gameData.getCurrentY(), gameData.getBoard().getBoard())) {
                             //Czyszczenie poprzedniego pola
                             gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
-                            //Przedmioty
-                            if (Config.Instance().items) {
-                                gameData.getBoard().useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()], gameData.getCurrentTurn());
-                            }
+
                             //Pojedynki
                             if (Config.Instance().duels && gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null && !(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() instanceof King)) {
                                 Piece oldPiece = gameData.getCurrentChosenPiece();
-                                gameData.setCurrentChosenPiece(DuelPane.duel(gameData.getCurrentChosenPiece(), gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece()));
+                                Piece winner = DuelPane.duel(gameData.getCurrentChosenPiece(), gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece());
+                                gameData.setCurrentChosenPiece(winner);
                                 if (gameData.getCurrentChosenPiece() != oldPiece) {
                                     searchAndDestroy(oldPiece, gameData.getCurrentTurn());
                                 }
@@ -143,6 +143,12 @@ public class Game extends JFrame {
                                 pawn.setLocation(gameData.getCurrentX(), gameData.getCurrentY());
                                 gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(pawn);
                             }
+                            //Przedmioty
+                    if (Config.Instance().items) {
+                        useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()]);
+                        gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                    }
+
 
                             //Usuwanie pionka przy zbiciu
                             if (gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null) {
@@ -158,14 +164,12 @@ public class Game extends JFrame {
                         //Czyszczenie poprzedniego pola
                         gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
 
-                        //Przedmioty
-                        if (Config.Instance().items) {
-                            gameData.getBoard().useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()], gameData.getCurrentTurn());
-                        }
+
                         //Pojedynki
                         if (Config.Instance().duels && gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null && !(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() instanceof King)) {
                             Piece oldPiece = gameData.getCurrentChosenPiece();
-                            gameData.setCurrentChosenPiece(DuelPane.duel(gameData.getCurrentChosenPiece(), gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece()));
+                            Piece winner = DuelPane.duel(gameData.getCurrentChosenPiece(), gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece());
+                            gameData.setCurrentChosenPiece(winner);
                             if (gameData.getCurrentChosenPiece() != oldPiece) {
                                 searchAndDestroy(oldPiece, gameData.getCurrentTurn());
                             }
@@ -182,6 +186,11 @@ public class Game extends JFrame {
                             gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
                         }
 
+                        //Przedmioty
+                    if (Config.Instance().items) {
+                        useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()]);
+                        gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                    }
                         //Usuwanie pionka przy zbiciu
                         if (gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null) {
                             searchAndDestroy(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece());
@@ -197,6 +206,7 @@ public class Game extends JFrame {
                     gameData.getBoard().repaintColors();
                     setCheck();
                     isMate();
+                    //Podniesienie pionka
                 } else {
                     try {
                         gameData.setCurrentChosenPiece(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece());
@@ -262,14 +272,11 @@ public class Game extends JFrame {
                         //Czyszczenie poprzedniego pola
                         gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
 
-                        //Przedmioty
-                        if (Config.Instance().items) {
-                            gameData.getBoard().useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()], gameData.getCurrentTurn());
-                        }
                         //Pojedynki
                         if (Config.Instance().duels && gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null && !(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() instanceof King)) {
                             Piece oldPiece = gameData.getCurrentChosenPiece();
-                            gameData.setCurrentChosenPiece(DuelPane.duel(gameData.getCurrentChosenPiece(), gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece()));
+                            Piece winner = DuelPane.duel(gameData.getCurrentChosenPiece(), gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece());
+                            gameData.setCurrentChosenPiece(winner);
                             if (gameData.getCurrentChosenPiece() != oldPiece) {
                                 searchAndDestroy(oldPiece, gameData.getCurrentTurn());
                             }
@@ -286,6 +293,11 @@ public class Game extends JFrame {
                             gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(king);
                         }
 
+                        //Przedmioty
+                    if (Config.Instance().items) {
+                        useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()]);
+                        gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                    }
                         //Usuwanie pionka przy zbiciu
                         if (gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null) {
                             searchAndDestroy(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece());
@@ -303,14 +315,12 @@ public class Game extends JFrame {
                         //Czyszczenie poprzedniego pola
                         gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
 
-                        //Przedmioty
-                        if (Config.Instance().items) {
-                            gameData.getBoard().useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()], gameData.getCurrentTurn());
-                        }
+
                         //Pojedynki
                         if (Config.Instance().duels && gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null && !(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() instanceof King)) {
                             Piece oldPiece = gameData.getCurrentChosenPiece();
-                            gameData.setCurrentChosenPiece(DuelPane.duel(gameData.getCurrentChosenPiece(), gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece()));
+                            Piece winner = DuelPane.duel(gameData.getCurrentChosenPiece(), gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece());
+                            gameData.setCurrentChosenPiece(winner);
                             if (gameData.getCurrentChosenPiece() != oldPiece) {
                                 searchAndDestroy(oldPiece, gameData.getCurrentTurn());
                             }
@@ -327,6 +337,11 @@ public class Game extends JFrame {
                             gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(pawn);
                         }
 
+                        //Przedmioty
+                    if (Config.Instance().items) {
+                        useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()]);
+                        gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                    }
                         //Usuwanie pionka przy zbiciu
                         if (gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null) {
                             searchAndDestroy(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece());
@@ -342,14 +357,12 @@ public class Game extends JFrame {
                     //Czyszczenie poprzedniego pola
                     gameData.getBoard().getBoard()[previusX][previusY].setPiece(null);
 
-                    //Przedmioty
-                    if (Config.Instance().items) {
-                        gameData.getBoard().useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()], gameData.getCurrentTurn());
-                    }
+
                     //Pojedynki
                     if (Config.Instance().duels && gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null && !(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() instanceof King)) {
                         Piece oldPiece = gameData.getCurrentChosenPiece();
-                        gameData.setCurrentChosenPiece(DuelPane.duel(gameData.getCurrentChosenPiece(), gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece()));
+                        Piece winner = DuelPane.duel(gameData.getCurrentChosenPiece(), gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece());
+                        gameData.setCurrentChosenPiece(winner);
                         if (gameData.getCurrentChosenPiece() != oldPiece) {
                             searchAndDestroy(oldPiece, gameData.getCurrentTurn());
                         }
@@ -366,6 +379,11 @@ public class Game extends JFrame {
                         gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
                     }
 
+                    //Przedmioty
+                    if (Config.Instance().items) {
+                        useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()]);
+                        gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                    }
                     //Usuwanie pionka przy zbiciu
                     if (gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null) {
                         searchAndDestroy(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece());
@@ -410,7 +428,7 @@ public class Game extends JFrame {
             if (p != gameData.getCurrentTurn()) {
                 for (ArrayList<Piece> pieces : p.playerPieces) {
                     for (Piece pieceN : pieces) {
-                        if (pieceN == piece) {
+                        if (pieceN.getX() == piece.getX() && pieceN.getY() == piece.getY()) {
                             pieces.remove(pieceN);
                             break;
                         }
@@ -420,11 +438,83 @@ public class Game extends JFrame {
         }
     }
 
+    public void useItem(Spot spot) {
+        if (spot.item == 1) {
+            Spot s;
+            while (true) {
+                Random random = new Random();
+                s = gameData.getBoard().getBoard()[random.nextInt(Config.Instance().boardWidth - 1)][random.nextInt(Config.Instance().boardHeight - 1)];
+                if (s.getPiece() != null) {
+                    if (s.getPiece().getColor() != gameData.getCurrentTurn().getPlayerColor()) {
+                        break;
+                    }
+                }
+            }
+            searchAndDestroy(s.getPiece());
+            s.setPiece(null);
+        } else if (spot.item == 2) {
+            int newPiece = new Random().nextInt(5);
+            Piece p;
+            switch (newPiece) {
+                case 0:
+                    searchAndDestroy(gameData.getCurrentChosenPiece(), gameData.getCurrentTurn());
+                    gameData.setCurrentChosenPiece(null);
+                    p = new Pawn(gameData.getCurrentTurn().attackDirection);
+                    p.setColor(gameData.getCurrentTurn().getPlayerColor());
+                    gameData.setCurrentChosenPiece(p);
+                    gameData.getCurrentChosenPiece().setLocation(gameData.getCurrentX(), gameData.getCurrentY());
+                    //configure it
+                    break;
+                case 1:
+                    searchAndDestroy(gameData.getCurrentChosenPiece(), gameData.getCurrentTurn());
+                    gameData.setCurrentChosenPiece(null);
+                    p = new Rook();
+                    p.setColor(gameData.getCurrentTurn().getPlayerColor());
+                    gameData.setCurrentChosenPiece(p);
+                    gameData.getCurrentChosenPiece().setLocation(gameData.getCurrentX(), gameData.getCurrentY());
+                    gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                    break;
+                case 2:
+                    searchAndDestroy(gameData.getCurrentChosenPiece(), gameData.getCurrentTurn());
+                    gameData.setCurrentChosenPiece(null);
+                    p = new Knight();
+                    p.setColor(gameData.getCurrentTurn().getPlayerColor());
+                    gameData.setCurrentChosenPiece(p);
+                    gameData.getCurrentChosenPiece().setLocation(gameData.getCurrentX(), gameData.getCurrentY());
+                    gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                    //configure it
+                    break;
+                case 3:
+                    searchAndDestroy(gameData.getCurrentChosenPiece(), gameData.getCurrentTurn());
+                    gameData.setCurrentChosenPiece(null);
+                    p = new Bishop();
+                    p.setColor(gameData.getCurrentTurn().getPlayerColor());
+                    gameData.setCurrentChosenPiece(p);
+                    gameData.getCurrentChosenPiece().setLocation(gameData.getCurrentX(), gameData.getCurrentY());
+                    gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                    //configure it
+                    break;
+                case 4:
+                    searchAndDestroy(gameData.getCurrentChosenPiece(), gameData.getCurrentTurn());
+                    gameData.setCurrentChosenPiece(null);
+                    p = new Queen();
+                    p.setColor(gameData.getCurrentTurn().getPlayerColor());
+                    gameData.setCurrentChosenPiece(p);
+                    gameData.getCurrentChosenPiece().setLocation(gameData.getCurrentX(), gameData.getCurrentY());
+                    gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                    //configure it
+                    break;
+            }
+            System.out.println("Zmieniłem sie w " + newPiece);
+        }
+        spot.item = 0;
+    }
+
     public void searchAndDestroy(Piece piece, Player player) {
 
         for (ArrayList<Piece> pieces : player.playerPieces) {
             for (Piece pieceN : pieces) {
-                if (pieceN == piece) {
+                if (pieceN.getX() == piece.getX() && pieceN.getY() == piece.getY()) {
                     pieces.remove(pieceN);
                     break;
                 }
@@ -614,11 +704,11 @@ public class Game extends JFrame {
                         }
                     }
 
-                    if (mateTab.size() != 0 && mateTab.size() == king.getPossibleMoves(gameData.getBoard().getBoard()).size()) {
+                    if (mateTab.size() != 0 && mateTab.size() == king.getPossibleMoves(gameData.getBoard().getBoard(), mayBeChecked(king)).size()) {
                         king.setIsMate(true);
                         System.out.println("MAT!");
-                        for(Player p: gameData.getPlayers()){
-                            if(p == gameData.getCurrentTurn()){
+                        for (Player p : gameData.getPlayers()) {
+                            if (p == gameData.getCurrentTurn()) {
                                 gameData.getPlayers().remove(p);
                                 break;
                             }
@@ -628,36 +718,6 @@ public class Game extends JFrame {
                 }
             }
         }
-
-        /*for (ArrayList<Piece> pieces : currentTurn.playerPieces) {
-            for (Piece piece : pieces) {
-                if (piece instanceof King) {
-                    King king = (King) piece;
-                    king.setIsMate(true);
-                    ArrayList<Spot> enemyAttacks = new ArrayList<>();
-                    for (Player p : players) {
-                        if (p != currentTurn) {
-                            for (ArrayList<Piece> pieces1 : p.playerPieces) {
-                                for (Piece enemyPiece : pieces1) {
-                                    if(enemyPiece instanceof Pawn){
-                                        enemyAttacks.addAll(enemyPiece.getPossibleAttacks(gameBoard.getBoard()));
-                                    }else {
-                                        enemyAttacks.addAll(enemyPiece.getPossibleMoves(gameBoard.getBoard()));
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    for(Spot kingSpot:king.getPossibleMoves(gameBoard.getBoard(),mayBeChecked(king))){
-                        if(!enemyAttacks.contains(kingSpot)){
-                            System.out.println("king.setIsMate(false)");
-                            king.setIsMate(false);
-                        }
-                    }
-                    break;
-                }
-            }
-        }*/
     }
 
     //Sprawdza czy król aktualnego gracza ma mata
@@ -675,170 +735,4 @@ public class Game extends JFrame {
         return playerMate;
     }
 
-    /*public class MyMouseListener implements MouseListener {
-        private int x;
-        private int y;
-
-        public MyMouseListener(int x,int y){
-            this.x = x;
-            this.y = y;
-        }
-
-        @Override
-        public void mouseClicked(MouseEvent mouseEvent) {
-            int previusX = currentX;
-            currentX = x;
-
-            int previusY = currentY;
-            currentY = y;
-
-            if(currentChosenPiece != null){
-                if(currentChosenPiece.move(currentX,currentY,gameBoard.getBoard())){
-                    gameBoard.getBoard()[previusX][previusY].setPiece(null);
-                    gameBoard.getBoard()[currentX][currentY].setPiece(currentChosenPiece);
-                    currentChosenPiece = null;
-                    System.out.println("Pionek przestawiono "+ currentX + " "+ currentY);
-                }
-                else if (!currentChosenPiece.move(currentX,currentY,gameBoard.getBoard())){
-                    System.out.println("Poza możliwościami pionka lub jest tam inny pionek");
-                    currentChosenPiece = null;
-                }
-            }else{
-                try{
-                    currentChosenPiece = gameBoard.getBoard()[currentX][currentY].getPiece();
-                    System.out.println("Current spot " + currentX + " " + currentY);
-                    System.out.println("Previous spot " + previusX + " " + previusY);
-                    System.out.println("Udało się załadować " + currentChosenPiece.getPieceIcon());
-
-                } catch (Exception e) {
-                    System.out.println("Brak pionka");
-                }
-            }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent mouseEvent) {
-        currentX = x;
-        currentChosenPiece = spots.get(x).getPiece();
-        }
-
-        public void mouseReleased(MouseEvent mouseEvent) {
-        /*if(currentChosenPiece != null){
-            if(currentChosenPiece.move(currentX,0)){
-                System.out.println("Pion przestawiono "+ currentX + " "+ 0);
-                currentChosenPiece = null;
-            }
-            else if (currentChosenPiece.move(currentX,0)){
-                System.out.println("Poza możliwościami pionka");
-            }
-        }else{
-            currentChosenPiece = spots.get(n).getPiece();
-            try{
-                System.out.println(currentChosenPiece.getPieceIcon());
-            } catch (Exception e) {
-                System.out.println("Brak pionka");
-            }
-        }
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent mouseEvent) {
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent mouseEvent) {
-
-        }
-    }
-
-    public class MyFocusListener implements FocusListener {
-        private int x;
-        private int y;
-
-        public MyFocusListener(int x, int y){
-            this.x = x;
-            this.y = y;
-        }
-
-        @Override
-        public synchronized void focusGained(FocusEvent focusEvent) {
-            int previusX = currentX;
-            currentX = x;
-
-            int previusY = currentY;
-            currentY = y;
-
-            if(currentChosenPiece != null){
-                if(currentChosenPiece.move(currentX,currentY,gameBoard.getBoard())){
-                    gameBoard.getBoard()[previusX][previusY].setPiece(null);
-                    gameBoard.getBoard()[currentX][currentY].setPiece(currentChosenPiece);
-                    currentChosenPiece = null;
-                    System.out.println("Pionek przestawiono "+ currentX + " "+ currentY);
-                    gameBoard.repaintColors();
-                }
-                else if (!currentChosenPiece.move(currentX,currentY,gameBoard.getBoard())){
-                    System.out.println("Poza możliwościami pionka lub jest tam inny pionek");
-                    currentChosenPiece = null;
-                    gameBoard.repaintColors();
-                }
-            }else{
-                try{
-                    currentChosenPiece = gameBoard.getBoard()[currentX][currentY].getPiece();
-                    for(Spot s:currentChosenPiece.getPossibleMoves(gameBoard.getBoard())){
-                        if(gameBoard.getBoard()[s.getX()][s.getY()].getColor() == Color.WHITE){
-                            gameBoard.getBoard()[s.getX()][s.getY()].setColor(Color.blue);
-                        }else{
-                            gameBoard.getBoard()[s.getX()][s.getY()].setColor(Color.blue);
-                        }
-                    }
-                    System.out.println("Current spot " + currentX + " " + currentY);
-                    System.out.println("Previous spot " + previusX + " " + previusY);
-                    System.out.println("Udało się załadować " + currentChosenPiece.getPieceIcon());
-
-                } catch (Exception e) {
-                    System.out.println("Brak pionka");
-                }
-            }
-        }
-
-        @Override
-        public synchronized void focusLost(FocusEvent focusEvent) {
-
-        }
-    }
-
-    public synchronized void addBoardChange(Board board){
-        this.boardChanges.add(board);
-    }
-
-    public synchronized void deleteKingMovesResultingInCheck(Player currentTurn){
-        Piece king = currentTurn.playerPieces[6][0];
-        List<Spot> allPossibleMoves = new ArrayList<Spot>();
-
-        for (Player player : players) {
-            if (currentTurn != player) {
-                for (Piece[] p : player.playerPieces) {
-                    for (Piece p2 : p) {
-                        //allPossibleMoves.addAll( p2.getPossibleMoves());
-                    }
-                }
-            }
-        }
-
-        try{
-            //king.getPossibleMoves().remove(allPossibleMoves);
-        } catch (Exception e) {}
-    } //trzeba będzie sprawdzić konkretnie czy działą
-
-    @Override
-    public void run() {
-
-        while(gameBoard.getStatus() == Board.GameStatus.ACTIVE){
-            int playerTurn = 0;
-            currentTurn = players.get(playerTurn);
-            
-            playerTurn++;
-        }
-    }*/
 }

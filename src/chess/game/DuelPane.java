@@ -24,28 +24,18 @@ public class DuelPane {
         defender=def;
         winner=null;
 
-        JFrame frame=new JFrame("Fight!");
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
-        frame.setSize(400,300);
-        frame.setResizable(false);
 
         ImageDrawPanel drawPanel=new ImageDrawPanel();
         drawPanel.setBorder(BorderFactory.createLineBorder(new Color(0,0,0)));
-        frame.add(drawPanel, BorderLayout.CENTER);
-
-        JPanel actionButtonsPanel=new JPanel(new FlowLayout());
-        frame.add(actionButtonsPanel,BorderLayout.SOUTH);
 
         //region Buttons
+        JPanel actionButtonsPanel=new JPanel(new FlowLayout());
         JLabel pieceLabel=new JLabel("Attacker");
         actionButtonsPanel.add(pieceLabel);
         JButton attackButton=new JButton("Attack"), defendButton=new JButton("Defend"), runButton=new JButton("Run");
         actionButtonsPanel.add(attackButton);
         actionButtonsPanel.add(defendButton);
         actionButtonsPanel.add(runButton);
-
-        frame.setVisible(true);
 
         ActionListener a=new ActionListener() {
             @Override
@@ -90,6 +80,18 @@ public class DuelPane {
         runButton.addActionListener(a);
         //endregion
 
+        JFrame frame=new JFrame("Fight!");
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
+        frame.setSize(400,300);
+        frame.setResizable(false);
+        frame.add(drawPanel, BorderLayout.CENTER);
+        frame.add(actionButtonsPanel,BorderLayout.SOUTH);
+        frame.setVisible(true);
+
+        DuelThread duelThread=new DuelThread();
+        duelThread.start();
+
         while(winner==null) {
             Graphics g=drawPanel.getGraphics();
             Color attackerColor=current==attacker ? Color.GREEN : Color.GRAY;
@@ -99,12 +101,12 @@ public class DuelPane {
             g.drawImage(attackerImage, 10, 20, null);
             g.drawImage(defenderImage, drawPanel.getWidth()/2+10, 20, null);
             g.setColor(Color.RED);
-            g.drawRect(10 , 0, health[0]*(drawPanel.getWidth()/2-20)/10, 5);
-            g.drawRect(drawPanel.getWidth()/2+10 , 0, health[1]*(drawPanel.getWidth()/2-20)/10, 5);
+            g.fillRect(10 , 0, health[0]*(drawPanel.getWidth()/2-20)/10, 5);
+            g.fillRect(drawPanel.getWidth()/2+10 , 0, health[1]*(drawPanel.getWidth()/2-20)/10, 5);
             g.dispose();
             drawPanel.revalidate();
         }
-
+        frame.dispose();
         return winner;
     }
 }

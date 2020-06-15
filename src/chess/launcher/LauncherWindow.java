@@ -333,6 +333,7 @@ public class LauncherWindow extends JFrame {
         //endregion
         */
 
+        /*
         //region jRPG checkbox
         JCheckBox duelsCheckBox=new JCheckBox("jRPG fights");
         ruleCheckBoxes.add(duelsCheckBox);
@@ -346,7 +347,7 @@ public class LauncherWindow extends JFrame {
         };
         duelsCheckBox.addActionListener(duelsListener);
         //endregion
-
+        */
         
         //region Items checkbox
         JCheckBox itemsCheckBox=new JCheckBox("Items");

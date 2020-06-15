@@ -142,7 +142,7 @@ public class Board extends JPanel {
         return spot;
     }
 
-    public void useItem(Spot spot,Player player) {
+    public Piece useItem(Spot spot,Player player) {
         if(spot.item==1) {
             Spot s;
             while(true) {
@@ -152,7 +152,10 @@ public class Board extends JPanel {
                     if(s.getPiece().getColor()!=spot.getPiece().getColor());
                         break;
             }
+            Piece p=s.getPiece();
             s.setPiece(null);
+            spot.item=0;
+            return p;
         }
         
         else if(spot.item==2) {
@@ -183,10 +186,14 @@ public class Board extends JPanel {
                     throw new IllegalStateException("Unexpected value: " + newPiece);
             }
             p.setColor(spot.getPiece().getColor());
+            Piece piece=spot.getPiece();
             spot.setPiece(p);
             p.setLocation(spot.getX(),spot.getY());
             board[spot.getX()][spot.getY()].setPiece(p);
+            spot.item=0;
+            return piece;
         }
         spot.item=0;
+        return null;
     }
 }

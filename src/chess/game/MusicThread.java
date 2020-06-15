@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 
 import chess.Config;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.sound.sampled.AudioFormat;
@@ -20,20 +21,18 @@ public class MusicThread extends Thread implements LineListener {
     JFrame frame;
     Clip audioClip=null;
     AudioInputStream audioStream = null;
-    boolean playCompleted=false;
+    boolean playCompleted=false, running=true;
 
     public MusicThread(JFrame frame) {
         super();
         this.frame=frame;
-        if(Config.Instance().musicFile==null)
-            return;
-        
         play();
     }
 
     public void run() {
+        if(audioClip==null)
+            return;
         audioClip.start();
-        boolean running=true;
         while(running) {
             if(!playCompleted) {
                 if(!frame.isDisplayable()) {
@@ -67,15 +66,8 @@ public class MusicThread extends Thread implements LineListener {
             audioClip=(Clip)AudioSystem.getLine(info);
             audioClip.addLineListener(this);
             audioClip.open(audioStream);
-        } catch (UnsupportedAudioFileException ex) {
-            System.out.println("The specified audio file is not supported.");
-            ex.printStackTrace();
-        } catch (LineUnavailableException ex) {
-            System.out.println("Audio line for playing back is unavailable.");
-            ex.printStackTrace();
-        } catch (IOException e1) {
-            System.out.println("Error playing the audio file.");
-            e1.printStackTrace();
+        } catch (Exception ex) {
+            running=false;
         }
     }
 

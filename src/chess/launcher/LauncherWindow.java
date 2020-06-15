@@ -47,15 +47,11 @@ public class LauncherWindow extends JFrame {
         ActionListener gameActionListener=new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-                Config.Instance().correctValues();
-                if(!Config.Instance().resourcesLoaded) {
-                    startButton.setEnabled(false);
-                    return;
-                }
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                           new Game();
+                        thisWindow.dispose();
+                        new Game();
                     }
                 });
                 if(colorSchemeWindow!=null) {
@@ -67,7 +63,6 @@ public class LauncherWindow extends JFrame {
                 if(pieceSetupFrame!=null) {
                     pieceSetupFrame.dispose();
                 }
-                thisWindow.dispose();
 			}
         };
         startButton.addActionListener(gameActionListener);

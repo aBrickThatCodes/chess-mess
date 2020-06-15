@@ -61,19 +61,17 @@ public class Config implements java.io.Serializable {
 
         // region File loading
         urls = new String[assetNum - 1];
-        urls[0] =  "http://student.fizyka.pw.edu.pl/~janmak/chessmess/titleScreen.png";
-         urls[1] =  "http://student.fizyka.pw.edu.pl/~janmak/chessmess/obstacle.png";
-        urls[2] =  "http://student.fizyka.pw.edu.pl/~janmak/chessmess/portal.png";
-        urls[3] =  "http://student.fizyka.pw.edu.pl/~janmak/chessmess/pawn.png";
-        urls[4] =  "http://student.fizyka.pw.edu.pl/~janmak/chessmess/rook.png";
-        urls[5] =  "http://student.fizyka.pw.edu.pl/~janmak/chessmess/knight.png";
-        urls[6] =  "http://student.fizyka.pw.edu.pl/~janmak/chessmess/bishop.png";
-        urls[7] =  "http://student.fizyka.pw.edu.pl/~janmak/chessmess/queen.png";
-        urls[8] =  "http://student.fizyka.pw.edu.pl/~janmak/chessmess/king.png";
-        urls[9] =  "http://student.fizyka.pw.edu.pl/~janmak/chessmess/bomb.png";
-        urls[10] =  "http://student.fizyka.pw.edu.pl/~janmak/chessmess/potion.png";
-        pieceImages = new BufferedImage[6];
-        itemImages = new BufferedImage[2];
+        urls[0] = "http://student.fizyka.pw.edu.pl/~janmak/chessmess/titleScreen.png";
+        urls[1] = "http://student.fizyka.pw.edu.pl/~janmak/chessmess/obstacle.png";
+        urls[2] = "http://student.fizyka.pw.edu.pl/~janmak/chessmess/portal.png";
+        urls[3] = "http://student.fizyka.pw.edu.pl/~janmak/chessmess/pawn.png";
+        urls[4] = "http://student.fizyka.pw.edu.pl/~janmak/chessmess/rook.png";
+        urls[5] = "http://student.fizyka.pw.edu.pl/~janmak/chessmess/knight.png";
+        urls[6] = "http://student.fizyka.pw.edu.pl/~janmak/chessmess/bishop.png";
+        urls[7] = "http://student.fizyka.pw.edu.pl/~janmak/chessmess/queen.png";
+        urls[8] = "http://student.fizyka.pw.edu.pl/~janmak/chessmess/king.png";
+        urls[9] = "http://student.fizyka.pw.edu.pl/~janmak/chessmess/bomb.png";
+        urls[10] = "http://student.fizyka.pw.edu.pl/~janmak/chessmess/potion.png";
         fileControl();
         // endregion
 
@@ -149,6 +147,8 @@ public class Config implements java.io.Serializable {
     }
 
     void fileControl() {
+        pieceImages = new BufferedImage[6];
+        itemImages = new BufferedImage[2];
         for (int i = 0; i < assetNum; i++) {
             try {
                 if (filePaths != null && filePaths[i] != "") {

@@ -1,7 +1,7 @@
 package chess.game;
 
 import chess.Config;
-import chess.pieces.*;
+import chess.pieces.Piece;
 
 import javax.swing.*;
 import java.awt.*;
@@ -140,53 +140,5 @@ public class Board extends JPanel {
             spot=board[random.nextInt(Config.Instance().boardWidth)][random.nextInt(Config.Instance().boardHeight)];
         } while(spot.getPiece()!=null || spot.isBlocked || spot.isTeleporting);
         return spot;
-    }
-
-    public void useItem(Spot spot,Player player) {
-        if(spot.item==1) {
-            Spot s;
-            while(true) {
-                Random random=new Random();
-                s=board[random.nextInt(Config.Instance().boardWidth)][random.nextInt(Config.Instance().boardHeight)];
-                if(s.getPiece()!=null)
-                    if(s.getPiece().getColor()!=spot.getPiece().getColor());
-                        break;
-            }
-            s.setPiece(null);
-        }
-        
-        else if(spot.item==2) {
-            int newPiece=new Random().nextInt(5);
-            Piece p;
-            switch(newPiece) {
-                case 0:
-                    p=new Pawn(player.attackDirection);
-                    //configure it
-                    break;
-                case 1:
-                    p=new Rook();
-                    //configure it
-                    break;
-                case 2:
-                    p=new Knight();
-                    //configure it
-                    break;
-                case 3:
-                    p=new Bishop();
-                    //configure it
-                    break;
-                case 4:
-                    p=new Queen();
-                    //configure it
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + newPiece);
-            }
-            p.setColor(spot.getPiece().getColor());
-            spot.setPiece(p);
-            p.setLocation(spot.getX(),spot.getY());
-            board[spot.getX()][spot.getY()].setPiece(p);
-        }
-        spot.item=0;
     }
 }

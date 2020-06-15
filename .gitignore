@@ -2,3 +2,5 @@
 out
 bin
 *.iml
+.classpath
+.project

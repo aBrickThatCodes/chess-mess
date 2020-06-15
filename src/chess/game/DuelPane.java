@@ -45,6 +45,8 @@ public class DuelPane {
         actionButtonsPanel.add(defendButton);
         actionButtonsPanel.add(runButton);
 
+        frame.setVisible(true);
+
         ActionListener a=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -87,9 +89,6 @@ public class DuelPane {
         defendButton.addActionListener(a);
         runButton.addActionListener(a);
         //endregion
-
-        DuelThread thread=new DuelThread();
-        thread.start();
 
         while(winner==null) {
             Graphics g=drawPanel.getGraphics();

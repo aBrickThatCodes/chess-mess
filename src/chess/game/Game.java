@@ -102,10 +102,10 @@ public class Game extends JFrame {
                             }
 
                             //Przedmioty
-                    if (Config.Instance().items) {
-                        useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()]);
-                        gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
-                    }
+                            if (Config.Instance().items) {
+                                useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()]);
+                                gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                            }
                             //Usuwanie pionka przy zbiciu
                             if (gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null) {
                                 searchAndDestroy(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece());
@@ -139,15 +139,15 @@ public class Game extends JFrame {
                                 spot.setPiece(gameData.getCurrentChosenPiece());
                                 gameData.currentChosenPiece.setLocation(spot.getX(), spot.getY());
                             } else {
-
                                 pawn.setLocation(gameData.getCurrentX(), gameData.getCurrentY());
                                 gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(pawn);
                             }
                             //Przedmioty
-                    if (Config.Instance().items) {
-                        useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()]);
-                        gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
-                    }
+                            if (Config.Instance().items) {
+                                useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()]);
+                                System.out.println(gameData.currentChosenPiece.getX() + " " + gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece().getX());
+                                gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                            }
 
 
                             //Usuwanie pionka przy zbiciu
@@ -187,10 +187,10 @@ public class Game extends JFrame {
                         }
 
                         //Przedmioty
-                    if (Config.Instance().items) {
-                        useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()]);
-                        gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
-                    }
+                        if (Config.Instance().items) {
+                            useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()]);
+                            gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                        }
                         //Usuwanie pionka przy zbiciu
                         if (gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null) {
                             searchAndDestroy(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece());
@@ -294,10 +294,10 @@ public class Game extends JFrame {
                         }
 
                         //Przedmioty
-                    if (Config.Instance().items) {
-                        useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()]);
-                        gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
-                    }
+                        if (Config.Instance().items) {
+                            useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()]);
+                            gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                        }
                         //Usuwanie pionka przy zbiciu
                         if (gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null) {
                             searchAndDestroy(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece());
@@ -338,10 +338,10 @@ public class Game extends JFrame {
                         }
 
                         //Przedmioty
-                    if (Config.Instance().items) {
-                        useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()]);
-                        gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
-                    }
+                        if (Config.Instance().items) {
+                            useItem(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()]);
+                            gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
+                        }
                         //Usuwanie pionka przy zbiciu
                         if (gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece() != null) {
                             searchAndDestroy(gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].getPiece());
@@ -472,7 +472,6 @@ public class Game extends JFrame {
                     p.setColor(gameData.getCurrentTurn().getPlayerColor());
                     gameData.setCurrentChosenPiece(p);
                     gameData.getCurrentChosenPiece().setLocation(gameData.getCurrentX(), gameData.getCurrentY());
-                    gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
                     break;
                 case 2:
                     searchAndDestroy(gameData.getCurrentChosenPiece(), gameData.getCurrentTurn());
@@ -481,7 +480,6 @@ public class Game extends JFrame {
                     p.setColor(gameData.getCurrentTurn().getPlayerColor());
                     gameData.setCurrentChosenPiece(p);
                     gameData.getCurrentChosenPiece().setLocation(gameData.getCurrentX(), gameData.getCurrentY());
-                    gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
                     //configure it
                     break;
                 case 3:
@@ -501,7 +499,6 @@ public class Game extends JFrame {
                     p.setColor(gameData.getCurrentTurn().getPlayerColor());
                     gameData.setCurrentChosenPiece(p);
                     gameData.getCurrentChosenPiece().setLocation(gameData.getCurrentX(), gameData.getCurrentY());
-                    gameData.getBoard().getBoard()[gameData.getCurrentX()][gameData.getCurrentY()].setPiece(gameData.getCurrentChosenPiece());
                     //configure it
                     break;
             }

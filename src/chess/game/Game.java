@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({"serial","unused"})
 public class Game extends JFrame {
 
     GameData gameData = new GameData();
